@@ -1,0 +1,3110 @@
+[
+  {
+    "CM": "A",
+    "DESCR": "Augsburg(StadtundKreis)"
+  },
+  {
+    "CM": "AA",
+    "DESCR": "Ostalbkreis"
+  },
+  {
+    "CM": "AB",
+    "DESCR": "Aschaffenburg(StadtundKreis)"
+  },
+  {
+    "CM": "ABG",
+    "DESCR": "AltenburgerLand"
+  },
+  {
+    "CM": "ABI",
+    "DESCR": "Anhalt-Bitterfeld"
+  },
+  {
+    "CM": "AC",
+    "DESCR": "Aachen"
+  },
+  {
+    "CM": "AE",
+    "DESCR": "Vogtlandkreis"
+  },
+  {
+    "CM": "AH",
+    "DESCR": "Borken"
+  },
+  {
+    "CM": "AIB",
+    "DESCR": "Rosenheim,LandkreisMünchen"
+  },
+  {
+    "CM": "AIC",
+    "DESCR": "Aichach-Friedberg"
+  },
+  {
+    "CM": "AK",
+    "DESCR": "AltenkirchenWesterwald"
+  },
+  {
+    "CM": "AL",
+    "DESCR": "Altena"
+  },
+  {
+    "CM": "ALF",
+    "DESCR": "Hildesheim"
+  },
+  {
+    "CM": "ALS",
+    "DESCR": "VogelsbergkreisinAlsfeldOberhessen"
+  },
+  {
+    "CM": "ALZ",
+    "DESCR": "Aschaffenburg"
+  },
+  {
+    "CM": "AM",
+    "DESCR": "Amberg"
+  },
+  {
+    "CM": "AN",
+    "DESCR": "Ansbach(StadtundKreis)"
+  },
+  {
+    "CM": "ANA",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "ANG",
+    "DESCR": "Angermünde"
+  },
+  {
+    "CM": "ANK",
+    "DESCR": "Vorpommern-Greifswald"
+  },
+  {
+    "CM": "AÖ",
+    "DESCR": "Altötting"
+  },
+  {
+    "CM": "AP",
+    "DESCR": "WeimarerLand"
+  },
+  {
+    "CM": "APD",
+    "DESCR": "WeimarerLand"
+  },
+  {
+    "CM": "AR",
+    "DESCR": "Arnsberg"
+  },
+  {
+    "CM": "ARN",
+    "DESCR": "Ilm-Kreis"
+  },
+  {
+    "CM": "ART",
+    "DESCR": "Kyffhäuserkreis"
+  },
+  {
+    "CM": "AS",
+    "DESCR": "Amberg-Sulzbach"
+  },
+  {
+    "CM": "ASD",
+    "DESCR": "Aschendorf-HümmelinginPapenburg-Aschendorf"
+  },
+  {
+    "CM": "ASL",
+    "DESCR": "Salzlandkreis"
+  },
+  {
+    "CM": "ASZ",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "AT",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "AU",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "AUR",
+    "DESCR": "Aurich"
+  },
+  {
+    "CM": "AW",
+    "DESCR": "Ahrweiler"
+  },
+  {
+    "CM": "AZ",
+    "DESCR": "Alzey-Worms"
+  },
+  {
+    "CM": "AZE",
+    "DESCR": "Anhalt-Bitterfeld"
+  },
+  {
+    "CM": "B",
+    "DESCR": "Berlin"
+  },
+  {
+    "CM": "BA",
+    "DESCR": "Bamberg(StadtundKreis)"
+  },
+  {
+    "CM": "BAD",
+    "DESCR": "Baden-Baden"
+  },
+  {
+    "CM": "BAR",
+    "DESCR": "Barnim"
+  },
+  {
+    "CM": "BB",
+    "DESCR": "Böblingen"
+  },
+  {
+    "CM": "BBG",
+    "DESCR": "Salzlandkreis"
+  },
+  {
+    "CM": "BC",
+    "DESCR": "Biberach"
+  },
+  {
+    "CM": "BCH",
+    "DESCR": "Neckar-Odenwald-Kreis"
+  },
+  {
+    "CM": "BE",
+    "DESCR": "Beckum"
+  },
+  {
+    "CM": "BED",
+    "DESCR": "LandkreisMittelsachsen"
+  },
+  {
+    "CM": "BEI",
+    "DESCR": "Beilngries"
+  },
+  {
+    "CM": "BEL",
+    "DESCR": "Belzig"
+  },
+  {
+    "CM": "BER",
+    "DESCR": "Barnim"
+  },
+  {
+    "CM": "BF",
+    "DESCR": "Steinfurt"
+  },
+  {
+    "CM": "BGD",
+    "DESCR": "Berchtesgaden"
+  },
+  {
+    "CM": "BGL",
+    "DESCR": "BerchtesgadenerLand"
+  },
+  {
+    "CM": "BH",
+    "DESCR": "BühlBaden"
+  },
+  {
+    "CM": "BI",
+    "DESCR": "Bielefeld"
+  },
+  {
+    "CM": "BID",
+    "DESCR": "Marburg-Biedenkopf"
+  },
+  {
+    "CM": "BIN",
+    "DESCR": "Mainz-Bingen"
+  },
+  {
+    "CM": "BIR",
+    "DESCR": "BirkenfeldNaheKreis,Idar-Oberstein"
+  },
+  {
+    "CM": "BIT",
+    "DESCR": "Bitburg-Prüm(Eifelkreis)"
+  },
+  {
+    "CM": "BIW",
+    "DESCR": "LandkreisBautzen"
+  },
+  {
+    "CM": "BK",
+    "DESCR": "LandkreisBörde"
+  },
+  {
+    "CM": "BK",
+    "DESCR": "Backnang"
+  },
+  {
+    "CM": "BKS",
+    "DESCR": "Bernkastel-Wittlich"
+  },
+  {
+    "CM": "BL",
+    "DESCR": "Zollernalbkreis"
+  },
+  {
+    "CM": "BLB",
+    "DESCR": "Siegen-Wittgenstein"
+  },
+  {
+    "CM": "BLK",
+    "DESCR": "Burgenlandkreis"
+  },
+  {
+    "CM": "BM",
+    "DESCR": "Rhein-Erft-Kreis"
+  },
+  {
+    "CM": "BN",
+    "DESCR": "Bonn"
+  },
+  {
+    "CM": "BNA",
+    "DESCR": "LandkreisLeipzig"
+  },
+  {
+    "CM": "BO",
+    "DESCR": "Bochum"
+  },
+  {
+    "CM": "BÖ",
+    "DESCR": "LandkreisBörde"
+  },
+  {
+    "CM": "BOG",
+    "DESCR": "Bogen"
+  },
+  {
+    "CM": "BOH",
+    "DESCR": "Borken"
+  },
+  {
+    "CM": "BOH",
+    "DESCR": "Bocholt,Stadt"
+  },
+  {
+    "CM": "BOR",
+    "DESCR": "Borken"
+  },
+  {
+    "CM": "BOT",
+    "DESCR": "Bottrop"
+  },
+  {
+    "CM": "BR",
+    "DESCR": "Bruchsal"
+  },
+  {
+    "CM": "BRA",
+    "DESCR": "Wesermarsch"
+  },
+  {
+    "CM": "BRB",
+    "DESCR": "Brandenburg"
+  },
+  {
+    "CM": "BRG",
+    "DESCR": "JerichowerLand"
+  },
+  {
+    "CM": "BRI",
+    "DESCR": "Brilon"
+  },
+  {
+    "CM": "BRK",
+    "DESCR": "BadKissingen"
+  },
+  {
+    "CM": "BRL",
+    "DESCR": "Goslar"
+  },
+  {
+    "CM": "BRV",
+    "DESCR": "Rotenburg(Wümme)"
+  },
+  {
+    "CM": "BS",
+    "DESCR": "Braunschweig"
+  },
+  {
+    "CM": "BSB",
+    "DESCR": "Bersenbrück"
+  },
+  {
+    "CM": "BSK",
+    "DESCR": "Beeskow"
+  },
+  {
+    "CM": "BT",
+    "DESCR": "Bayreuth(StadtundKreis)"
+  },
+  {
+    "CM": "BTF",
+    "DESCR": "LandkreisAnhalt-Bitterfeld"
+  },
+  {
+    "CM": "BU",
+    "DESCR": "Burgdorf"
+  },
+  {
+    "CM": "BÜD",
+    "DESCR": "Wetteraukreis"
+  },
+  {
+    "CM": "BUL",
+    "DESCR": "Schwandorf,Amberg-Sulzbach"
+  },
+  {
+    "CM": "BÜR",
+    "DESCR": "Büren"
+  },
+  {
+    "CM": "BÜS",
+    "DESCR": "Konstanz,GemeindeBüsingenamHochrhein"
+  },
+  {
+    "CM": "BÜZ",
+    "DESCR": "LandkreisRostock"
+  },
+  {
+    "CM": "BZ",
+    "DESCR": "LandkreisBautzen"
+  },
+  {
+    "CM": "BZA",
+    "DESCR": "Bergzabern"
+  },
+  {
+    "CM": "C",
+    "DESCR": "Chemnitz"
+  },
+  {
+    "CM": "CA",
+    "DESCR": "Oberspreewald-Lausitz"
+  },
+  {
+    "CM": "CAS",
+    "DESCR": "Recklinghausen"
+  },
+  {
+    "CM": "CB",
+    "DESCR": "Cottbus"
+  },
+  {
+    "CM": "CE",
+    "DESCR": "Celle"
+  },
+  {
+    "CM": "CHA",
+    "DESCR": "Cham"
+  },
+  {
+    "CM": "CLP",
+    "DESCR": "Cloppenburg"
+  },
+  {
+    "CM": "CLZ",
+    "DESCR": "Goslar"
+  },
+  {
+    "CM": "CO",
+    "DESCR": "Coburg(StadtundKreis)"
+  },
+  {
+    "CM": "COC",
+    "DESCR": "Cochem-Zell"
+  },
+  {
+    "CM": "COE",
+    "DESCR": "Coesfeld"
+  },
+  {
+    "CM": "CR",
+    "DESCR": "Crailsheim"
+  },
+  {
+    "CM": "CUX",
+    "DESCR": "Cuxhaven"
+  },
+  {
+    "CM": "CW",
+    "DESCR": "Calw"
+  },
+  {
+    "CM": "D",
+    "DESCR": "Düsseldorf"
+  },
+  {
+    "CM": "DA",
+    "DESCR": "Darmstadt"
+  },
+  {
+    "CM": "DA",
+    "DESCR": "Darmstadt-Dieburg"
+  },
+  {
+    "CM": "DAH",
+    "DESCR": "Dachau"
+  },
+  {
+    "CM": "DAN",
+    "DESCR": "Lüchow-Dannenberg"
+  },
+  {
+    "CM": "DAU",
+    "DESCR": "Daun"
+  },
+  {
+    "CM": "DBR",
+    "DESCR": "LandkreisRostock"
+  },
+  {
+    "CM": "DBR",
+    "DESCR": "BadDoberan"
+  },
+  {
+    "CM": "DD",
+    "DESCR": "Dresden"
+  },
+  {
+    "CM": "DE",
+    "DESCR": "Dessau-Roßlau"
+  },
+  {
+    "CM": "DEG",
+    "DESCR": "Deggendorf"
+  },
+  {
+    "CM": "DEL",
+    "DESCR": "Delmenhorst"
+  },
+  {
+    "CM": "DGF",
+    "DESCR": "Dingolfing-Landau"
+  },
+  {
+    "CM": "DH",
+    "DESCR": "Diepholz"
+  },
+  {
+    "CM": "DI",
+    "DESCR": "Darmstadt-Dieburg"
+  },
+  {
+    "CM": "DIL",
+    "DESCR": "DillkreisinDillenburg"
+  },
+  {
+    "CM": "DIN",
+    "DESCR": "Wesel"
+  },
+  {
+    "CM": "DIZ",
+    "DESCR": "Rhein-Lahn-Kreis"
+  },
+  {
+    "CM": "DKB",
+    "DESCR": "Ansbach"
+  },
+  {
+    "CM": "DL",
+    "DESCR": "LandkreisMittelsachsen"
+  },
+  {
+    "CM": "DLG",
+    "DESCR": "DillingenanderDonau"
+  },
+  {
+    "CM": "DM",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "DN",
+    "DESCR": "Düren"
+  },
+  {
+    "CM": "DO",
+    "DESCR": "Dortmund"
+  },
+  {
+    "CM": "DON",
+    "DESCR": "Donau-Ries"
+  },
+  {
+    "CM": "DS",
+    "DESCR": "Donauschingen"
+  },
+  {
+    "CM": "DT",
+    "DESCR": "LippeinDetmold"
+  },
+  {
+    "CM": "DU",
+    "DESCR": "Duisburg"
+  },
+  {
+    "CM": "DUD",
+    "DESCR": "LandkreisGöttingen"
+  },
+  {
+    "CM": "DÜW",
+    "DESCR": "BadDürkheim"
+  },
+  {
+    "CM": "DW",
+    "DESCR": "SächsischeSchweiz-Osterzgebirge"
+  },
+  {
+    "CM": "DZ",
+    "DESCR": "LandkreisNordsachsen"
+  },
+  {
+    "CM": "E",
+    "DESCR": "Essen"
+  },
+  {
+    "CM": "EA",
+    "DESCR": "Eisenach"
+  },
+  {
+    "CM": "EB",
+    "DESCR": "LandkreisNordsachsen"
+  },
+  {
+    "CM": "EBE",
+    "DESCR": "Ebersberg"
+  },
+  {
+    "CM": "EBN",
+    "DESCR": "Ebern"
+  },
+  {
+    "CM": "EBS",
+    "DESCR": "Kulmbach,Bayreuth,Forchheim"
+  },
+  {
+    "CM": "ECK",
+    "DESCR": "Rendsburg-Eckernförde"
+  },
+  {
+    "CM": "ED",
+    "DESCR": "Erding"
+  },
+  {
+    "CM": "EE",
+    "DESCR": "Elbe-Elster"
+  },
+  {
+    "CM": "EF",
+    "DESCR": "Erfurt"
+  },
+  {
+    "CM": "EG",
+    "DESCR": "Rottal-Inn"
+  },
+  {
+    "CM": "EH",
+    "DESCR": "Eisenhüttenstadt"
+  },
+  {
+    "CM": "EHI",
+    "DESCR": "EhingenDonau"
+  },
+  {
+    "CM": "EI",
+    "DESCR": "Eichstätt"
+  },
+  {
+    "CM": "EIC",
+    "DESCR": "Eichsfeld"
+  },
+  {
+    "CM": "EIH",
+    "DESCR": "Eichstätt"
+  },
+  {
+    "CM": "EIL",
+    "DESCR": "Mansfeld-Südharz"
+  },
+  {
+    "CM": "EIN",
+    "DESCR": "Northeim"
+  },
+  {
+    "CM": "EIS",
+    "DESCR": "Saale-Holzland-Kreis"
+  },
+  {
+    "CM": "EL",
+    "DESCR": "Emsland"
+  },
+  {
+    "CM": "EM",
+    "DESCR": "Emmendingen"
+  },
+  {
+    "CM": "EMD",
+    "DESCR": "Emden"
+  },
+  {
+    "CM": "EMS",
+    "DESCR": "Rhein-Lahn-Kreis"
+  },
+  {
+    "CM": "EN",
+    "DESCR": "Ennepe-Ruhr-Kreis"
+  },
+  {
+    "CM": "ER",
+    "DESCR": "Erlangen"
+  },
+  {
+    "CM": "ERB",
+    "DESCR": "Odenwaldkreis"
+  },
+  {
+    "CM": "ERH",
+    "DESCR": "Erlangen-Höchstadt"
+  },
+  {
+    "CM": "ERK",
+    "DESCR": "Erkelenz"
+  },
+  {
+    "CM": "ERZ",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "ES",
+    "DESCR": "EsslingenamNeckar"
+  },
+  {
+    "CM": "ESA",
+    "DESCR": "Eisennach"
+  },
+  {
+    "CM": "ESB",
+    "DESCR": "Neustadta.d.Waldnaab,Amberg-Sulzbach,Bayreuth,NürnbergerLand"
+  },
+  {
+    "CM": "ESW",
+    "DESCR": "Werra-Meißner-Kreis"
+  },
+  {
+    "CM": "EU",
+    "DESCR": "Euskirchen"
+  },
+  {
+    "CM": "EUT",
+    "DESCR": "Eutin"
+  },
+  {
+    "CM": "EW",
+    "DESCR": "Barnim"
+  },
+  {
+    "CM": "F",
+    "DESCR": "FrankfurtamMain"
+  },
+  {
+    "CM": "FAL",
+    "DESCR": "Fallingborstel"
+  },
+  {
+    "CM": "FB",
+    "DESCR": "Wetteraukreis"
+  },
+  {
+    "CM": "FD",
+    "DESCR": "Fulda"
+  },
+  {
+    "CM": "FDB",
+    "DESCR": "Aichach-Friedberg"
+  },
+  {
+    "CM": "FDS",
+    "DESCR": "Freudenstadt"
+  },
+  {
+    "CM": "FEU",
+    "DESCR": "Ansbach"
+  },
+  {
+    "CM": "FF",
+    "DESCR": "Frankfurt(Oder)"
+  },
+  {
+    "CM": "FFB",
+    "DESCR": "Fürstenfeldbruck"
+  },
+  {
+    "CM": "FG",
+    "DESCR": "LandkreisMittelsachsen"
+  },
+  {
+    "CM": "FH",
+    "DESCR": "Main-Taunus-KreisinFrankfurtMain-Höchst"
+  },
+  {
+    "CM": "FI",
+    "DESCR": "Elbe-Elster"
+  },
+  {
+    "CM": "FKB",
+    "DESCR": "FrankenbergEder"
+  },
+  {
+    "CM": "FL",
+    "DESCR": "Flensburg"
+  },
+  {
+    "CM": "FLÖ",
+    "DESCR": "LandkreisMittelsachsen"
+  },
+  {
+    "CM": "FN",
+    "DESCR": "Bodenseekreis"
+  },
+  {
+    "CM": "FO",
+    "DESCR": "Forchheim"
+  },
+  {
+    "CM": "FOR",
+    "DESCR": "Spree-Neiße"
+  },
+  {
+    "CM": "FR",
+    "DESCR": "FreiburgimBreisgau"
+  },
+  {
+    "CM": "FR",
+    "DESCR": "Breisgau-Hochschwarzwald"
+  },
+  {
+    "CM": "FRG",
+    "DESCR": "Freyung-Grafenau"
+  },
+  {
+    "CM": "FRI",
+    "DESCR": "Friesland"
+  },
+  {
+    "CM": "FRW",
+    "DESCR": "Märkisch-Oderland"
+  },
+  {
+    "CM": "FS",
+    "DESCR": "Freising"
+  },
+  {
+    "CM": "FT",
+    "DESCR": "Frankenthal"
+  },
+  {
+    "CM": "FTL",
+    "DESCR": "SächsischeSchweiz-Osterzgebirge"
+  },
+  {
+    "CM": "FÜ",
+    "DESCR": "Fürth(StadtundKreis)"
+  },
+  {
+    "CM": "FÜS",
+    "DESCR": "Ostallgäu"
+  },
+  {
+    "CM": "FW",
+    "DESCR": "Fürstenwalde"
+  },
+  {
+    "CM": "FZ",
+    "DESCR": "Fritzlar-HomberginFritzlar"
+  },
+  {
+    "CM": "G",
+    "DESCR": "Gera"
+  },
+  {
+    "CM": "GA",
+    "DESCR": "Altmarkkreis-Salzwedel"
+  },
+  {
+    "CM": "GAN",
+    "DESCR": "Northeim"
+  },
+  {
+    "CM": "GAP",
+    "DESCR": "Garmisch-Partenkirchen"
+  },
+  {
+    "CM": "GC",
+    "DESCR": "LandkreisZwickau"
+  },
+  {
+    "CM": "GD",
+    "DESCR": "Ostalbkreis"
+  },
+  {
+    "CM": "GD",
+    "DESCR": "SchwäbischGmünd"
+  },
+  {
+    "CM": "GDB",
+    "DESCR": "LandkreisNordwestmecklenburg"
+  },
+  {
+    "CM": "GE",
+    "DESCR": "Gelsenkirchen"
+  },
+  {
+    "CM": "GEL",
+    "DESCR": "Geldern"
+  },
+  {
+    "CM": "GEM",
+    "DESCR": "GemündenamMain"
+  },
+  {
+    "CM": "GEO",
+    "DESCR": "Schweinfurt"
+  },
+  {
+    "CM": "GER",
+    "DESCR": "Germersheim"
+  },
+  {
+    "CM": "GF",
+    "DESCR": "Gifhorn"
+  },
+  {
+    "CM": "GG",
+    "DESCR": "Groß-Gerau"
+  },
+  {
+    "CM": "GHA",
+    "DESCR": "LandkreisLeipzig"
+  },
+  {
+    "CM": "GHC",
+    "DESCR": "Wittenberg"
+  },
+  {
+    "CM": "GI",
+    "DESCR": "Gießen"
+  },
+  {
+    "CM": "GK",
+    "DESCR": "RegionAachen"
+  },
+  {
+    "CM": "GL",
+    "DESCR": "Rheinisch-BergischerKreis"
+  },
+  {
+    "CM": "GLA",
+    "DESCR": "Recklinghausen"
+  },
+  {
+    "CM": "GM",
+    "DESCR": "OberbergischerKreis"
+  },
+  {
+    "CM": "GMN",
+    "DESCR": "LandkreisVorpommern-Rügen"
+  },
+  {
+    "CM": "GN",
+    "DESCR": "Main-Kinzig-Kreis"
+  },
+  {
+    "CM": "GNT",
+    "DESCR": "JerichowerLand"
+  },
+  {
+    "CM": "GÖ",
+    "DESCR": "Göttingen(StadtundKreis)"
+  },
+  {
+    "CM": "GOA",
+    "DESCR": "Rhein-Hunsrück-Kreis"
+  },
+  {
+    "CM": "GOH",
+    "DESCR": "Rhein-Lahn-Kreis"
+  },
+  {
+    "CM": "GP",
+    "DESCR": "Göppingen"
+  },
+  {
+    "CM": "GR",
+    "DESCR": "LandkreisGörlitz"
+  },
+  {
+    "CM": "GRA",
+    "DESCR": "Freyung-Grafenau"
+  },
+  {
+    "CM": "GRH",
+    "DESCR": "LandkreisMeißen"
+  },
+  {
+    "CM": "GRI",
+    "DESCR": "Rottal-Inn"
+  },
+  {
+    "CM": "GRM",
+    "DESCR": "LandkreisLeipzig"
+  },
+  {
+    "CM": "GRS",
+    "DESCR": "Gransee"
+  },
+  {
+    "CM": "GRZ",
+    "DESCR": "Greiz"
+  },
+  {
+    "CM": "GS",
+    "DESCR": "Goslar"
+  },
+  {
+    "CM": "GT",
+    "DESCR": "Gütersloh"
+  },
+  {
+    "CM": "GTH",
+    "DESCR": "Gotha"
+  },
+  {
+    "CM": "GÜ",
+    "DESCR": "LandkreisRostock"
+  },
+  {
+    "CM": "GUB",
+    "DESCR": "Spree-Neiße"
+  },
+  {
+    "CM": "GUN",
+    "DESCR": "Weißenburg-Gunzenhausen"
+  },
+  {
+    "CM": "GV",
+    "DESCR": "Grevenbroich"
+  },
+  {
+    "CM": "GVM",
+    "DESCR": "LandkreisNordwestmecklenburg"
+  },
+  {
+    "CM": "GW",
+    "DESCR": "LandkreisVorpommern-Greifswald"
+  },
+  {
+    "CM": "GZ",
+    "DESCR": "Günzburg"
+  },
+  {
+    "CM": "H",
+    "DESCR": "Hannover(StadtundKreis)"
+  },
+  {
+    "CM": "HA",
+    "DESCR": "Hagen"
+  },
+  {
+    "CM": "HAB",
+    "DESCR": "BadKissingen"
+  },
+  {
+    "CM": "HAL",
+    "DESCR": "Halle(Saale)"
+  },
+  {
+    "CM": "HAM",
+    "DESCR": "Hamm"
+  },
+  {
+    "CM": "HAS",
+    "DESCR": "Haßberge"
+  },
+  {
+    "CM": "HB",
+    "DESCR": "FreieHansestadtBremen"
+  },
+  {
+    "CM": "HBN",
+    "DESCR": "Hildburghausen"
+  },
+  {
+    "CM": "HBS",
+    "DESCR": "LandkreisHarz"
+  },
+  {
+    "CM": "HC",
+    "DESCR": "LandkreisMittelsachsen"
+  },
+  {
+    "CM": "HCH",
+    "DESCR": "Zollernalbkreis"
+  },
+  {
+    "CM": "HCH",
+    "DESCR": "Hechingen"
+  },
+  {
+    "CM": "HD",
+    "DESCR": "Heidelberg(StadtundKreis)"
+  },
+  {
+    "CM": "HDH",
+    "DESCR": "Heidenheim(Brenz)"
+  },
+  {
+    "CM": "HDL",
+    "DESCR": "LandkreisBörde"
+  },
+  {
+    "CM": "HE",
+    "DESCR": "Helmstedt"
+  },
+  {
+    "CM": "HEB",
+    "DESCR": "NürnbergerLand"
+  },
+  {
+    "CM": "HEF",
+    "DESCR": "Hersfeld-Rotenburg"
+  },
+  {
+    "CM": "HEI",
+    "DESCR": "Dithmarschen"
+  },
+  {
+    "CM": "HER",
+    "DESCR": "Herne"
+  },
+  {
+    "CM": "HET",
+    "DESCR": "Mansfeld-Südharz"
+  },
+  {
+    "CM": "HF",
+    "DESCR": "Herford"
+  },
+  {
+    "CM": "HG",
+    "DESCR": "Hochtaunuskreis"
+  },
+  {
+    "CM": "HGN",
+    "DESCR": "LandkreisLudwigslust-Parchim"
+  },
+  {
+    "CM": "HGW",
+    "DESCR": "HansestadtGreifswald"
+  },
+  {
+    "CM": "HH",
+    "DESCR": "FreieundHansestadtHamburg"
+  },
+  {
+    "CM": "HHM",
+    "DESCR": "Burgenlandkreis"
+  },
+  {
+    "CM": "HI",
+    "DESCR": "Hildesheim"
+  },
+  {
+    "CM": "HIG",
+    "DESCR": "Eichsfeld"
+  },
+  {
+    "CM": "HIP",
+    "DESCR": "Roth"
+  },
+  {
+    "CM": "HK",
+    "DESCR": "Heidekreis"
+  },
+  {
+    "CM": "HL",
+    "DESCR": "HansestadtLübeck"
+  },
+  {
+    "CM": "HM",
+    "DESCR": "Hameln-Pyrmont"
+  },
+  {
+    "CM": "HMÜ",
+    "DESCR": "LandkreisGöttingen"
+  },
+  {
+    "CM": "HN",
+    "DESCR": "HeilbronnNeckar(StadtundKreis)"
+  },
+  {
+    "CM": "HO",
+    "DESCR": "Hof(StadtundKreis)"
+  },
+  {
+    "CM": "HOG",
+    "DESCR": "Kassel(Kreis)"
+  },
+  {
+    "CM": "HOH",
+    "DESCR": "HofheininUnterfranken"
+  },
+  {
+    "CM": "HOL",
+    "DESCR": "Holzminden"
+  },
+  {
+    "CM": "HOM",
+    "DESCR": "Saarpfalz-Kreis"
+  },
+  {
+    "CM": "HOR",
+    "DESCR": "HorbNeckar"
+  },
+  {
+    "CM": "HÖS",
+    "DESCR": "HöchstadtanderAisch"
+  },
+  {
+    "CM": "HOT",
+    "DESCR": "LandkreisZwickau"
+  },
+  {
+    "CM": "HP",
+    "DESCR": "Bergstraße"
+  },
+  {
+    "CM": "HR",
+    "DESCR": "Schwalm-Eder-Kreis"
+  },
+  {
+    "CM": "HRO",
+    "DESCR": "HansestadtRostock"
+  },
+  {
+    "CM": "HS",
+    "DESCR": "Heinsberg"
+  },
+  {
+    "CM": "HSK",
+    "DESCR": "Hochsauerlandkreis"
+  },
+  {
+    "CM": "HST",
+    "DESCR": "HansestadtStralsund"
+  },
+  {
+    "CM": "HU",
+    "DESCR": "Main-Kinzig-Kreis"
+  },
+  {
+    "CM": "HÜN",
+    "DESCR": "Hünfeld"
+  },
+  {
+    "CM": "HUS",
+    "DESCR": "Husum"
+  },
+  {
+    "CM": "HV",
+    "DESCR": "Stendal"
+  },
+  {
+    "CM": "HVL",
+    "DESCR": "Havelland"
+  },
+  {
+    "CM": "HW",
+    "DESCR": "Halle"
+  },
+  {
+    "CM": "HWI",
+    "DESCR": "HansestadtWismar"
+  },
+  {
+    "CM": "HX",
+    "DESCR": "Höxter"
+  },
+  {
+    "CM": "HY",
+    "DESCR": "LandkreisBautzen"
+  },
+  {
+    "CM": "HZ",
+    "DESCR": "LandkreisHarz"
+  },
+  {
+    "CM": "HZ",
+    "DESCR": "Herzberg"
+  },
+  {
+    "CM": "IGB",
+    "DESCR": "St.Ingbert"
+  },
+  {
+    "CM": "IK",
+    "DESCR": "Ilm-Kreis"
+  },
+  {
+    "CM": "IL",
+    "DESCR": "Ilm-Kreis"
+  },
+  {
+    "CM": "ILL",
+    "DESCR": "Neu-Ulm"
+  },
+  {
+    "CM": "IN",
+    "DESCR": "Ingolstadt"
+  },
+  {
+    "CM": "IS",
+    "DESCR": "Iserlohn"
+  },
+  {
+    "CM": "IZ",
+    "DESCR": "Steinburg"
+  },
+  {
+    "CM": "J",
+    "DESCR": "Jena"
+  },
+  {
+    "CM": "JB",
+    "DESCR": "Jüterbog"
+  },
+  {
+    "CM": "JE",
+    "DESCR": "Wittenberg"
+  },
+  {
+    "CM": "JEV",
+    "DESCR": "FrieslandinJever"
+  },
+  {
+    "CM": "JL",
+    "DESCR": "JerichowerLand"
+  },
+  {
+    "CM": "JÜL",
+    "DESCR": "Düren"
+  },
+  {
+    "CM": "K",
+    "DESCR": "Köln"
+  },
+  {
+    "CM": "KA",
+    "DESCR": "Karlsruhe(StadtundKreis)"
+  },
+  {
+    "CM": "KAR",
+    "DESCR": "Main-SpessartinKarlstadt"
+  },
+  {
+    "CM": "KB",
+    "DESCR": "Waldeck-Frankenberg"
+  },
+  {
+    "CM": "KC",
+    "DESCR": "Kronach"
+  },
+  {
+    "CM": "KE",
+    "DESCR": "Kempten"
+  },
+  {
+    "CM": "KEH",
+    "DESCR": "Kelheim"
+  },
+  {
+    "CM": "KEL",
+    "DESCR": "Kehl"
+  },
+  {
+    "CM": "KEM",
+    "DESCR": "Tirschenreuth,Bayreuth"
+  },
+  {
+    "CM": "KF",
+    "DESCR": "Kaufbeuren"
+  },
+  {
+    "CM": "KG",
+    "DESCR": "BadKissingen"
+  },
+  {
+    "CM": "KH",
+    "DESCR": "BadKreuznach"
+  },
+  {
+    "CM": "KI",
+    "DESCR": "Kiel"
+  },
+  {
+    "CM": "KIB",
+    "DESCR": "Donnersbergkreis"
+  },
+  {
+    "CM": "KK",
+    "DESCR": "Kempen-KrefeldinKarlstadt"
+  },
+  {
+    "CM": "KL",
+    "DESCR": "Kaiserslautern(StadtundKreis)"
+  },
+  {
+    "CM": "KLE",
+    "DESCR": "Kleve"
+  },
+  {
+    "CM": "KLZ",
+    "DESCR": "Altmarkkreis-Salzwedel"
+  },
+  {
+    "CM": "KM",
+    "DESCR": "LandkreisBautzen"
+  },
+  {
+    "CM": "KN",
+    "DESCR": "Konstanz"
+  },
+  {
+    "CM": "KO",
+    "DESCR": "Koblenz"
+  },
+  {
+    "CM": "KÖN",
+    "DESCR": "Rhön-Grabfeld"
+  },
+  {
+    "CM": "KÖT",
+    "DESCR": "Anhalt-Bitterfeld"
+  },
+  {
+    "CM": "KÖZ",
+    "DESCR": "Cham"
+  },
+  {
+    "CM": "KR",
+    "DESCR": "Krefeld"
+  },
+  {
+    "CM": "KRU",
+    "DESCR": "Günzburg"
+  },
+  {
+    "CM": "KS",
+    "DESCR": "Kassel(StadtundKreis)"
+  },
+  {
+    "CM": "KT",
+    "DESCR": "Kitzingen"
+  },
+  {
+    "CM": "KU",
+    "DESCR": "Kulmbach"
+  },
+  {
+    "CM": "KÜN",
+    "DESCR": "Hohenlohekreis"
+  },
+  {
+    "CM": "KUS",
+    "DESCR": "Kusel"
+  },
+  {
+    "CM": "KW",
+    "DESCR": "KönigsWusterhausen"
+  },
+  {
+    "CM": "KY",
+    "DESCR": "Ostprignitz-Ruppin"
+  },
+  {
+    "CM": "KYF",
+    "DESCR": "Kyffhäuserkreis"
+  },
+  {
+    "CM": "L",
+    "DESCR": "Leipzig(StadtundKreis)"
+  },
+  {
+    "CM": "L",
+    "DESCR": "Lahn-Dill-KreisinWetzlar"
+  },
+  {
+    "CM": "LA",
+    "DESCR": "Landshut(StadtundKreis)"
+  },
+  {
+    "CM": "LAN",
+    "DESCR": "LandauanderIsar"
+  },
+  {
+    "CM": "LAT",
+    "DESCR": "VogelsbergkreisinLauterbachHessen"
+  },
+  {
+    "CM": "LAU",
+    "DESCR": "NürnbergerLand"
+  },
+  {
+    "CM": "LB",
+    "DESCR": "Ludwigsburg"
+  },
+  {
+    "CM": "LBS",
+    "DESCR": "Saale-Orla-Kreis"
+  },
+  {
+    "CM": "LBZ",
+    "DESCR": "LandkreisLudwigslust-Parchim"
+  },
+  {
+    "CM": "LC",
+    "DESCR": "Luckau"
+  },
+  {
+    "CM": "LDK",
+    "DESCR": "Lahn-Dill-Kreis"
+  },
+  {
+    "CM": "LDS",
+    "DESCR": "Dahme-Spreewald"
+  },
+  {
+    "CM": "LE",
+    "DESCR": "Lemgo"
+  },
+  {
+    "CM": "LEO",
+    "DESCR": "Böblingen"
+  },
+  {
+    "CM": "LER",
+    "DESCR": "Leer"
+  },
+  {
+    "CM": "LEV",
+    "DESCR": "Leverkusen"
+  },
+  {
+    "CM": "LF",
+    "DESCR": "Laufen"
+  },
+  {
+    "CM": "LG",
+    "DESCR": "Lüneburg"
+  },
+  {
+    "CM": "LH",
+    "DESCR": "Lüdinghausen"
+  },
+  {
+    "CM": "LI",
+    "DESCR": "Lindau"
+  },
+  {
+    "CM": "LIB",
+    "DESCR": "BadLiebenwerda"
+  },
+  {
+    "CM": "LIF",
+    "DESCR": "Lichtenfels"
+  },
+  {
+    "CM": "LIN",
+    "DESCR": "LingeninLingen(Ems)"
+  },
+  {
+    "CM": "LIP",
+    "DESCR": "Lippe"
+  },
+  {
+    "CM": "LK",
+    "DESCR": "Lübbecke"
+  },
+  {
+    "CM": "LL",
+    "DESCR": "LandsbergamLech"
+  },
+  {
+    "CM": "LM",
+    "DESCR": "Limburg-Weilburg"
+  },
+  {
+    "CM": "LN",
+    "DESCR": "Lübben"
+  },
+  {
+    "CM": "LÖ",
+    "DESCR": "Lörrach"
+  },
+  {
+    "CM": "LÖB",
+    "DESCR": "LandkreisGörlitz"
+  },
+  {
+    "CM": "LOH",
+    "DESCR": "LohramMain"
+  },
+  {
+    "CM": "LOS",
+    "DESCR": "Oder-Spree"
+  },
+  {
+    "CM": "LP",
+    "DESCR": "Soest"
+  },
+  {
+    "CM": "LR",
+    "DESCR": "LahrSchwarzwald"
+  },
+  {
+    "CM": "LRO",
+    "DESCR": "LandkreisRostock"
+  },
+  {
+    "CM": "LS",
+    "DESCR": "MärkischerKreisinLüdenscheid"
+  },
+  {
+    "CM": "LSZ",
+    "DESCR": "Unstrut-Hainich-Kreis"
+  },
+  {
+    "CM": "LU",
+    "DESCR": "Ludwigshafen"
+  },
+  {
+    "CM": "LÜD",
+    "DESCR": "Lüdenscheid"
+  },
+  {
+    "CM": "LUK",
+    "DESCR": "Luckenwalde"
+  },
+  {
+    "CM": "LÜN",
+    "DESCR": "Unna"
+  },
+  {
+    "CM": "LUP",
+    "DESCR": "Ludwigslust-Parchim"
+  },
+  {
+    "CM": "LWL",
+    "DESCR": "LandkreisLudwigslust-Parchim"
+  },
+  {
+    "CM": "M",
+    "DESCR": "München(StadtundKreis)"
+  },
+  {
+    "CM": "MA",
+    "DESCR": "Mannheim"
+  },
+  {
+    "CM": "MAB",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "MAI",
+    "DESCR": "Kehlheim"
+  },
+  {
+    "CM": "MAK",
+    "DESCR": "Wunsiedeli.Fichtelgebirge"
+  },
+  {
+    "CM": "MAL",
+    "DESCR": "Mallersdorf"
+  },
+  {
+    "CM": "MAR",
+    "DESCR": "Marktheidenfeld"
+  },
+  {
+    "CM": "MB",
+    "DESCR": "Miesbach"
+  },
+  {
+    "CM": "MC",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "MD",
+    "DESCR": "Magdeburg"
+  },
+  {
+    "CM": "ME",
+    "DESCR": "Mettmann"
+  },
+  {
+    "CM": "MED",
+    "DESCR": "SüderdithmarscheninMeldorfHolstein"
+  },
+  {
+    "CM": "MEG",
+    "DESCR": "Melsungen"
+  },
+  {
+    "CM": "MEI",
+    "DESCR": "Meißen"
+  },
+  {
+    "CM": "MEK",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "MEL",
+    "DESCR": "Melle"
+  },
+  {
+    "CM": "MEP",
+    "DESCR": "Meppen"
+  },
+  {
+    "CM": "MER",
+    "DESCR": "Saalekreis"
+  },
+  {
+    "CM": "MES",
+    "DESCR": "HochsauerlandkreisinMeschede"
+  },
+  {
+    "CM": "MET",
+    "DESCR": "Rhön-Grabfeld"
+  },
+  {
+    "CM": "MG",
+    "DESCR": "Mönchengladbach"
+  },
+  {
+    "CM": "MGH",
+    "DESCR": "BadMergentheim"
+  },
+  {
+    "CM": "MGN",
+    "DESCR": "Schmalkalden-Meiningen"
+  },
+  {
+    "CM": "MH",
+    "DESCR": "MülheimanderRuhr"
+  },
+  {
+    "CM": "MHL",
+    "DESCR": "Unstrut-Hainich-Kreis"
+  },
+  {
+    "CM": "MI",
+    "DESCR": "Minden-Lübbecke"
+  },
+  {
+    "CM": "MIL",
+    "DESCR": "Miltenberg"
+  },
+  {
+    "CM": "MK",
+    "DESCR": "MärkischerKreis"
+  },
+  {
+    "CM": "MKK",
+    "DESCR": "Main-Kinzig-Kreis"
+  },
+  {
+    "CM": "ML",
+    "DESCR": "Mansfeld-Südharz"
+  },
+  {
+    "CM": "MM",
+    "DESCR": "Memmingen"
+  },
+  {
+    "CM": "MN",
+    "DESCR": "Unterallgäu"
+  },
+  {
+    "CM": "MO",
+    "DESCR": "Wesel"
+  },
+  {
+    "CM": "MOD",
+    "DESCR": "Ostallgäu"
+  },
+  {
+    "CM": "MOL",
+    "DESCR": "Märkisch-Oderland"
+  },
+  {
+    "CM": "MON",
+    "DESCR": "RegionAachen"
+  },
+  {
+    "CM": "MOS",
+    "DESCR": "Neckar-Odenwald-Kreis"
+  },
+  {
+    "CM": "MQ",
+    "DESCR": "Saalekreis"
+  },
+  {
+    "CM": "MR",
+    "DESCR": "Marburg-Biedenkopf"
+  },
+  {
+    "CM": "MS",
+    "DESCR": "Münster"
+  },
+  {
+    "CM": "MSE",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "MSH",
+    "DESCR": "Mansfeld-Südharz"
+  },
+  {
+    "CM": "MSP",
+    "DESCR": "Main-Spessart"
+  },
+  {
+    "CM": "MST",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "MT",
+    "DESCR": "WesterwaldinMotabaur"
+  },
+  {
+    "CM": "MTK",
+    "DESCR": "Main-Taunus-Kreis"
+  },
+  {
+    "CM": "MTL",
+    "DESCR": "LandkreisLeipzig"
+  },
+  {
+    "CM": "MÜ",
+    "DESCR": "MühldorfamInn"
+  },
+  {
+    "CM": "MÜB",
+    "DESCR": "Bayreuth"
+  },
+  {
+    "CM": "MÜL",
+    "DESCR": "MüllheimBaden"
+  },
+  {
+    "CM": "MÜN",
+    "DESCR": "MünsingenWürttemberg"
+  },
+  {
+    "CM": "MÜR",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "MW",
+    "DESCR": "LandkreisMittelsachsen"
+  },
+  {
+    "CM": "MY",
+    "DESCR": "Mayen-Koblenz"
+  },
+  {
+    "CM": "MYK",
+    "DESCR": "Mayen-Koblenz"
+  },
+  {
+    "CM": "MZ",
+    "DESCR": "Mainz"
+  },
+  {
+    "CM": "MZ",
+    "DESCR": "Mainz-Bingen"
+  },
+  {
+    "CM": "MZG",
+    "DESCR": "Merzig-Wadern"
+  },
+  {
+    "CM": "N",
+    "DESCR": "Nürnberg,NürnbergerLand"
+  },
+  {
+    "CM": "NAB",
+    "DESCR": "Amberg-Sulzbach,Schwandorf"
+  },
+  {
+    "CM": "NAI",
+    "DESCR": "Naila"
+  },
+  {
+    "CM": "NAU",
+    "DESCR": "Nauen"
+  },
+  {
+    "CM": "NB",
+    "DESCR": "Neubrandenburg"
+  },
+  {
+    "CM": "ND",
+    "DESCR": "Neuburg-Schrobenhausen"
+  },
+  {
+    "CM": "NDH",
+    "DESCR": "Nordhausen"
+  },
+  {
+    "CM": "NE",
+    "DESCR": "Rhein-KreisNeuss"
+  },
+  {
+    "CM": "NEA",
+    "DESCR": "NeustadtanderAisch"
+  },
+  {
+    "CM": "NEB",
+    "DESCR": "Burgenlandkreis"
+  },
+  {
+    "CM": "NEC",
+    "DESCR": "Coburg"
+  },
+  {
+    "CM": "NEN",
+    "DESCR": "Schwandorf"
+  },
+  {
+    "CM": "NES",
+    "DESCR": "Rhön-Grabfeld"
+  },
+  {
+    "CM": "NEU",
+    "DESCR": "HochschwarzwaldinTitisee-NeustadtimHochschwarzwald"
+  },
+  {
+    "CM": "NEW",
+    "DESCR": "NeustadtanderWaldnaab"
+  },
+  {
+    "CM": "NF",
+    "DESCR": "Nordfriesland"
+  },
+  {
+    "CM": "NH",
+    "DESCR": "Sonneberg"
+  },
+  {
+    "CM": "NI",
+    "DESCR": "Nienburg/Weser"
+  },
+  {
+    "CM": "NIB",
+    "DESCR": "SüdtonderninNiebüllSchleswig"
+  },
+  {
+    "CM": "NK",
+    "DESCR": "Neunkirchen"
+  },
+  {
+    "CM": "NM",
+    "DESCR": "NeumarktinderOberpfalz"
+  },
+  {
+    "CM": "NMB",
+    "DESCR": "Burgenlandkreis"
+  },
+  {
+    "CM": "NMS",
+    "DESCR": "Neumünster"
+  },
+  {
+    "CM": "NÖ",
+    "DESCR": "Donau-Ries"
+  },
+  {
+    "CM": "NOH",
+    "DESCR": "GrafschaftBentheim"
+  },
+  {
+    "CM": "NOL",
+    "DESCR": "LandkreisGörlitz"
+  },
+  {
+    "CM": "NOM",
+    "DESCR": "Northeim"
+  },
+  {
+    "CM": "NOR",
+    "DESCR": "Aurich"
+  },
+  {
+    "CM": "NP",
+    "DESCR": "Ostprignitz-Ruppin"
+  },
+  {
+    "CM": "NR",
+    "DESCR": "Neuwied(StadtundKreis)"
+  },
+  {
+    "CM": "NRÜ",
+    "DESCR": "NeustadtamRübenberge"
+  },
+  {
+    "CM": "NT",
+    "DESCR": "Nürtingen"
+  },
+  {
+    "CM": "NU",
+    "DESCR": "Neu-Ulm"
+  },
+  {
+    "CM": "NVP",
+    "DESCR": "LandkreisVorpommern-Rügen"
+  },
+  {
+    "CM": "NW",
+    "DESCR": "NeustadtanderWeinstraße"
+  },
+  {
+    "CM": "NWM",
+    "DESCR": "LandkreisNordwestmecklenburg"
+  },
+  {
+    "CM": "NY",
+    "DESCR": "LandkreisGörlitz"
+  },
+  {
+    "CM": "NZ",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "OA",
+    "DESCR": "Oberallgäu"
+  },
+  {
+    "CM": "OAL",
+    "DESCR": "Ostallgäu"
+  },
+  {
+    "CM": "OB",
+    "DESCR": "Oberhausen"
+  },
+  {
+    "CM": "OBB",
+    "DESCR": "ObernburgamMain"
+  },
+  {
+    "CM": "OBG",
+    "DESCR": "Stendal"
+  },
+  {
+    "CM": "OC",
+    "DESCR": "LandkreisBörde"
+  },
+  {
+    "CM": "OCH",
+    "DESCR": "Würzburg"
+  },
+  {
+    "CM": "OD",
+    "DESCR": "Stormarn"
+  },
+  {
+    "CM": "OE",
+    "DESCR": "Olpe"
+  },
+  {
+    "CM": "OF",
+    "DESCR": "Offenbach(StadtundKreis)"
+  },
+  {
+    "CM": "OG",
+    "DESCR": "Ortenaukreis"
+  },
+  {
+    "CM": "OH",
+    "DESCR": "Ostholstein"
+  },
+  {
+    "CM": "OHA",
+    "DESCR": "OsterodeamHarz"
+  },
+  {
+    "CM": "ÖHR",
+    "DESCR": "Öhringen"
+  },
+  {
+    "CM": "OHV",
+    "DESCR": "Oberhavel"
+  },
+  {
+    "CM": "OHZ",
+    "DESCR": "Osterholz"
+  },
+  {
+    "CM": "OK",
+    "DESCR": "LandkreisBörde"
+  },
+  {
+    "CM": "OL",
+    "DESCR": "Oldenburg(StadtundKreis)"
+  },
+  {
+    "CM": "OLD",
+    "DESCR": "Oldenburg/Holstein"
+  },
+  {
+    "CM": "OP",
+    "DESCR": "Rhein-WupperkreisinOpladen"
+  },
+  {
+    "CM": "OPR",
+    "DESCR": "Ostprignitz-Ruppin"
+  },
+  {
+    "CM": "OR",
+    "DESCR": "Oranienburg"
+  },
+  {
+    "CM": "OS",
+    "DESCR": "Osnabrück(StadtundKreis)"
+  },
+  {
+    "CM": "OSL",
+    "DESCR": "Oberspreewald-Lausitz"
+  },
+  {
+    "CM": "OTT",
+    "DESCR": "LandHadelninOtterndorf"
+  },
+  {
+    "CM": "OTW",
+    "DESCR": "Ottweiler"
+  },
+  {
+    "CM": "OVI",
+    "DESCR": "Schwandorf"
+  },
+  {
+    "CM": "OVL",
+    "DESCR": "Vogtlandkreis"
+  },
+  {
+    "CM": "OVP",
+    "DESCR": "LandkreisVorpommern-Greifswald"
+  },
+  {
+    "CM": "OZ",
+    "DESCR": "LandkreisNordsachsen"
+  },
+  {
+    "CM": "P",
+    "DESCR": "Potsdam"
+  },
+  {
+    "CM": "PA",
+    "DESCR": "Passau(StadtundKreis)"
+  },
+  {
+    "CM": "PAF",
+    "DESCR": "Pfaffenhofen"
+  },
+  {
+    "CM": "PAN",
+    "DESCR": "Rottal-Inn"
+  },
+  {
+    "CM": "PAR",
+    "DESCR": "Neumarkti.d.Opf.,Kehlheim"
+  },
+  {
+    "CM": "PB",
+    "DESCR": "Paderborn"
+  },
+  {
+    "CM": "PCH",
+    "DESCR": "LandkreisLudwigslust-Parchim"
+  },
+  {
+    "CM": "PE",
+    "DESCR": "Peine"
+  },
+  {
+    "CM": "PEG",
+    "DESCR": "Bayreuth,Forchheim,NürnbergerLand"
+  },
+  {
+    "CM": "PER",
+    "DESCR": "Perleberg"
+  },
+  {
+    "CM": "PF",
+    "DESCR": "Pforzheim(StadtundKreis)"
+  },
+  {
+    "CM": "PI",
+    "DESCR": "Pinneberg"
+  },
+  {
+    "CM": "PIR",
+    "DESCR": "SächsischeSchweiz-Osterzgebirge"
+  },
+  {
+    "CM": "PK",
+    "DESCR": "Pritzwalk"
+  },
+  {
+    "CM": "PL",
+    "DESCR": "Vogtlandkreis"
+  },
+  {
+    "CM": "PLÖ",
+    "DESCR": "Plön"
+  },
+  {
+    "CM": "PM",
+    "DESCR": "Potsdam-Mittelmark"
+  },
+  {
+    "CM": "PN",
+    "DESCR": "Saale-Orla-Kreis"
+  },
+  {
+    "CM": "PR",
+    "DESCR": "Prignitz"
+  },
+  {
+    "CM": "PRÜ",
+    "DESCR": "Bitburg-Prüm"
+  },
+  {
+    "CM": "PS",
+    "DESCR": "Pirmasens(StadtundKreis)"
+  },
+  {
+    "CM": "PW",
+    "DESCR": "LandkreisVorpommern-Greifswald"
+  },
+  {
+    "CM": "PZ",
+    "DESCR": "Prenzlau"
+  },
+  {
+    "CM": "QFT",
+    "DESCR": "Saalekreis"
+  },
+  {
+    "CM": "QLB",
+    "DESCR": "LandkreisHarz"
+  },
+  {
+    "CM": "R",
+    "DESCR": "Regensburg(StadtundKreis)"
+  },
+  {
+    "CM": "RA",
+    "DESCR": "Rastatt"
+  },
+  {
+    "CM": "RC",
+    "DESCR": "Vogtlandkreis"
+  },
+  {
+    "CM": "RD",
+    "DESCR": "Rendsburg-Eckernförde"
+  },
+  {
+    "CM": "RDG",
+    "DESCR": "LandkreisVorpommern-Rügen"
+  },
+  {
+    "CM": "RE",
+    "DESCR": "Recklinghausen"
+  },
+  {
+    "CM": "REG",
+    "DESCR": "Regen"
+  },
+  {
+    "CM": "REH",
+    "DESCR": "Wunsiedeli.Fichtelgebirge"
+  },
+  {
+    "CM": "REI",
+    "DESCR": "BerchtesgadenerLandinBadReichenhall"
+  },
+  {
+    "CM": "RG",
+    "DESCR": "LandkreisMeißen"
+  },
+  {
+    "CM": "RH",
+    "DESCR": "Roth"
+  },
+  {
+    "CM": "RI",
+    "DESCR": "Schaumburg"
+  },
+  {
+    "CM": "RID",
+    "DESCR": "Kehlheim"
+  },
+  {
+    "CM": "RIE",
+    "DESCR": "LandkreisMeißen"
+  },
+  {
+    "CM": "RL",
+    "DESCR": "LandkreisMittelsachsen"
+  },
+  {
+    "CM": "RM",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "RN",
+    "DESCR": "Rathenow"
+  },
+  {
+    "CM": "RO",
+    "DESCR": "Rosenheim(StadtundKreis)"
+  },
+  {
+    "CM": "ROD",
+    "DESCR": "Cham,Schwandorf"
+  },
+  {
+    "CM": "ROF",
+    "DESCR": "Hersfeld-Rotenburg"
+  },
+  {
+    "CM": "ROK",
+    "DESCR": "Donnersbergkreis"
+  },
+  {
+    "CM": "ROL",
+    "DESCR": "Kehlheim"
+  },
+  {
+    "CM": "ROS",
+    "DESCR": "LandkreisRostock"
+  },
+  {
+    "CM": "ROT",
+    "DESCR": "Ansbach"
+  },
+  {
+    "CM": "ROW",
+    "DESCR": "Rotenburg(Wümme)"
+  },
+  {
+    "CM": "RP",
+    "DESCR": "Rhein-Pfalz-Kreis"
+  },
+  {
+    "CM": "RS",
+    "DESCR": "Remscheid"
+  },
+  {
+    "CM": "RSL",
+    "DESCR": "Dessau-Roßlau"
+  },
+  {
+    "CM": "RT",
+    "DESCR": "Reutlingen"
+  },
+  {
+    "CM": "RU",
+    "DESCR": "Saalfeld-Rudolstadt"
+  },
+  {
+    "CM": "RÜD",
+    "DESCR": "Rheingau-TaunusKreis"
+  },
+  {
+    "CM": "RÜG",
+    "DESCR": "LandkreisVorpommern-Rügen"
+  },
+  {
+    "CM": "RV",
+    "DESCR": "Ravensburg"
+  },
+  {
+    "CM": "RW",
+    "DESCR": "Rottweil"
+  },
+  {
+    "CM": "RY",
+    "DESCR": "Rheydt"
+  },
+  {
+    "CM": "RZ",
+    "DESCR": "HerzogtumLauenburg"
+  },
+  {
+    "CM": "S",
+    "DESCR": "Stuttgart"
+  },
+  {
+    "CM": "SAB",
+    "DESCR": "LandkreisTrier-Saarburg"
+  },
+  {
+    "CM": "SAD",
+    "DESCR": "Schwandorf"
+  },
+  {
+    "CM": "SÄK",
+    "DESCR": "Säckingen"
+  },
+  {
+    "CM": "SAN",
+    "DESCR": "Kulmbach,Kronach"
+  },
+  {
+    "CM": "SAW",
+    "DESCR": "Altmarkkreis-Salzwedel"
+  },
+  {
+    "CM": "SB",
+    "DESCR": "Saarbrücken"
+  },
+  {
+    "CM": "SBG",
+    "DESCR": "Vorpommern-Greifswald"
+  },
+  {
+    "CM": "SBG",
+    "DESCR": "Vorpommern-Greifswald"
+  },
+  {
+    "CM": "SBK",
+    "DESCR": "Salzlandkreis"
+  },
+  {
+    "CM": "SC",
+    "DESCR": "Schwabach"
+  },
+  {
+    "CM": "SCZ",
+    "DESCR": "Saale-Orla-Kreis"
+  },
+  {
+    "CM": "SDH",
+    "DESCR": "Kyffhäuserkreis"
+  },
+  {
+    "CM": "SDL",
+    "DESCR": "Stendal"
+  },
+  {
+    "CM": "SDT",
+    "DESCR": "Schwedt/Oder"
+  },
+  {
+    "CM": "SE",
+    "DESCR": "Segeberg"
+  },
+  {
+    "CM": "SEB",
+    "DESCR": "MärkischOderland"
+  },
+  {
+    "CM": "SEE",
+    "DESCR": "MärkischOderland"
+  },
+  {
+    "CM": "SEF",
+    "DESCR": "Neustadta.d.Aisch-BadWindsheim"
+  },
+  {
+    "CM": "SEL",
+    "DESCR": "Wunsiedeli.Fichtelgebirge"
+  },
+  {
+    "CM": "SF",
+    "DESCR": "OberalgäuinSonthofen"
+  },
+  {
+    "CM": "SFA",
+    "DESCR": "Soltau-Fallingborstel"
+  },
+  {
+    "CM": "SFB",
+    "DESCR": "Oberspreewald-Lausitz"
+  },
+  {
+    "CM": "SFT",
+    "DESCR": "Salzlandkreis"
+  },
+  {
+    "CM": "SG",
+    "DESCR": "Solingen"
+  },
+  {
+    "CM": "SGH",
+    "DESCR": "Mansfeld-Südharz"
+  },
+  {
+    "CM": "SHA",
+    "DESCR": "SchwäbischHall"
+  },
+  {
+    "CM": "SHG",
+    "DESCR": "Schaumburg"
+  },
+  {
+    "CM": "SHK",
+    "DESCR": "Saale-Holzland-Kreis"
+  },
+  {
+    "CM": "SHL",
+    "DESCR": "Suhl"
+  },
+  {
+    "CM": "SI",
+    "DESCR": "Siegen-Wittgenstein"
+  },
+  {
+    "CM": "SIG",
+    "DESCR": "Sigmaringen"
+  },
+  {
+    "CM": "SIM",
+    "DESCR": "Rhein-Hunsrück-Kreis"
+  },
+  {
+    "CM": "SK",
+    "DESCR": "Saalekreis"
+  },
+  {
+    "CM": "SL",
+    "DESCR": "Schleswig-Flensburg"
+  },
+  {
+    "CM": "SLE",
+    "DESCR": "Euskirchen"
+  },
+  {
+    "CM": "SLF",
+    "DESCR": "Saalfeld-Rudolstadt"
+  },
+  {
+    "CM": "SLG",
+    "DESCR": "SaulgauWürttemberg"
+  },
+  {
+    "CM": "SLK",
+    "DESCR": "Salzlandkreis"
+  },
+  {
+    "CM": "SLN",
+    "DESCR": "AltenburgerLand"
+  },
+  {
+    "CM": "SLS",
+    "DESCR": "Saarlouis"
+  },
+  {
+    "CM": "SLÜ",
+    "DESCR": "Main-Kinzig-Kreis"
+  },
+  {
+    "CM": "SLZ",
+    "DESCR": "Wartburgkreis"
+  },
+  {
+    "CM": "SM",
+    "DESCR": "Schmalkalden-Meiningen"
+  },
+  {
+    "CM": "SMÜ",
+    "DESCR": "Schwabmünchen"
+  },
+  {
+    "CM": "SN",
+    "DESCR": "Schwerin,Stadt"
+  },
+  {
+    "CM": "SNH",
+    "DESCR": "SinsheimElsenz"
+  },
+  {
+    "CM": "SO",
+    "DESCR": "Soest"
+  },
+  {
+    "CM": "SOB",
+    "DESCR": "Neuburg-Schrobenhausen"
+  },
+  {
+    "CM": "SOG",
+    "DESCR": "Weilheim-Schongau"
+  },
+  {
+    "CM": "SOK",
+    "DESCR": "Saale-Orla-Kreis"
+  },
+  {
+    "CM": "SOL",
+    "DESCR": "Soltau"
+  },
+  {
+    "CM": "SÖM",
+    "DESCR": "Sömmerda"
+  },
+  {
+    "CM": "SON",
+    "DESCR": "Sonneberg"
+  },
+  {
+    "CM": "SP",
+    "DESCR": "Speyer"
+  },
+  {
+    "CM": "SPB",
+    "DESCR": "Spree-Neiße"
+  },
+  {
+    "CM": "SPN",
+    "DESCR": "Spree-Neiße"
+  },
+  {
+    "CM": "SPR",
+    "DESCR": "Springe"
+  },
+  {
+    "CM": "SR",
+    "DESCR": "Straubing(StadtundKreis)"
+  },
+  {
+    "CM": "SRB",
+    "DESCR": "MärkischOderland"
+  },
+  {
+    "CM": "SRO",
+    "DESCR": "Saale-Holzland-Kreis"
+  },
+  {
+    "CM": "ST",
+    "DESCR": "Steinfurt"
+  },
+  {
+    "CM": "STA",
+    "DESCR": "Starnberg"
+  },
+  {
+    "CM": "STB",
+    "DESCR": "Ludwigslust-Parchim"
+  },
+  {
+    "CM": "STB",
+    "DESCR": "LandkreisNordwestmecklenburg"
+  },
+  {
+    "CM": "STD",
+    "DESCR": "Stade"
+  },
+  {
+    "CM": "STE",
+    "DESCR": "Lichtenfels"
+  },
+  {
+    "CM": "STH",
+    "DESCR": "Schaumburg-LippeinStadthagen"
+  },
+  {
+    "CM": "STL",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "STO",
+    "DESCR": "StockachBaden"
+  },
+  {
+    "CM": "SU",
+    "DESCR": "Rhein-Sieg-Kreis"
+  },
+  {
+    "CM": "SUL",
+    "DESCR": "Amberg-Sulzbach"
+  },
+  {
+    "CM": "SÜW",
+    "DESCR": "SüdlicheWeinstraße"
+  },
+  {
+    "CM": "SW",
+    "DESCR": "Schweinfurt(StadtundKreis)"
+  },
+  {
+    "CM": "SWA",
+    "DESCR": "Rheingau-Taubus-KreisinBadSchwalbach"
+  },
+  {
+    "CM": "SY",
+    "DESCR": "GrafschaftHoyainSyke"
+  },
+  {
+    "CM": "SZ",
+    "DESCR": "Salzgitter"
+  },
+  {
+    "CM": "SZB",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "TBB",
+    "DESCR": "Main-Tauber-Kreis"
+  },
+  {
+    "CM": "TDO",
+    "DESCR": "LandkreisNordsachsen"
+  },
+  {
+    "CM": "TE",
+    "DESCR": "Steinfurt"
+  },
+  {
+    "CM": "TET",
+    "DESCR": "LandkreisRostock"
+  },
+  {
+    "CM": "TF",
+    "DESCR": "Teltow-Fläming"
+  },
+  {
+    "CM": "TG",
+    "DESCR": "LandkreisNordsachsen"
+  },
+  {
+    "CM": "TIR",
+    "DESCR": "Tirschenreuth"
+  },
+  {
+    "CM": "TO",
+    "DESCR": "LandkreisNordsachsen"
+  },
+  {
+    "CM": "TÖL",
+    "DESCR": "BadTölz-Wolfratshausen"
+  },
+  {
+    "CM": "TÖN",
+    "DESCR": "EiderstedtinTönningNordseebad"
+  },
+  {
+    "CM": "TP",
+    "DESCR": "Templin"
+  },
+  {
+    "CM": "TR",
+    "DESCR": "Trier"
+  },
+  {
+    "CM": "TS",
+    "DESCR": "Traunstein"
+  },
+  {
+    "CM": "TT",
+    "DESCR": "TettnangWürttemberg"
+  },
+  {
+    "CM": "TÜ",
+    "DESCR": "Tübingen"
+  },
+  {
+    "CM": "TUT",
+    "DESCR": "Tuttlingen"
+  },
+  {
+    "CM": "ÜB",
+    "DESCR": "ÜberlingenBodensee"
+  },
+  {
+    "CM": "UE",
+    "DESCR": "Uelzen"
+  },
+  {
+    "CM": "UEM",
+    "DESCR": "LandkreisVorpommern-Greifswald"
+  },
+  {
+    "CM": "UER",
+    "DESCR": "LandkreisVorpommern-Greifswald"
+  },
+  {
+    "CM": "UFF",
+    "DESCR": "Neustadta.d.Aisch-BadWindsheim"
+  },
+  {
+    "CM": "UH",
+    "DESCR": "Unstrut-Hainich-Kreis"
+  },
+  {
+    "CM": "UL",
+    "DESCR": "Ulm(StadtundKreis)"
+  },
+  {
+    "CM": "UM",
+    "DESCR": "Uckermark"
+  },
+  {
+    "CM": "UN",
+    "DESCR": "Unna"
+  },
+  {
+    "CM": "USI",
+    "DESCR": "Hochtaunuskreis"
+  },
+  {
+    "CM": "V",
+    "DESCR": "Vogtlandkreis"
+  },
+  {
+    "CM": "VAI",
+    "DESCR": "VaihingenEnz"
+  },
+  {
+    "CM": "VB",
+    "DESCR": "Vogelsbergkreis"
+  },
+  {
+    "CM": "VEC",
+    "DESCR": "Vechta"
+  },
+  {
+    "CM": "VER",
+    "DESCR": "Verden"
+  },
+  {
+    "CM": "VG",
+    "DESCR": "LandkreisVorpommern-Greifswald"
+  },
+  {
+    "CM": "VIB",
+    "DESCR": "Rottal-Inn"
+  },
+  {
+    "CM": "VIE",
+    "DESCR": "Viersen"
+  },
+  {
+    "CM": "VIT",
+    "DESCR": "Viechtach"
+  },
+  {
+    "CM": "VK",
+    "DESCR": "Völklingen"
+  },
+  {
+    "CM": "VL",
+    "DESCR": "VillingenSchwarzwald"
+  },
+  {
+    "CM": "VOF",
+    "DESCR": "Vilshofen"
+  },
+  {
+    "CM": "VOH",
+    "DESCR": "Neustadta.d.Waldnaab"
+  },
+  {
+    "CM": "VR",
+    "DESCR": "LandkreisVorpommern-Rügen"
+  },
+  {
+    "CM": "VS",
+    "DESCR": "Schwarzwald-Baar-Kreis"
+  },
+  {
+    "CM": "W",
+    "DESCR": "Wuppertal"
+  },
+  {
+    "CM": "WA",
+    "DESCR": "WaldeckinKorbach"
+  },
+  {
+    "CM": "WAF",
+    "DESCR": "Warendorf"
+  },
+  {
+    "CM": "WAK",
+    "DESCR": "Wartburgkreis"
+  },
+  {
+    "CM": "WAN",
+    "DESCR": "Herne"
+  },
+  {
+    "CM": "WAR",
+    "DESCR": "Warburg"
+  },
+  {
+    "CM": "WAT",
+    "DESCR": "Bochum"
+  },
+  {
+    "CM": "WB",
+    "DESCR": "Wittenberg"
+  },
+  {
+    "CM": "WBS",
+    "DESCR": "Eichsfeld"
+  },
+  {
+    "CM": "WD",
+    "DESCR": "Wiedenbrück"
+  },
+  {
+    "CM": "WDA",
+    "DESCR": "LandkreisZwickau"
+  },
+  {
+    "CM": "WE",
+    "DESCR": "Weimar"
+  },
+  {
+    "CM": "WEB",
+    "DESCR": "OberwesterwaldkreisinWesterburgWesterwald"
+  },
+  {
+    "CM": "WEG",
+    "DESCR": "Wegscheid"
+  },
+  {
+    "CM": "WEL",
+    "DESCR": "Limburg-Weilburg"
+  },
+  {
+    "CM": "WEM",
+    "DESCR": "WesermündeinBremerhaven"
+  },
+  {
+    "CM": "WEN",
+    "DESCR": "WeideninderOberpfalz"
+  },
+  {
+    "CM": "WER",
+    "DESCR": "Dillingena.d.Donau"
+  },
+  {
+    "CM": "WES",
+    "DESCR": "Wesel"
+  },
+  {
+    "CM": "WF",
+    "DESCR": "Wolfenbüttel"
+  },
+  {
+    "CM": "WG",
+    "DESCR": "WangenAllgäu"
+  },
+  {
+    "CM": "WHV",
+    "DESCR": "Wilhelmshaven"
+  },
+  {
+    "CM": "WI",
+    "DESCR": "Wiesbaden"
+  },
+  {
+    "CM": "WIL",
+    "DESCR": "Bernkastel-Wittlich"
+  },
+  {
+    "CM": "WIS",
+    "DESCR": "LandkreisNordwestmecklenburg"
+  },
+  {
+    "CM": "WIT",
+    "DESCR": "Ennepe-Ruhr-Kreis"
+  },
+  {
+    "CM": "WIZ",
+    "DESCR": "Witzenhausen"
+  },
+  {
+    "CM": "WK",
+    "DESCR": "Ostprignitz-Ruppin"
+  },
+  {
+    "CM": "WL",
+    "DESCR": "Harburg"
+  },
+  {
+    "CM": "WLG",
+    "DESCR": "LandkreisVorpommern-Greifswald"
+  },
+  {
+    "CM": "WM",
+    "DESCR": "Weilheim-Schongau"
+  },
+  {
+    "CM": "WMS",
+    "DESCR": "LandkreisBörde"
+  },
+  {
+    "CM": "WN",
+    "DESCR": "Rems-Murr-Kreis"
+  },
+  {
+    "CM": "WND",
+    "DESCR": "St.Wendel"
+  },
+  {
+    "CM": "WO",
+    "DESCR": "Worms"
+  },
+  {
+    "CM": "WOB",
+    "DESCR": "Wolfsburg"
+  },
+  {
+    "CM": "WOH",
+    "DESCR": "Kassel(Kreis)"
+  },
+  {
+    "CM": "WOL",
+    "DESCR": "Wolfach"
+  },
+  {
+    "CM": "WOR",
+    "DESCR": "BadTölz-Wolfratshausen,LandkreisMünchen,Starnberg"
+  },
+  {
+    "CM": "WOS",
+    "DESCR": "Freyung-Grafenau"
+  },
+  {
+    "CM": "WR",
+    "DESCR": "LandkreisHarz"
+  },
+  {
+    "CM": "WRN",
+    "DESCR": "MecklenburgischeSeenplatte"
+  },
+  {
+    "CM": "WS",
+    "DESCR": "Rosenheim"
+  },
+  {
+    "CM": "WSF",
+    "DESCR": "Burgenlandkreis"
+  },
+  {
+    "CM": "WST",
+    "DESCR": "Ammerland"
+  },
+  {
+    "CM": "WSW",
+    "DESCR": "LandkreisGörlitz"
+  },
+  {
+    "CM": "WT",
+    "DESCR": "Waldshut"
+  },
+  {
+    "CM": "WTL",
+    "DESCR": "Wittlage"
+  },
+  {
+    "CM": "WTM",
+    "DESCR": "Wittmund"
+  },
+  {
+    "CM": "WÜ",
+    "DESCR": "Würzburg(StadtundKreis)"
+  },
+  {
+    "CM": "WUG",
+    "DESCR": "Weißenburg-Gunzenhausen"
+  },
+  {
+    "CM": "WÜM",
+    "DESCR": "Cham"
+  },
+  {
+    "CM": "WUN",
+    "DESCR": "Wunsiedel"
+  },
+  {
+    "CM": "WUR",
+    "DESCR": "Leipzig(Kreis)"
+  },
+  {
+    "CM": "WW",
+    "DESCR": "Westerwaldkreis"
+  },
+  {
+    "CM": "WZ",
+    "DESCR": "Lahn-Dill-Kreis"
+  },
+  {
+    "CM": "WZL",
+    "DESCR": "LandkreisBörde"
+  },
+  {
+    "CM": "Z",
+    "DESCR": "LandkreisZwickau"
+  },
+  {
+    "CM": "ZE",
+    "DESCR": "Anhalt-Bitterfeld"
+  },
+  {
+    "CM": "ZEL",
+    "DESCR": "Cochem-Zell"
+  },
+  {
+    "CM": "ZI",
+    "DESCR": "LandkreisGörlitz"
+  },
+  {
+    "CM": "ZIG",
+    "DESCR": "ZiegenhainBz.Kassel"
+  },
+  {
+    "CM": "ZP",
+    "DESCR": "Erzgebirgskreis"
+  },
+  {
+    "CM": "ZR",
+    "DESCR": "Greiz"
+  },
+  {
+    "CM": "ZS",
+    "DESCR": "Zossen"
+  },
+  {
+    "CM": "ZW",
+    "DESCR": "Zweibrücken"
+  },
+  {
+    "CM": "ZZ",
+    "DESCR": "Burgenlandkreis"
+  }
+]
