@@ -112,3 +112,5 @@ output/
 /logs/
 /output/
 testimages
+/data/
+wget.exe
