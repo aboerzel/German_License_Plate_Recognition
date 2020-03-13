@@ -96,7 +96,7 @@ When generating the license plates, you must ensure that there are approximately
 
 The trained model gets the image section with the recognized license plate as input and delivers the license plate in plain text as output.
 
-**Erstellung der Android App**
+**Creating the Android App**
 
 The last step is to create an Android app that enables the user scenario described in the [Problem Statement](#problem_statement) section, using the two trained models. 
 Template for the creation of the app is the Tensorflow Lite [Object Detection example app](https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/android). 
