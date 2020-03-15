@@ -101,8 +101,10 @@ tutorials/embedding/questions-words.txt
 samples/outreach/blogs/segmentation_blogpost/carvana-image-masking-challenge/
 
 # Pretrained Models
-object_detection/models/ssd_inception_v2_coco_2018_01_28
 object_detection/models/ssd_mobilenet_v2_coco_2018_03_29
+object_detection/models/ssdlite_mobilenet_v2_coco_2018_05_09
+
+object_detection/models/*.tar.gz
 
 # Trained Models and Checkpoints
 object_detection/checkpoints/
