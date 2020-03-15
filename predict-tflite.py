@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image
 from tensorflow_core.lite.python.interpreter import Interpreter
 
-from config import config
+from config.license_recognition import config
 from label_codec import LabelCodec
 from utils.preprocessing import AspectAwarePreprocessor
 

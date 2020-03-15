@@ -2,8 +2,7 @@
 import os
 
 # root paths
-DATASET_ROOT_PATH = os.path.join(os.getcwd(), "..", "datasets", "german_license_plates")
-SUN397_TAR_FILE = os.path.join(os.getcwd(), "..", "datasets", "SUN397.tar.gz")
+DATASET_ROOT_PATH = "data"
 
 # network image size
 IMAGE_WIDTH = 128
@@ -27,13 +26,8 @@ OPTIMIZER = "adagrad"
 OUTPUT_PATH = "output"
 DOCUMENTATION_PATH = "documentation"
 
-# json file with the list of german county marks
-GERMAN_COUNTY_MARKS = "./config/german_county_marks.json"
-
 # define the paths to the training and validation directories
-PLATE_IMAGES = os.path.join(DATASET_ROOT_PATH, "images")
 TEST_IMAGES = "testimages"
 
 # define the path to the output training, validation, and testing HDF5 files
 GLP_HDF5 = os.path.join(DATASET_ROOT_PATH, "glp.h5")
-BACKGRND_HDF5 = os.path.join(DATASET_ROOT_PATH, "background.h5")

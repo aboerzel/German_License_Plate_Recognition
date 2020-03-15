@@ -6,7 +6,7 @@ import tensorflow as tf
 from tensorflow_core.lite.python.interpreter import Interpreter
 from tensorflow_core.lite.python.lite import TFLiteConverter, Optimize
 
-from config import config
+from config.license_recognition import config
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-o", "--optimizer", default=config.OPTIMIZER, help="supported optimizer methods: sdg, rmsprop, adam, adagrad, adadelta")

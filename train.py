@@ -7,7 +7,7 @@ from tensorflow.keras.models import save_model
 from tensorflow.python.keras import Input
 from tensorflow.python.keras.models import Model
 
-from config import config
+from config.license_recognition import config
 from label_codec import LabelCodec
 from train_helper import TrainHelper
 from licence_plate_dataset_generator import LicensePlateDatasetGenerator

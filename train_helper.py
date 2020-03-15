@@ -4,7 +4,7 @@ from tensorflow.keras.optimizers import SGD, Adam, Adagrad, Adadelta, RMSprop
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.python.keras.callbacks import TensorBoard, ModelCheckpoint
 
-from config import config
+from config.license_recognition import config
 
 
 class TrainHelper:
