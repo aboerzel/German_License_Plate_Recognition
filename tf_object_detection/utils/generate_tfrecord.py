@@ -1,11 +1,9 @@
 """
 Usage:
 
-# Create train data:
-python generate_tfrecord.py --label=<LABEL> --csv_input=<PATH_TO_ANNOTATIONS_FOLDER>/train_labels.csv  --output_path=<PATH_TO_ANNOTATIONS_FOLDER>/train.record
+# Create train an test data:
+python generate_tfrecord.py --train_size=0.7 --csv_input=<PATH_TO_ANNOTATIONS_FOLDER>/train_labels.csv --img_path=<PATH_TO_IMAGES> --output_path=<PATH_TO_OUTPUT_FOLDER>
 
-# Create test data:
-python generate_tfrecord.py --label=<LABEL> --csv_input=<PATH_TO_ANNOTATIONS_FOLDER>/test_labels.csv  --output_path=<PATH_TO_ANNOTATIONS_FOLDER>/test.record
 """
 
 from __future__ import division
@@ -16,21 +14,16 @@ import os
 import io
 import pandas as pd
 import tensorflow as tf
-import sys
-sys.path.append("../../models/research")
 
 from PIL import Image
+from numpy.random.mtrand import RandomState
 from object_detection.utils import dataset_util
 from collections import namedtuple, OrderedDict
 
 flags = tf.app.flags
+flags.DEFINE_float('train_size', 0.7, 'Percentage of the data set used for the training data')
 flags.DEFINE_string('csv_input', '', 'Path to the CSV input')
 flags.DEFINE_string('output_path', '', 'Path to output TFRecord')
-flags.DEFINE_string('label', '', 'Name of class label')
-# if your image has more labels input them as
-# flags.DEFINE_string('label0', '', 'Name of class[0] label')
-# flags.DEFINE_string('label1', '', 'Name of class[1] label')
-# and so on.
 flags.DEFINE_string('img_path', '', 'Path to images')
 FLAGS = flags.FLAGS
 
@@ -38,7 +31,7 @@ FLAGS = flags.FLAGS
 # TO-DO replace this with label map
 # for multiple labels add more else if statements
 def class_text_to_int(row_label):
-    if row_label == 'GER':  # 'ship':
+    if row_label == 'GER':
         return 1
     # comment upper if statement and uncomment these statements for multiple labelling
     # if row_label == FLAGS.label0:
@@ -97,18 +90,30 @@ def create_tf_example(group, path):
     return tf_example
 
 
-def main(_):
-    writer = tf.python_io.TFRecordWriter(FLAGS.output_path)
-    path = os.path.join(os.getcwd(), FLAGS.img_path)
-    examples = pd.read_csv(FLAGS.csv_input)
+def create_tf_record(name, examples, img_path):
+    writer = tf.python_io.TFRecordWriter(os.path.join(FLAGS.output_path, name))
+
     grouped = split(examples, 'filename')
     for group in grouped:
-        tf_example = create_tf_example(group, path)
+        tf_example = create_tf_example(group, img_path)
         writer.write(tf_example.SerializeToString())
 
     writer.close()
-    output_path = os.path.join(os.getcwd(), FLAGS.output_path)
-    print('Successfully created the TFRecords: {}'.format(output_path))
+    print('{} images stored in TFRecords: {}'.format(len(examples), os.path.join(FLAGS.output_path, name)))
+
+
+def main(_):
+    img_path = os.path.join(os.getcwd(), FLAGS.img_path)
+    examples = pd.read_csv(FLAGS.csv_input)
+    print('{} images found'.format(len(examples)))
+
+    #  train / test split
+    rng = RandomState()
+    train = examples.sample(frac=FLAGS.train_size, random_state=rng)
+    test = examples.loc[~examples.index.isin(train.index)]
+
+    create_tf_record('train.record', train, img_path)
+    create_tf_record('test.record', test, img_path)
 
 
 if __name__ == '__main__':
