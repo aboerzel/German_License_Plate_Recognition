@@ -113,7 +113,7 @@ def main(_):
     test = examples.loc[~examples.index.isin(train.index)]
 
     create_tf_record('train.record', train, img_path)
-    create_tf_record('test.record', test, img_path)
+    create_tf_record('eval.record', test, img_path)
 
 
 if __name__ == '__main__':
