@@ -4,8 +4,6 @@ from tensorflow.keras.optimizers import SGD, Adam, Adagrad, Adadelta, RMSprop
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.python.keras.callbacks import TensorBoard, ModelCheckpoint
 
-from config.license_recognition import config
-
 
 class TrainHelper:
     @staticmethod
@@ -22,16 +20,19 @@ class TrainHelper:
             return Adadelta(learning_rate=1.0)
 
     @staticmethod
-    def get_callbacks(optimizer, model_weigths_path):
-        logdir = os.path.join("logs", optimizer)
-        chkpt_filepath = config.MODEL_NAME + '--{epoch:02d}--{loss:.3f}--{val_loss:.3f}.h5'
+    def get_callbacks(output_dir, model_name, optimizer, model_weigths_path):
+        logdir = os.path.join(output_dir, optimizer, 'logs')
+        chkpt_filepath = model_name + '--{epoch:02d}--{loss:.3f}--{val_loss:.3f}.h5'
 
         callbacks = [
             EarlyStopping(monitor='val_loss', min_delta=0.0001, patience=4, verbose=1),
-            ModelCheckpoint(filepath=model_weigths_path, monitor='val_loss', save_best_only=True, save_weights_only=True, verbose=1),
+            ModelCheckpoint(filepath=model_weigths_path, monitor='val_loss', save_best_only=True,
+                            save_weights_only=True, verbose=1),
             TensorBoard(log_dir=logdir)]
 
         if optimizer in ["sdg", "rmsprop"]:
-            callbacks.append(ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, verbose=1, mode='min', min_delta=0.01, cooldown=0, min_lr=0))
+            callbacks.append(
+                ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, verbose=1, mode='min', min_delta=0.01,
+                                  cooldown=0, min_lr=0))
 
         return callbacks
