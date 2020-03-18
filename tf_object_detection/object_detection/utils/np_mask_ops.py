@@ -19,11 +19,6 @@ Example mask operations that are supported:
   * Areas: compute mask areas
   * IOU: pairwise intersection-over-union scores
 """
-
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import numpy as np
 
 EPSILON = 1e-7

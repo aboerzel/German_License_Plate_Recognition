@@ -19,7 +19,7 @@ import tensorflow as tf
 
 from object_detection.meta_architectures import ssd_meta_arch
 from object_detection.models import feature_map_generators
-from object_detection.models.keras_models import mobilenet_v2
+from object_detection.models.keras_applications import mobilenet_v2
 from object_detection.utils import ops
 from object_detection.utils import shape_utils
 
@@ -38,7 +38,6 @@ class SSDMobileNetV2KerasFeatureExtractor(
                inplace_batchnorm_update,
                use_explicit_padding=False,
                use_depthwise=False,
-               num_layers=6,
                override_base_feature_extractor_hyperparams=False,
                name=None):
     """MobileNetV2 Feature Extractor for SSD Models.
@@ -67,7 +66,6 @@ class SSDMobileNetV2KerasFeatureExtractor(
       use_explicit_padding: Whether to use explicit padding when extracting
         features. Default is False.
       use_depthwise: Whether to use depthwise convolutions. Default is False.
-      num_layers: Number of SSD layers.
       override_base_feature_extractor_hyperparams: Whether to override
         hyperparameters of the base feature extractor with the one from
         `conv_hyperparams_fn`.
@@ -84,14 +82,12 @@ class SSDMobileNetV2KerasFeatureExtractor(
         inplace_batchnorm_update=inplace_batchnorm_update,
         use_explicit_padding=use_explicit_padding,
         use_depthwise=use_depthwise,
-        num_layers=num_layers,
         override_base_feature_extractor_hyperparams=
         override_base_feature_extractor_hyperparams,
         name=name)
     self._feature_map_layout = {
-        'from_layer': ['layer_15/expansion_output', 'layer_19', '', '', '', ''
-                      ][:self._num_layers],
-        'layer_depth': [-1, -1, 512, 256, 256, 128][:self._num_layers],
+        'from_layer': ['layer_15/expansion_output', 'layer_19', '', '', '', ''],
+        'layer_depth': [-1, -1, 512, 256, 256, 128],
         'use_depthwise': self._use_depthwise,
         'use_explicit_padding': self._use_explicit_padding,
     }

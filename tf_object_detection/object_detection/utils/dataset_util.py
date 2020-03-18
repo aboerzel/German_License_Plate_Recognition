@@ -15,10 +15,6 @@
 
 """Utility functions for creating TFRecord data sets."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import tensorflow as tf
 
 
@@ -88,3 +84,5 @@ def recursive_parse_xml_to_dict(xml):
         result[child.tag] = []
       result[child.tag].append(child_result[child.tag])
   return {xml.tag: result}
+
+

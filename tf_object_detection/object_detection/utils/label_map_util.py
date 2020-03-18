@@ -14,14 +14,8 @@
 # ==============================================================================
 """Label map utility functions."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import logging
 
-from six import string_types
-from six.moves import range
 import tensorflow as tf
 from google.protobuf import text_format
 from object_detection.protos import string_int_label_map_pb2
@@ -146,14 +140,13 @@ def load_labelmap(path):
   return label_map
 
 
-def get_label_map_dict(label_map_path_or_proto,
+def get_label_map_dict(label_map_path,
                        use_display_name=False,
                        fill_in_gaps_and_background=False):
   """Reads a label map and returns a dictionary of label names to id.
 
   Args:
-    label_map_path_or_proto: path to StringIntLabelMap proto text file or the
-      proto itself.
+    label_map_path: path to StringIntLabelMap proto text file.
     use_display_name: whether to use the label map items' display names as keys.
     fill_in_gaps_and_background: whether to fill in gaps and background with
     respect to the id field in the proto. The id: 0 is reserved for the
@@ -168,12 +161,7 @@ def get_label_map_dict(label_map_path_or_proto,
     ValueError: if fill_in_gaps_and_background and label_map has non-integer or
     negative values.
   """
-  if isinstance(label_map_path_or_proto, string_types):
-    label_map = load_labelmap(label_map_path_or_proto)
-  else:
-    _validate_label_map(label_map_path_or_proto)
-    label_map = label_map_path_or_proto
-
+  label_map = load_labelmap(label_map_path)
   label_map_dict = {}
   for item in label_map.item:
     if use_display_name:
@@ -196,9 +184,7 @@ def get_label_map_dict(label_map_path_or_proto,
       # there are gaps in the labels, fill in gaps.
       for value in range(1, max(values)):
         if value not in values:
-          # TODO(rathodv): Add a prefix 'class_' here once the tool to generate
-          # teacher annotation adds this prefix in the data.
-          label_map_dict[str(value)] = value
+          label_map_dict['class_' + str(value)] = value
 
   return label_map_dict
 

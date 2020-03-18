@@ -33,10 +33,8 @@ import collections
 import functools
 
 import tensorflow as tf
-from tensorflow.contrib import framework as contrib_framework
-from tensorflow.contrib import layers as contrib_layers
 
-layers = contrib_layers
+layers = tf.contrib.layers
 
 
 def pix2pix_arg_scope():
@@ -54,12 +52,11 @@ def pix2pix_arg_scope():
       'epsilon': 0.00001,
   }
 
-  with contrib_framework.arg_scope(
+  with tf.contrib.framework.arg_scope(
       [layers.conv2d, layers.conv2d_transpose],
       normalizer_fn=layers.instance_norm,
       normalizer_params=instance_norm_params,
-      weights_initializer=tf.compat.v1.random_normal_initializer(0,
-                                                                 0.02)) as sc:
+      weights_initializer=tf.random_normal_initializer(0, 0.02)) as sc:
     return sc
 
 
@@ -81,14 +78,13 @@ def upsample(net, num_outputs, kernel_size, method='nn_upsample_conv'):
   Raises:
     ValueError: if `method` is not recognized.
   """
-  net_shape = tf.shape(input=net)
+  net_shape = tf.shape(net)
   height = net_shape[1]
   width = net_shape[2]
 
   if method == 'nn_upsample_conv':
-    net = tf.image.resize(
-        net, [kernel_size[0] * height, kernel_size[1] * width],
-        method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+    net = tf.image.resize_nearest_neighbor(
+        net, [kernel_size[0] * height, kernel_size[1] * width])
     net = layers.conv2d(net, num_outputs, [4, 4], activation_fn=None)
   elif method == 'conv2d_transpose':
     net = layers.conv2d_transpose(
@@ -168,11 +164,12 @@ def pix2pix_generator(net,
   ###########
   # Encoder #
   ###########
-  with tf.compat.v1.variable_scope('encoder'):
-    with contrib_framework.arg_scope([layers.conv2d],
-                                     kernel_size=[4, 4],
-                                     stride=2,
-                                     activation_fn=tf.nn.leaky_relu):
+  with tf.variable_scope('encoder'):
+    with tf.contrib.framework.arg_scope(
+        [layers.conv2d],
+        kernel_size=[4, 4],
+        stride=2,
+        activation_fn=tf.nn.leaky_relu):
 
       for block_id, block in enumerate(blocks):
         # No normalizer for the first encoder layers as per 'Image-to-Image',
@@ -196,10 +193,10 @@ def pix2pix_generator(net,
   reversed_blocks = list(blocks)
   reversed_blocks.reverse()
 
-  with tf.compat.v1.variable_scope('decoder'):
+  with tf.variable_scope('decoder'):
     # Dropout is used at both train and test time as per 'Image-to-Image',
     # Section 2.1 (last paragraph).
-    with contrib_framework.arg_scope([layers.dropout], is_training=True):
+    with tf.contrib.framework.arg_scope([layers.dropout], is_training=True):
 
       for block_id, block in enumerate(reversed_blocks):
         if block_id > 0:
@@ -212,7 +209,7 @@ def pix2pix_generator(net,
           net = layers.dropout(net, keep_prob=block.decoder_keep_prob)
         end_points['decoder%d' % block_id] = net
 
-  with tf.compat.v1.variable_scope('output'):
+  with tf.variable_scope('output'):
     # Explicitly set the normalizer_fn to None to override any default value
     # that may come from an arg_scope, such as pix2pix_arg_scope.
     logits = layers.conv2d(
@@ -251,19 +248,20 @@ def pix2pix_discriminator(net, num_filters, padding=2, pad_mode='REFLECT',
 
   def padded(net, scope):
     if padding:
-      with tf.compat.v1.variable_scope(scope):
+      with tf.variable_scope(scope):
         spatial_pad = tf.constant(
             [[0, 0], [padding, padding], [padding, padding], [0, 0]],
             dtype=tf.int32)
-        return tf.pad(tensor=net, paddings=spatial_pad, mode=pad_mode)
+        return tf.pad(net, spatial_pad, pad_mode)
     else:
       return net
 
-  with contrib_framework.arg_scope([layers.conv2d],
-                                   kernel_size=[4, 4],
-                                   stride=2,
-                                   padding='valid',
-                                   activation_fn=activation_fn):
+  with tf.contrib.framework.arg_scope(
+      [layers.conv2d],
+      kernel_size=[4, 4],
+      stride=2,
+      padding='valid',
+      activation_fn=activation_fn):
 
     # No normalization on the input layer.
     net = layers.conv2d(

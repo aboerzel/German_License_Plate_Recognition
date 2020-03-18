@@ -45,7 +45,6 @@ Example usage:
 import functools
 import os
 import tensorflow as tf
-from tensorflow.contrib import framework as contrib_framework
 
 from object_detection.builders import dataset_builder
 from object_detection.builders import graph_rewriter_builder
@@ -81,7 +80,7 @@ flags.DEFINE_boolean(
 FLAGS = flags.FLAGS
 
 
-@contrib_framework.deprecated(None, 'Use object_detection/model_main.py.')
+@tf.contrib.framework.deprecated(None, 'Use object_detection/model_main.py.')
 def main(unused_argv):
   assert FLAGS.checkpoint_dir, '`checkpoint_dir` is missing.'
   assert FLAGS.eval_dir, '`eval_dir` is missing.'

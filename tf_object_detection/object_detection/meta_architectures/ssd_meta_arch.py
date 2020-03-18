@@ -17,23 +17,20 @@
 General tensorflow implementation of convolutional Multibox/SSD detection
 models.
 """
-import abc
+from abc import abstractmethod
+
 import tensorflow as tf
-from tensorflow.contrib import slim as contrib_slim
-from tensorflow.contrib import tpu as contrib_tpu
 
 from object_detection.core import box_list
 from object_detection.core import box_list_ops
-from object_detection.core import matcher
 from object_detection.core import model
 from object_detection.core import standard_fields as fields
 from object_detection.core import target_assigner
 from object_detection.utils import ops
 from object_detection.utils import shape_utils
-from object_detection.utils import variables_helper
 from object_detection.utils import visualization_utils
 
-slim = contrib_slim
+slim = tf.contrib.slim
 
 
 class SSDFeatureExtractor(object):
@@ -48,7 +45,6 @@ class SSDFeatureExtractor(object):
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
-               num_layers=6,
                override_base_feature_extractor_hyperparams=False):
     """Constructor.
 
@@ -65,7 +61,6 @@ class SSDFeatureExtractor(object):
       use_explicit_padding: Whether to use explicit padding when extracting
         features. Default is False.
       use_depthwise: Whether to use depthwise convolutions. Default is False.
-      num_layers: Number of SSD layers.
       override_base_feature_extractor_hyperparams: Whether to override
         hyperparameters of the base feature extractor with the one from
         `conv_hyperparams_fn`.
@@ -78,7 +73,6 @@ class SSDFeatureExtractor(object):
     self._reuse_weights = reuse_weights
     self._use_explicit_padding = use_explicit_padding
     self._use_depthwise = use_depthwise
-    self._num_layers = num_layers
     self._override_base_feature_extractor_hyperparams = (
         override_base_feature_extractor_hyperparams)
 
@@ -86,7 +80,7 @@ class SSDFeatureExtractor(object):
   def is_keras_model(self):
     return False
 
-  @abc.abstractmethod
+  @abstractmethod
   def preprocess(self, resized_inputs):
     """Preprocesses images for feature extraction (minus image resizing).
 
@@ -104,7 +98,7 @@ class SSDFeatureExtractor(object):
     """
     pass
 
-  @abc.abstractmethod
+  @abstractmethod
   def extract_features(self, preprocessed_inputs):
     """Extracts features from preprocessed inputs.
 
@@ -132,7 +126,7 @@ class SSDFeatureExtractor(object):
       the model graph.
     """
     variables_to_restore = {}
-    for variable in variables_helper.get_global_variables_safely():
+    for variable in tf.global_variables():
       var_name = variable.op.name
       if var_name.startswith(feature_extractor_scope + '/'):
         var_name = var_name.replace(feature_extractor_scope + '/', '')
@@ -154,7 +148,6 @@ class SSDKerasFeatureExtractor(tf.keras.Model):
                inplace_batchnorm_update,
                use_explicit_padding=False,
                use_depthwise=False,
-               num_layers=6,
                override_base_feature_extractor_hyperparams=False,
                name=None):
     """Constructor.
@@ -179,7 +172,6 @@ class SSDKerasFeatureExtractor(tf.keras.Model):
       use_explicit_padding: Whether to use explicit padding when extracting
         features. Default is False.
       use_depthwise: Whether to use depthwise convolutions. Default is False.
-      num_layers: Number of SSD layers.
       override_base_feature_extractor_hyperparams: Whether to override
         hyperparameters of the base feature extractor with the one from
         `conv_hyperparams_config`.
@@ -197,7 +189,6 @@ class SSDKerasFeatureExtractor(tf.keras.Model):
     self._inplace_batchnorm_update = inplace_batchnorm_update
     self._use_explicit_padding = use_explicit_padding
     self._use_depthwise = use_depthwise
-    self._num_layers = num_layers
     self._override_base_feature_extractor_hyperparams = (
         override_base_feature_extractor_hyperparams)
 
@@ -205,7 +196,7 @@ class SSDKerasFeatureExtractor(tf.keras.Model):
   def is_keras_model(self):
     return True
 
-  @abc.abstractmethod
+  @abstractmethod
   def preprocess(self, resized_inputs):
     """Preprocesses images for feature extraction (minus image resizing).
 
@@ -223,7 +214,7 @@ class SSDKerasFeatureExtractor(tf.keras.Model):
     """
     raise NotImplementedError
 
-  @abc.abstractmethod
+  @abstractmethod
   def _extract_features(self, preprocessed_inputs):
     """Extracts features from preprocessed inputs.
 
@@ -256,21 +247,11 @@ class SSDKerasFeatureExtractor(tf.keras.Model):
       the model graph.
     """
     variables_to_restore = {}
-    if tf.executing_eagerly():
-      for variable in self.variables:
-        # variable.name includes ":0" at the end, but the names in the
-        # checkpoint do not have the suffix ":0". So, we strip it here.
-        var_name = variable.name[:-2]
-        if var_name.startswith(feature_extractor_scope + '/'):
-          var_name = var_name.replace(feature_extractor_scope + '/', '')
+    for variable in tf.global_variables():
+      var_name = variable.op.name
+      if var_name.startswith(feature_extractor_scope + '/'):
+        var_name = var_name.replace(feature_extractor_scope + '/', '')
         variables_to_restore[var_name] = variable
-    else:
-      # b/137854499: use global_variables.
-      for variable in variables_helper.get_global_variables_safely():
-        var_name = variable.op.name
-        if var_name.startswith(feature_extractor_scope + '/'):
-          var_name = var_name.replace(feature_extractor_scope + '/', '')
-          variables_to_restore[var_name] = variable
 
     return variables_to_restore
 
@@ -305,9 +286,7 @@ class SSDMetaArch(model.DetectionModel):
                expected_loss_weights_fn=None,
                use_confidences_as_targets=False,
                implicit_example_weight=0.5,
-               equalization_loss_config=None,
-               return_raw_detections_during_predict=False,
-               nms_on_host=True):
+               equalization_loss_config=None):
     """SSDMetaArch Constructor.
 
     TODO(rathodv,jonathanhuang): group NMS parameters + score converter into
@@ -383,11 +362,6 @@ class SSDMetaArch(model.DetectionModel):
         for the implicit negative examples.
       equalization_loss_config: a namedtuple that specifies configs for
         computing equalization loss.
-      return_raw_detections_during_predict: Whether to return raw detection
-        boxes in the predict() method. These are decoded boxes that have not
-        been through postprocessing (i.e. NMS). Default False.
-      nms_on_host: boolean (default: True) controlling whether NMS should be
-        carried out on the host (outside of TPU).
     """
     super(SSDMetaArch, self).__init__(num_classes=box_predictor.num_classes)
     self._is_training = is_training
@@ -455,10 +429,6 @@ class SSDMetaArch(model.DetectionModel):
 
     self._equalization_loss_config = equalization_loss_config
 
-    self._return_raw_detections_during_predict = (
-        return_raw_detections_during_predict)
-    self._nms_on_host = nms_on_host
-
   @property
   def anchors(self):
     if not self._anchors:
@@ -496,10 +466,17 @@ class SSDMetaArch(model.DetectionModel):
     Raises:
       ValueError: if inputs tensor does not have type tf.float32
     """
+    if inputs.dtype is not tf.float32:
+      raise ValueError('`preprocess` expects a tf.float32 tensor')
     with tf.name_scope('Preprocessor'):
-      (resized_inputs,
-       true_image_shapes) = shape_utils.resize_images_and_return_shapes(
-           inputs, self._image_resizer_fn)
+      # TODO(jonathanhuang): revisit whether to always use batch size as
+      # the number of parallel iterations vs allow for dynamic batching.
+      outputs = shape_utils.static_or_dynamic_map_fn(
+          self._image_resizer_fn,
+          elems=inputs,
+          dtype=[tf.float32, tf.int32])
+      resized_inputs = outputs[0]
+      true_image_shapes = outputs[1]
 
       return (self._feature_extractor.preprocess(resized_inputs),
               true_image_shapes)
@@ -532,9 +509,9 @@ class SSDMetaArch(model.DetectionModel):
     resized_inputs_shape = shape_utils.combined_static_and_dynamic_shape(
         preprocessed_images)
     true_heights, true_widths, _ = tf.unstack(
-        tf.cast(true_image_shapes, dtype=tf.float32), axis=1)
-    padded_height = tf.cast(resized_inputs_shape[1], dtype=tf.float32)
-    padded_width = tf.cast(resized_inputs_shape[2], dtype=tf.float32)
+        tf.to_float(true_image_shapes), axis=1)
+    padded_height = tf.to_float(resized_inputs_shape[1])
+    padded_width = tf.to_float(resized_inputs_shape[2])
     return tf.stack(
         [
             tf.zeros_like(true_heights),
@@ -574,19 +551,9 @@ class SSDMetaArch(model.DetectionModel):
           [batch, height_i, width_i, depth_i].
         5) anchors: 2-D float tensor of shape [num_anchors, 4] containing
           the generated anchors in normalized coordinates.
-        6) final_anchors: 3-D float tensor of shape [batch_size, num_anchors, 4]
-          containing the generated anchors in normalized coordinates.
-        If self._return_raw_detections_during_predict is True, the dictionary
-        will also contain:
-        7) raw_detection_boxes: a 4-D float32 tensor with shape
-          [batch_size, self.max_num_proposals, 4] in normalized coordinates.
-        8) raw_detection_feature_map_indices: a 3-D int32 tensor with shape
-          [batch_size, self.max_num_proposals].
     """
-    if self._inplace_batchnorm_update:
-      batchnorm_updates_collections = None
-    else:
-      batchnorm_updates_collections = tf.GraphKeys.UPDATE_OPS
+    batchnorm_updates_collections = (None if self._inplace_batchnorm_update
+                                     else tf.GraphKeys.UPDATE_OPS)
     if self._feature_extractor.is_keras_model:
       feature_maps = self._feature_extractor(preprocessed_inputs)
     else:
@@ -603,11 +570,11 @@ class SSDMetaArch(model.DetectionModel):
         feature_maps)
     image_shape = shape_utils.combined_static_and_dynamic_shape(
         preprocessed_inputs)
-    boxlist_list = self._anchor_generator.generate(
-        feature_map_spatial_dims,
-        im_height=image_shape[1],
-        im_width=image_shape[2])
-    self._anchors = box_list_ops.concatenate(boxlist_list)
+    self._anchors = box_list_ops.concatenate(
+        self._anchor_generator.generate(
+            feature_map_spatial_dims,
+            im_height=image_shape[1],
+            im_width=image_shape[2]))
     if self._box_predictor.is_keras_model:
       predictor_results_dict = self._box_predictor(feature_maps)
     else:
@@ -618,15 +585,9 @@ class SSDMetaArch(model.DetectionModel):
         predictor_results_dict = self._box_predictor.predict(
             feature_maps, self._anchor_generator.num_anchors_per_location())
     predictions_dict = {
-        'preprocessed_inputs':
-            preprocessed_inputs,
-        'feature_maps':
-            feature_maps,
-        'anchors':
-            self._anchors.get(),
-        'final_anchors':
-            tf.tile(
-                tf.expand_dims(self._anchors.get(), 0), [image_shape[0], 1, 1])
+        'preprocessed_inputs': preprocessed_inputs,
+        'feature_maps': feature_maps,
+        'anchors': self._anchors.get()
     }
     for prediction_key, prediction_list in iter(predictor_results_dict.items()):
       prediction = tf.concat(prediction_list, axis=1)
@@ -634,28 +595,9 @@ class SSDMetaArch(model.DetectionModel):
           prediction.shape[2] == 1):
         prediction = tf.squeeze(prediction, axis=2)
       predictions_dict[prediction_key] = prediction
-    if self._return_raw_detections_during_predict:
-      predictions_dict.update(self._raw_detections_and_feature_map_inds(
-          predictions_dict['box_encodings'], boxlist_list))
     self._batched_prediction_tensor_names = [x for x in predictions_dict
                                              if x != 'anchors']
     return predictions_dict
-
-  def _raw_detections_and_feature_map_inds(self, box_encodings, boxlist_list):
-    anchors = self._anchors.get()
-    raw_detection_boxes, _ = self._batch_decode(box_encodings, anchors)
-    batch_size, _, _ = shape_utils.combined_static_and_dynamic_shape(
-        raw_detection_boxes)
-    feature_map_indices = (
-        self._anchor_generator.anchor_index_to_feature_map_index(boxlist_list))
-    feature_map_indices_batched = tf.tile(
-        tf.expand_dims(feature_map_indices, 0),
-        multiples=[batch_size, 1])
-    return {
-        fields.PredictionFields.raw_detection_boxes: raw_detection_boxes,
-        fields.PredictionFields.raw_detection_feature_map_indices:
-            feature_map_indices_batched
-    }
 
   def _get_feature_map_spatial_dims(self, feature_maps):
     """Return list of spatial dimensions for each feature map in a list.
@@ -706,25 +648,14 @@ class SSDMetaArch(model.DetectionModel):
 
     Returns:
       detections: a dictionary containing the following fields
-        detection_boxes: [batch, max_detections, 4] tensor with post-processed
-          detection boxes.
-        detection_scores: [batch, max_detections] tensor with scalar scores for
-          post-processed detection boxes.
-        detection_multiclass_scores: [batch, max_detections,
-          num_classes_with_background] tensor with class score distribution for
-          post-processed detection boxes including background class if any.
-        detection_classes: [batch, max_detections] tensor with classes for
-          post-processed detection classes.
+        detection_boxes: [batch, max_detections, 4]
+        detection_scores: [batch, max_detections]
+        detection_classes: [batch, max_detections]
         detection_keypoints: [batch, max_detections, num_keypoints, 2] (if
           encoded in the prediction_dict 'box_encodings')
         detection_masks: [batch_size, max_detections, mask_height, mask_width]
           (optional)
         num_detections: [batch]
-        raw_detection_boxes: [batch, total_detections, 4] tensor with decoded
-          detection boxes before Non-Max Suppression.
-        raw_detection_score: [batch, total_detections,
-          num_classes_with_background] tensor of multi-class scores for raw
-          detection boxes.
     Raises:
       ValueError: if prediction_dict does not contain `box_encodings` or
         `class_predictions_with_background` fields.
@@ -732,23 +663,17 @@ class SSDMetaArch(model.DetectionModel):
     if ('box_encodings' not in prediction_dict or
         'class_predictions_with_background' not in prediction_dict):
       raise ValueError('prediction_dict does not contain expected entries.')
-    if 'anchors' not in prediction_dict:
-      prediction_dict['anchors'] = self.anchors.get()
     with tf.name_scope('Postprocessor'):
       preprocessed_images = prediction_dict['preprocessed_inputs']
       box_encodings = prediction_dict['box_encodings']
       box_encodings = tf.identity(box_encodings, 'raw_box_encodings')
-      class_predictions_with_background = (
-          prediction_dict['class_predictions_with_background'])
-      detection_boxes, detection_keypoints = self._batch_decode(
-          box_encodings, prediction_dict['anchors'])
+      class_predictions = prediction_dict['class_predictions_with_background']
+      detection_boxes, detection_keypoints = self._batch_decode(box_encodings)
       detection_boxes = tf.identity(detection_boxes, 'raw_box_locations')
       detection_boxes = tf.expand_dims(detection_boxes, axis=2)
 
-      detection_scores_with_background = self._score_conversion_fn(
-          class_predictions_with_background)
-      detection_scores = tf.identity(detection_scores_with_background,
-                                     'raw_box_scores')
+      detection_scores = self._score_conversion_fn(class_predictions)
+      detection_scores = tf.identity(detection_scores, 'raw_box_scores')
       if self._add_background_class or self._explicit_background_class:
         detection_scores = tf.slice(detection_scores, [0, 0, 1], [-1, -1, -1])
       additional_fields = None
@@ -762,77 +687,25 @@ class SSDMetaArch(model.DetectionModel):
           feature_map_list.append(tf.reshape(feature_map, [batch_size, -1]))
         box_features = tf.concat(feature_map_list, 1)
         box_features = tf.identity(box_features, 'raw_box_features')
-      additional_fields = {
-          'multiclass_scores': detection_scores_with_background
-      }
-      if self._anchors is not None:
-        num_boxes = (self._anchors.num_boxes_static() or
-                     self._anchors.num_boxes())
-        anchor_indices = tf.range(num_boxes)
-        batch_anchor_indices = tf.tile(
-            tf.expand_dims(anchor_indices, 0), [batch_size, 1])
-        # All additional fields need to be float.
-        additional_fields.update({
-            'anchor_indices': tf.cast(batch_anchor_indices, tf.float32),
-        })
+
       if detection_keypoints is not None:
-        detection_keypoints = tf.identity(
-            detection_keypoints, 'raw_keypoint_locations')
-        additional_fields[fields.BoxListFields.keypoints] = detection_keypoints
-
-      with tf.init_scope():
-        if tf.executing_eagerly():
-          # soft device placement in eager mode will automatically handle
-          # outside compilation.
-          def _non_max_suppression_wrapper(kwargs):
-            return self._non_max_suppression_fn(**kwargs)
-        else:
-          def _non_max_suppression_wrapper(kwargs):
-            if self._nms_on_host:
-              # Note: NMS is not memory efficient on TPU. This force the NMS
-              # to run outside of TPU.
-              return contrib_tpu.outside_compilation(
-                  lambda x: self._non_max_suppression_fn(**x), kwargs)
-            else:
-              return self._non_max_suppression_fn(**kwargs)
-
+        additional_fields = {
+            fields.BoxListFields.keypoints: detection_keypoints}
       (nmsed_boxes, nmsed_scores, nmsed_classes, nmsed_masks,
-       nmsed_additional_fields,
-       num_detections) = _non_max_suppression_wrapper({
-           'boxes':
+       nmsed_additional_fields, num_detections) = self._non_max_suppression_fn(
            detection_boxes,
-           'scores':
            detection_scores,
-           'clip_window':
-           self._compute_clip_window(preprocessed_images, true_image_shapes),
-           'additional_fields':
-           additional_fields,
-           'masks':
-           prediction_dict.get('mask_predictions')
-       })
+           clip_window=self._compute_clip_window(preprocessed_images,
+                                                 true_image_shapes),
+           additional_fields=additional_fields,
+           masks=prediction_dict.get('mask_predictions'))
       detection_dict = {
-          fields.DetectionResultFields.detection_boxes:
-              nmsed_boxes,
-          fields.DetectionResultFields.detection_scores:
-              nmsed_scores,
-          fields.DetectionResultFields.detection_classes:
-              nmsed_classes,
-          fields.DetectionResultFields.detection_multiclass_scores:
-              nmsed_additional_fields.get(
-                  'multiclass_scores') if nmsed_additional_fields else None,
+          fields.DetectionResultFields.detection_boxes: nmsed_boxes,
+          fields.DetectionResultFields.detection_scores: nmsed_scores,
+          fields.DetectionResultFields.detection_classes: nmsed_classes,
           fields.DetectionResultFields.num_detections:
-              tf.cast(num_detections, dtype=tf.float32),
-          fields.DetectionResultFields.raw_detection_boxes:
-              tf.squeeze(detection_boxes, axis=2),
-          fields.DetectionResultFields.raw_detection_scores:
-              detection_scores_with_background
+              tf.to_float(num_detections)
       }
-      if (nmsed_additional_fields is not None and
-          'anchor_indices' in nmsed_additional_fields):
-        detection_dict.update({
-            fields.DetectionResultFields.detection_anchor_indices:
-                tf.cast(nmsed_additional_fields['anchor_indices'], tf.int32),
-        })
       if (nmsed_additional_fields is not None and
           fields.BoxListFields.keypoints in nmsed_additional_fields):
         detection_dict[fields.DetectionResultFields.detection_keypoints] = (
@@ -878,11 +751,10 @@ class SSDMetaArch(model.DetectionModel):
       if self.groundtruth_has_field(fields.BoxListFields.confidences):
         confidences = self.groundtruth_lists(fields.BoxListFields.confidences)
       (batch_cls_targets, batch_cls_weights, batch_reg_targets,
-       batch_reg_weights, batch_match) = self._assign_targets(
+       batch_reg_weights, match_list) = self._assign_targets(
            self.groundtruth_lists(fields.BoxListFields.boxes),
            self.groundtruth_lists(fields.BoxListFields.classes),
            keypoints, weights, confidences)
-      match_list = [matcher.Match(match) for match in tf.unstack(batch_match)]
       if self._add_summaries:
         self._summarize_target_assignment(
             self.groundtruth_lists(fields.BoxListFields.boxes), match_list)
@@ -890,13 +762,13 @@ class SSDMetaArch(model.DetectionModel):
       if self._random_example_sampler:
         batch_cls_per_anchor_weights = tf.reduce_mean(
             batch_cls_weights, axis=-1)
-        batch_sampled_indicator = tf.cast(
+        batch_sampled_indicator = tf.to_float(
             shape_utils.static_or_dynamic_map_fn(
                 self._minibatch_subsample_fn,
                 [batch_cls_targets, batch_cls_per_anchor_weights],
                 dtype=tf.bool,
                 parallel_iterations=self._parallel_iterations,
-                back_prop=True), dtype=tf.float32)
+                back_prop=True))
         batch_reg_weights = tf.multiply(batch_sampled_indicator,
                                         batch_reg_weights)
         batch_cls_weights = tf.multiply(
@@ -972,8 +844,7 @@ class SSDMetaArch(model.DetectionModel):
       # Optionally normalize by number of positive matches
       normalizer = tf.constant(1.0, dtype=tf.float32)
       if self._normalize_loss_by_num_matches:
-        normalizer = tf.maximum(tf.cast(tf.reduce_sum(batch_reg_weights),
-                                        dtype=tf.float32),
+        normalizer = tf.maximum(tf.to_float(tf.reduce_sum(batch_reg_weights)),
                                 1.0)
 
       localization_loss_normalizer = normalizer
@@ -988,8 +859,8 @@ class SSDMetaArch(model.DetectionModel):
                                         name='classification_loss')
 
       loss_dict = {
-          'Loss/localization_loss': localization_loss,
-          'Loss/classification_loss': classification_loss
+          str(localization_loss.op.name): localization_loss,
+          str(classification_loss.op.name): classification_loss
       }
 
 
@@ -1130,50 +1001,25 @@ class SSDMetaArch(model.DetectionModel):
         with rows of the Match objects corresponding to groundtruth boxes
         and columns corresponding to anchors.
     """
-    # TODO(rathodv): Add a test for these summaries.
-    try:
-      # TODO(kaftan): Integrate these summaries into the v2 style loops
-      with tf.compat.v2.init_scope():
-        if tf.compat.v2.executing_eagerly():
-          return
-    except AttributeError:
-      pass
-
-    avg_num_gt_boxes = tf.reduce_mean(
-        tf.cast(
-            tf.stack([tf.shape(x)[0] for x in groundtruth_boxes_list]),
-            dtype=tf.float32))
-    avg_num_matched_gt_boxes = tf.reduce_mean(
-        tf.cast(
-            tf.stack([match.num_matched_rows() for match in match_list]),
-            dtype=tf.float32))
-    avg_pos_anchors = tf.reduce_mean(
-        tf.cast(
-            tf.stack([match.num_matched_columns() for match in match_list]),
-            dtype=tf.float32))
-    avg_neg_anchors = tf.reduce_mean(
-        tf.cast(
-            tf.stack([match.num_unmatched_columns() for match in match_list]),
-            dtype=tf.float32))
-    avg_ignored_anchors = tf.reduce_mean(
-        tf.cast(
-            tf.stack([match.num_ignored_columns() for match in match_list]),
-            dtype=tf.float32))
-
+    num_boxes_per_image = tf.stack(
+        [tf.shape(x)[0] for x in groundtruth_boxes_list])
+    pos_anchors_per_image = tf.stack(
+        [match.num_matched_columns() for match in match_list])
+    neg_anchors_per_image = tf.stack(
+        [match.num_unmatched_columns() for match in match_list])
+    ignored_anchors_per_image = tf.stack(
+        [match.num_ignored_columns() for match in match_list])
     tf.summary.scalar('AvgNumGroundtruthBoxesPerImage',
-                      avg_num_gt_boxes,
-                      family='TargetAssignment')
-    tf.summary.scalar('AvgNumGroundtruthBoxesMatchedPerImage',
-                      avg_num_matched_gt_boxes,
+                      tf.reduce_mean(tf.to_float(num_boxes_per_image)),
                       family='TargetAssignment')
     tf.summary.scalar('AvgNumPositiveAnchorsPerImage',
-                      avg_pos_anchors,
+                      tf.reduce_mean(tf.to_float(pos_anchors_per_image)),
                       family='TargetAssignment')
     tf.summary.scalar('AvgNumNegativeAnchorsPerImage',
-                      avg_neg_anchors,
+                      tf.reduce_mean(tf.to_float(neg_anchors_per_image)),
                       family='TargetAssignment')
     tf.summary.scalar('AvgNumIgnoredAnchorsPerImage',
-                      avg_ignored_anchors,
+                      tf.reduce_mean(tf.to_float(ignored_anchors_per_image)),
                       family='TargetAssignment')
 
   def _apply_hard_mining(self, location_losses, cls_losses, prediction_dict,
@@ -1192,7 +1038,6 @@ class SSDMetaArch(model.DetectionModel):
           [batch_size, num_anchors, num_classes+1] containing class predictions
           (logits) for each of the anchors.  Note that this tensor *includes*
           background class predictions.
-        3) anchors: (optional) 2-D float tensor of shape [num_anchors, 4].
       match_list: a list of matcher.Match objects encoding the match between
         anchors and groundtruth boxes for each image of the batch,
         with rows of the Match objects corresponding to groundtruth boxes
@@ -1204,14 +1049,11 @@ class SSDMetaArch(model.DetectionModel):
       mined_cls_loss: a float scalar with sum of classification losses from
         selected hard examples.
     """
-    class_predictions = prediction_dict['class_predictions_with_background']
-    if self._add_background_class:
-      class_predictions = tf.slice(class_predictions, [0, 0, 1], [-1, -1, -1])
+    class_predictions = tf.slice(
+        prediction_dict['class_predictions_with_background'], [0, 0,
+                                                               1], [-1, -1, -1])
 
-    if 'anchors' not in prediction_dict:
-      prediction_dict['anchors'] = self.anchors.get()
-    decoded_boxes, _ = self._batch_decode(prediction_dict['box_encodings'],
-                                          prediction_dict['anchors'])
+    decoded_boxes, _ = self._batch_decode(prediction_dict['box_encodings'])
     decoded_box_tensors_list = tf.unstack(decoded_boxes)
     class_prediction_list = tf.unstack(class_predictions)
     decoded_boxlist_list = []
@@ -1226,13 +1068,12 @@ class SSDMetaArch(model.DetectionModel):
         decoded_boxlist_list=decoded_boxlist_list,
         match_list=match_list)
 
-  def _batch_decode(self, box_encodings, anchors):
+  def _batch_decode(self, box_encodings):
     """Decodes a batch of box encodings with respect to the anchors.
 
     Args:
       box_encodings: A float32 tensor of shape
         [batch_size, num_anchors, box_code_size] containing box encodings.
-      anchors: A tensor of shape [num_anchors, 4].
 
     Returns:
       decoded_boxes: A float32 tensor of shape
@@ -1244,7 +1085,8 @@ class SSDMetaArch(model.DetectionModel):
     combined_shape = shape_utils.combined_static_and_dynamic_shape(
         box_encodings)
     batch_size = combined_shape[0]
-    tiled_anchor_boxes = tf.tile(tf.expand_dims(anchors, 0), [batch_size, 1, 1])
+    tiled_anchor_boxes = tf.tile(
+        tf.expand_dims(self.anchors.get(), 0), [batch_size, 1, 1])
     tiled_anchors_boxlist = box_list.BoxList(
         tf.reshape(tiled_anchor_boxes, [-1, 4]))
     decoded_boxes = self._box_coder.decode(
@@ -1305,41 +1147,25 @@ class SSDMetaArch(model.DetectionModel):
       ValueError: if fine_tune_checkpoint_type is neither `classification`
         nor `detection`.
     """
+    if fine_tune_checkpoint_type not in ['detection', 'classification']:
+      raise ValueError('Not supported fine_tune_checkpoint_type: {}'.format(
+          fine_tune_checkpoint_type))
+
     if fine_tune_checkpoint_type == 'classification':
       return self._feature_extractor.restore_from_classification_checkpoint_fn(
           self._extract_features_scope)
 
-    elif fine_tune_checkpoint_type == 'detection':
+    if fine_tune_checkpoint_type == 'detection':
       variables_to_restore = {}
-      if tf.executing_eagerly():
+      for variable in tf.global_variables():
+        var_name = variable.op.name
         if load_all_detection_checkpoint_vars:
-          # Grab all detection vars by name
-          for variable in self.variables:
-            # variable.name includes ":0" at the end, but the names in the
-            # checkpoint do not have the suffix ":0". So, we strip it here.
-            var_name = variable.name[:-2]
-            variables_to_restore[var_name] = variable
+          variables_to_restore[var_name] = variable
         else:
-          # Grab just the feature extractor vars by name
-          for variable in self._feature_extractor.variables:
-            # variable.name includes ":0" at the end, but the names in the
-            # checkpoint do not have the suffix ":0". So, we strip it here.
-            var_name = variable.name[:-2]
+          if var_name.startswith(self._extract_features_scope):
             variables_to_restore[var_name] = variable
-      else:
-        for variable in variables_helper.get_global_variables_safely():
-          var_name = variable.op.name
-          if load_all_detection_checkpoint_vars:
-            variables_to_restore[var_name] = variable
-          else:
-            if var_name.startswith(self._extract_features_scope):
-              variables_to_restore[var_name] = variable
 
-      return variables_to_restore
-
-    else:
-      raise ValueError('Not supported fine_tune_checkpoint_type: {}'.format(
-          fine_tune_checkpoint_type))
+    return variables_to_restore
 
   def updates(self):
     """Returns a list of update operators for this model.

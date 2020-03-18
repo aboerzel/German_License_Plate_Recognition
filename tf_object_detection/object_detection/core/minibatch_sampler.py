@@ -28,21 +28,17 @@ Subclasses should implement the Subsample function and can make use of the
 @staticmethod SubsampleIndicator.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 from abc import ABCMeta
 from abc import abstractmethod
 
-import six
 import tensorflow as tf
 
 from object_detection.utils import ops
 
 
-class MinibatchSampler(six.with_metaclass(ABCMeta, object)):
+class MinibatchSampler(object):
   """Abstract base class for subsampling minibatches."""
+  __metaclass__ = ABCMeta
 
   def __init__(self):
     """Constructs a minibatch sampler."""

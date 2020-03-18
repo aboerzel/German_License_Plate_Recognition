@@ -13,12 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 """Class for evaluating object detections with COCO metrics."""
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import numpy as np
-from six.moves import zip
 import tensorflow as tf
 
 from object_detection.core import standard_fields
@@ -202,7 +197,6 @@ class CocoDetectionEvaluator(object_detection_evaluation.DetectionEvaluator):
       'PerformanceByCategory' is included in the output regardless of
       all_metrics_per_category.
     """
-    tf.logging.info('Performing evaluation on %d images.', len(self._image_ids))
     groundtruth_dict = {
         'annotations': self._groundtruth_list,
         'images': [{'id': image_id} for image_id in self._image_ids],
@@ -221,23 +215,29 @@ class CocoDetectionEvaluator(object_detection_evaluation.DetectionEvaluator):
                    for key, value in iter(box_metrics.items())}
     return box_metrics
 
-  def add_eval_dict(self, eval_dict):
-    """Observes an evaluation result dict for a single example.
+  def get_estimator_eval_metric_ops(self, eval_dict):
+    """Returns a dictionary of eval metric ops.
 
-    When executing eagerly, once all observations have been observed by this
-    method you can use `.evaluate()` to get the final metrics.
+    Note that once value_op is called, the detections and groundtruth added via
+    update_op are cleared.
 
-    When using `tf.estimator.Estimator` for evaluation this function is used by
-    `get_estimator_eval_metric_ops()` to construct the metric update op.
+    This function can take in groundtruth and detections for a batch of images,
+    or for a single image. For the latter case, the batch dimension for input
+    tensors need not be present.
 
     Args:
-      eval_dict: A dictionary that holds tensors for evaluating an object
-        detection model, returned from
-        eval_util.result_dict_for_single_example().
+      eval_dict: A dictionary that holds tensors for evaluating object detection
+        performance. For single-image evaluation, this dictionary may be
+        produced from eval_util.result_dict_for_single_example(). If multi-image
+        evaluation, `eval_dict` should contain the fields
+        'num_groundtruth_boxes_per_image' and 'num_det_boxes_per_image' to
+        properly unpad the tensors from the batch.
 
     Returns:
-      None when executing eagerly, or an update_op that can be used to update
-      the eval metrics in `tf.estimator.EstimatorSpec`.
+      a dictionary of metric names to tuple of value_op and update_op that can
+      be used as eval metric ops in tf.estimator.EstimatorSpec. Note that all
+      update ops must be run together and similarly all value ops must be run
+      together to guarantee correct behaviour.
     """
     def update_op(
         image_id_batched,
@@ -327,42 +327,16 @@ class CocoDetectionEvaluator(object_detection_evaluation.DetectionEvaluator):
       if is_annotated is None:
         is_annotated = tf.ones_like(image_id, dtype=tf.bool)
 
-    return tf.py_func(update_op, [image_id,
-                                  groundtruth_boxes,
-                                  groundtruth_classes,
-                                  groundtruth_is_crowd,
-                                  num_gt_boxes_per_image,
-                                  detection_boxes,
-                                  detection_scores,
-                                  detection_classes,
-                                  num_det_boxes_per_image,
-                                  is_annotated], [])
-
-  def get_estimator_eval_metric_ops(self, eval_dict):
-    """Returns a dictionary of eval metric ops.
-
-    Note that once value_op is called, the detections and groundtruth added via
-    update_op are cleared.
-
-    This function can take in groundtruth and detections for a batch of images,
-    or for a single image. For the latter case, the batch dimension for input
-    tensors need not be present.
-
-    Args:
-      eval_dict: A dictionary that holds tensors for evaluating object detection
-        performance. For single-image evaluation, this dictionary may be
-        produced from eval_util.result_dict_for_single_example(). If multi-image
-        evaluation, `eval_dict` should contain the fields
-        'num_groundtruth_boxes_per_image' and 'num_det_boxes_per_image' to
-        properly unpad the tensors from the batch.
-
-    Returns:
-      a dictionary of metric names to tuple of value_op and update_op that can
-      be used as eval metric ops in tf.estimator.EstimatorSpec. Note that all
-      update ops must be run together and similarly all value ops must be run
-      together to guarantee correct behaviour.
-    """
-    update_op = self.add_eval_dict(eval_dict)
+    update_op = tf.py_func(update_op, [image_id,
+                                       groundtruth_boxes,
+                                       groundtruth_classes,
+                                       groundtruth_is_crowd,
+                                       num_gt_boxes_per_image,
+                                       detection_boxes,
+                                       detection_scores,
+                                       detection_classes,
+                                       num_det_boxes_per_image,
+                                       is_annotated], [])
     metric_names = ['DetectionBoxes_Precision/mAP',
                     'DetectionBoxes_Precision/mAP@.50IOU',
                     'DetectionBoxes_Precision/mAP@.75IOU',
@@ -594,7 +568,7 @@ class CocoMaskEvaluator(object_detection_evaluation.DetectionEvaluator):
         'annotations': self._groundtruth_list,
         'images': [{'id': image_id, 'height': shape[1], 'width': shape[2]}
                    for image_id, shape in self._image_id_to_mask_shape_map.
-                   items()],
+                   iteritems()],
         'categories': self._categories
     }
     coco_wrapped_groundtruth = coco_tools.COCOWrapper(
@@ -608,7 +582,7 @@ class CocoMaskEvaluator(object_detection_evaluation.DetectionEvaluator):
         include_metrics_per_category=self._include_metrics_per_category)
     mask_metrics.update(mask_per_category_ap)
     mask_metrics = {'DetectionMasks_'+ key: value
-                    for key, value in mask_metrics.items()}
+                    for key, value in mask_metrics.iteritems()}
     return mask_metrics
 
   def get_estimator_eval_metric_ops(self, eval_dict):

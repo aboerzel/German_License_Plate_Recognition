@@ -51,11 +51,10 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-from tensorflow.contrib import slim as contrib_slim
 
 from nets import resnet_utils
 
-slim = contrib_slim
+slim = tf.contrib.slim
 resnet_arg_scope = resnet_utils.resnet_arg_scope
 
 
@@ -84,7 +83,7 @@ def bottleneck(inputs, depth, depth_bottleneck, stride, rate=1,
   Returns:
     The ResNet unit's output.
   """
-  with tf.compat.v1.variable_scope(scope, 'bottleneck_v2', [inputs]) as sc:
+  with tf.variable_scope(scope, 'bottleneck_v2', [inputs]) as sc:
     depth_in = slim.utils.last_dimension(inputs.get_shape(), min_rank=4)
     preact = slim.batch_norm(inputs, activation_fn=tf.nn.relu, scope='preact')
     if depth == depth_in:
@@ -181,8 +180,7 @@ def resnet_v2(inputs,
   Raises:
     ValueError: If the target output_stride is not valid.
   """
-  with tf.compat.v1.variable_scope(
-      scope, 'resnet_v2', [inputs], reuse=reuse) as sc:
+  with tf.variable_scope(scope, 'resnet_v2', [inputs], reuse=reuse) as sc:
     end_points_collection = sc.original_name_scope + '_end_points'
     with slim.arg_scope([slim.conv2d, bottleneck,
                          resnet_utils.stack_blocks_dense],
@@ -212,8 +210,7 @@ def resnet_v2(inputs,
 
         if global_pool:
           # Global average pooling.
-          net = tf.reduce_mean(
-              input_tensor=net, axis=[1, 2], name='pool5', keepdims=True)
+          net = tf.reduce_mean(net, [1, 2], name='pool5', keep_dims=True)
           end_points['global_pool'] = net
         if num_classes:
           net = slim.conv2d(net, num_classes, [1, 1], activation_fn=None,

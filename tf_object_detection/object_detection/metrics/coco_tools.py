@@ -39,10 +39,6 @@ then evaluation (in multi-class mode) can be invoked as follows:
   metrics = evaluator.ComputeMetrics()
 
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 from collections import OrderedDict
 import copy
 import time
@@ -52,8 +48,6 @@ from pycocotools import coco
 from pycocotools import cocoeval
 from pycocotools import mask
 
-from six.moves import range
-from six.moves import zip
 import tensorflow as tf
 
 from object_detection.utils import json_utils

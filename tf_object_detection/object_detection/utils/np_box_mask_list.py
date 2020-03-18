@@ -15,10 +15,6 @@
 
 """Numpy BoxMaskList classes and functions."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import numpy as np
 from object_detection.utils import np_box_list
 
@@ -64,3 +60,4 @@ class BoxMaskList(np_box_list.BoxList):
       a numpy array of shape [N, height, width] representing masks
     """
     return self.get_field('masks')
+

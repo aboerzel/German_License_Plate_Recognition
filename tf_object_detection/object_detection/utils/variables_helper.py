@@ -15,17 +15,10 @@
 
 """Helper functions for manipulating collections of variables during training.
 """
-
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import logging
 import re
 
 import tensorflow as tf
-
-from tensorflow.python.ops import variables as tf_variables
 
 slim = tf.contrib.slim
 
@@ -49,7 +42,7 @@ def filter_variables(variables, filter_regex_list, invert=False):
     a list of filtered variables.
   """
   kept_vars = []
-  variables_to_ignore_patterns = list([fre for fre in filter_regex_list if fre])
+  variables_to_ignore_patterns = list(filter(None, filter_regex_list))
   for var in variables:
     add = True
     for pattern in variables_to_ignore_patterns:
@@ -125,13 +118,7 @@ def get_variables_available_in_checkpoint(variables,
     ValueError: if `variables` is not a list or dict.
   """
   if isinstance(variables, list):
-    variable_names_map = {}
-    for variable in variables:
-      if isinstance(variable, tf_variables.PartitionedVariable):
-        name = variable.name
-      else:
-        name = variable.op.name
-      variable_names_map[name] = variable
+    variable_names_map = {variable.op.name: variable for variable in variables}
   elif isinstance(variables, dict):
     variable_names_map = variables
   else:
@@ -156,24 +143,5 @@ def get_variables_available_in_checkpoint(variables,
       logging.warning('Variable [%s] is not available in checkpoint',
                       variable_name)
   if isinstance(variables, list):
-    return list(vars_in_ckpt.values())
+    return vars_in_ckpt.values()
   return vars_in_ckpt
-
-
-def get_global_variables_safely():
-  """If not executing eagerly, returns tf.global_variables().
-
-  Raises a ValueError if eager execution is enabled,
-  because the variables are not tracked when executing eagerly.
-
-  If executing eagerly, use a Keras model's .variables property instead.
-
-  Returns:
-    The result of tf.global_variables()
-  """
-  with tf.init_scope():
-    if tf.executing_eagerly():
-      raise ValueError("Global variables collection is not tracked when "
-                       "executing eagerly. Use a Keras model's `.variables` "
-                       "attribute instead.")
-  return tf.global_variables()

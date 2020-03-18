@@ -26,18 +26,11 @@ Users of a BoxCoder can call two methods:
 In both cases, the arguments are assumed to be in 1-1 correspondence already;
 it is not the job of a BoxCoder to perform matching.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 from abc import ABCMeta
 from abc import abstractmethod
 from abc import abstractproperty
 
-import six
 import tensorflow as tf
-
-from object_detection.utils import shape_utils
 
 
 # Box coder types.
@@ -47,8 +40,9 @@ MEAN_STDDEV = 'mean_stddev'
 SQUARE = 'square'
 
 
-class BoxCoder(six.with_metaclass(ABCMeta, object)):
+class BoxCoder(object):
   """Abstract base class for box coder."""
+  __metaclass__ = ABCMeta
 
   @abstractproperty
   def code_size(self):
@@ -143,12 +137,11 @@ def batch_decode(encoded_boxes, box_coder, anchors):
     inconsistent.
   """
   encoded_boxes.get_shape().assert_has_rank(3)
-  if (shape_utils.get_dim_as_int(encoded_boxes.get_shape()[1])
-      != anchors.num_boxes_static()):
+  if encoded_boxes.get_shape()[1].value != anchors.num_boxes_static():
     raise ValueError('The number of anchors inferred from encoded_boxes'
                      ' and anchors are inconsistent: shape[1] of encoded_boxes'
                      ' %s should be equal to the number of anchors: %s.' %
-                     (shape_utils.get_dim_as_int(encoded_boxes.get_shape()[1]),
+                     (encoded_boxes.get_shape()[1].value,
                       anchors.num_boxes_static()))
 
   decoded_boxes = tf.stack([

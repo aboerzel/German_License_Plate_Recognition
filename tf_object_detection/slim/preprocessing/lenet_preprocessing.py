@@ -19,16 +19,11 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-from tensorflow.contrib import slim as contrib_slim
 
-slim = contrib_slim
+slim = tf.contrib.slim
 
 
-def preprocess_image(image,
-                     output_height,
-                     output_width,
-                     is_training,
-                     use_grayscale=False):
+def preprocess_image(image, output_height, output_width, is_training):
   """Preprocesses the given image.
 
   Args:
@@ -37,15 +32,11 @@ def preprocess_image(image,
     output_width: The width of the image after preprocessing.
     is_training: `True` if we're preprocessing the image for training and
       `False` otherwise.
-    use_grayscale: Whether to convert the image from RGB to grayscale.
 
   Returns:
     A preprocessed image.
   """
-  del is_training  # Unused argument
   image = tf.to_float(image)
-  if use_grayscale:
-    image = tf.image.rgb_to_grayscale(image)
   image = tf.image.resize_image_with_crop_or_pad(
       image, output_width, output_height)
   image = tf.subtract(image, 128.0)

@@ -20,16 +20,14 @@ from __future__ import print_function
 
 import math
 import tensorflow as tf
-from tensorflow.contrib import quantize as contrib_quantize
-from tensorflow.contrib import slim as contrib_slim
 
 from datasets import dataset_factory
 from nets import mobilenet_v1
 from preprocessing import preprocessing_factory
 
-slim = contrib_slim
+slim = tf.contrib.slim
 
-flags = tf.compat.v1.app.flags
+flags = tf.app.flags
 
 flags.DEFINE_string('master', '', 'Session master')
 flags.DEFINE_integer('batch_size', 250, 'Batch size')
@@ -74,7 +72,7 @@ def imagenet_input(is_training):
 
   image = image_preprocessing_fn(image, FLAGS.image_size, FLAGS.image_size)
 
-  images, labels = tf.compat.v1.train.batch(
+  images, labels = tf.train.batch(
       tensors=[image, label],
       batch_size=FLAGS.batch_size,
       num_threads=4,
@@ -94,11 +92,8 @@ def metrics(logits, labels):
   """
   labels = tf.squeeze(labels)
   names_to_values, names_to_updates = slim.metrics.aggregate_metric_map({
-      'Accuracy':
-          tf.compat.v1.metrics.accuracy(
-              tf.argmax(input=logits, axis=1), labels),
-      'Recall_5':
-          tf.compat.v1.metrics.recall_at_k(labels, logits, 5),
+      'Accuracy': tf.metrics.accuracy(tf.argmax(logits, 1), labels),
+      'Recall_5': tf.metrics.recall_at_k(labels, logits, 5),
   })
   for name, value in names_to_values.iteritems():
     slim.summaries.add_scalar_summary(
@@ -129,7 +124,7 @@ def build_model():
           num_classes=FLAGS.num_classes)
 
     if FLAGS.quantize:
-      contrib_quantize.create_eval_graph()
+      tf.contrib.quantize.create_eval_graph()
 
     eval_ops = metrics(logits, labels)
 
@@ -154,4 +149,4 @@ def main(unused_arg):
 
 
 if __name__ == '__main__':
-  tf.compat.v1.app.run(main)
+  tf.app.run(main)

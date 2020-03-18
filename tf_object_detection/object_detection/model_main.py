@@ -25,9 +25,6 @@ import tensorflow as tf
 from object_detection import model_hparams
 from object_detection import model_lib
 
-# fix: training in juypter notebook freezes
-tf.logging.set_verbosity(tf.logging.INFO)
-
 flags.DEFINE_string(
     'model_dir', None, 'Path to output model directory '
     'where event and checkpoint files will be written.')
@@ -89,7 +86,7 @@ def main(unused_argv):
       input_fn = eval_input_fns[0]
     if FLAGS.run_once:
       estimator.evaluate(input_fn,
-                         steps=None,
+                         num_eval_steps=None,
                          checkpoint_path=tf.train.latest_checkpoint(
                              FLAGS.checkpoint_dir))
     else:

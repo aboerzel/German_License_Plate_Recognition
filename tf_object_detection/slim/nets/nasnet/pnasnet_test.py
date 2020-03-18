@@ -18,11 +18,10 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-from tensorflow.contrib import slim as contrib_slim
 
 from nets.nasnet import pnasnet
 
-slim = contrib_slim
+slim = tf.contrib.slim
 
 
 class PNASNetTest(tf.test.TestCase):
@@ -31,8 +30,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 331, 331
     num_classes = 1000
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_large_arg_scope()):
       logits, end_points = pnasnet.build_pnasnet_large(inputs, num_classes)
     auxlogits = end_points['AuxLogits']
@@ -48,8 +47,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 224, 224
     num_classes = 1000
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_mobile_arg_scope()):
       logits, end_points = pnasnet.build_pnasnet_mobile(inputs, num_classes)
     auxlogits = end_points['AuxLogits']
@@ -63,21 +62,21 @@ class PNASNetTest(tf.test.TestCase):
 
   def testBuildNonExistingLayerLargeModel(self):
     """Tests that the model is built correctly without unnecessary layers."""
-    inputs = tf.random.uniform((5, 331, 331, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((5, 331, 331, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_large_arg_scope()):
       pnasnet.build_pnasnet_large(inputs, 1000)
-    vars_names = [x.op.name for x in tf.compat.v1.trainable_variables()]
+    vars_names = [x.op.name for x in tf.trainable_variables()]
     self.assertIn('cell_stem_0/1x1/weights', vars_names)
     self.assertNotIn('cell_stem_1/comb_iter_0/right/1x1/weights', vars_names)
 
   def testBuildNonExistingLayerMobileModel(self):
     """Tests that the model is built correctly without unnecessary layers."""
-    inputs = tf.random.uniform((5, 224, 224, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((5, 224, 224, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_mobile_arg_scope()):
       pnasnet.build_pnasnet_mobile(inputs, 1000)
-    vars_names = [x.op.name for x in tf.compat.v1.trainable_variables()]
+    vars_names = [x.op.name for x in tf.trainable_variables()]
     self.assertIn('cell_stem_0/1x1/weights', vars_names)
     self.assertNotIn('cell_stem_1/comb_iter_0/right/1x1/weights', vars_names)
 
@@ -85,8 +84,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 331, 331
     num_classes = None
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_large_arg_scope()):
       net, end_points = pnasnet.build_pnasnet_large(inputs, num_classes)
     self.assertFalse('AuxLogits' in end_points)
@@ -98,8 +97,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 224, 224
     num_classes = None
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_mobile_arg_scope()):
       net, end_points = pnasnet.build_pnasnet_mobile(inputs, num_classes)
     self.assertFalse('AuxLogits' in end_points)
@@ -111,8 +110,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 331, 331
     num_classes = 1000
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_large_arg_scope()):
       _, end_points = pnasnet.build_pnasnet_large(inputs, num_classes)
 
@@ -138,7 +137,7 @@ class PNASNetTest(tf.test.TestCase):
     self.assertEqual(len(end_points), 17)
     self.assertItemsEqual(endpoints_shapes.keys(), end_points.keys())
     for endpoint_name in endpoints_shapes:
-      tf.compat.v1.logging.info('Endpoint name: {}'.format(endpoint_name))
+      tf.logging.info('Endpoint name: {}'.format(endpoint_name))
       expected_shape = endpoints_shapes[endpoint_name]
       self.assertIn(endpoint_name, end_points)
       self.assertListEqual(end_points[endpoint_name].get_shape().as_list(),
@@ -148,8 +147,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 224, 224
     num_classes = 1000
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     with slim.arg_scope(pnasnet.pnasnet_mobile_arg_scope()):
       _, end_points = pnasnet.build_pnasnet_mobile(inputs, num_classes)
 
@@ -173,7 +172,7 @@ class PNASNetTest(tf.test.TestCase):
     self.assertEqual(len(end_points), 14)
     self.assertItemsEqual(endpoints_shapes.keys(), end_points.keys())
     for endpoint_name in endpoints_shapes:
-      tf.compat.v1.logging.info('Endpoint name: {}'.format(endpoint_name))
+      tf.logging.info('Endpoint name: {}'.format(endpoint_name))
       expected_shape = endpoints_shapes[endpoint_name]
       self.assertIn(endpoint_name, end_points)
       self.assertListEqual(end_points[endpoint_name].get_shape().as_list(),
@@ -184,9 +183,9 @@ class PNASNetTest(tf.test.TestCase):
     height, width = 331, 331
     num_classes = 1000
     for use_aux_head in (True, False):
-      tf.compat.v1.reset_default_graph()
-      inputs = tf.random.uniform((batch_size, height, width, 3))
-      tf.compat.v1.train.create_global_step()
+      tf.reset_default_graph()
+      inputs = tf.random_uniform((batch_size, height, width, 3))
+      tf.train.create_global_step()
       config = pnasnet.large_imagenet_config()
       config.set_hparam('use_aux_head', int(use_aux_head))
       with slim.arg_scope(pnasnet.pnasnet_large_arg_scope()):
@@ -199,9 +198,9 @@ class PNASNetTest(tf.test.TestCase):
     height, width = 224, 224
     num_classes = 1000
     for use_aux_head in (True, False):
-      tf.compat.v1.reset_default_graph()
-      inputs = tf.random.uniform((batch_size, height, width, 3))
-      tf.compat.v1.train.create_global_step()
+      tf.reset_default_graph()
+      inputs = tf.random_uniform((batch_size, height, width, 3))
+      tf.train.create_global_step()
       config = pnasnet.mobile_imagenet_config()
       config.set_hparam('use_aux_head', int(use_aux_head))
       with slim.arg_scope(pnasnet.pnasnet_mobile_arg_scope()):
@@ -213,8 +212,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 331, 331
     num_classes = 1000
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     config = pnasnet.large_imagenet_config()
     config.set_hparam('data_format', 'NCHW')
     with slim.arg_scope(pnasnet.pnasnet_large_arg_scope()):
@@ -227,8 +226,8 @@ class PNASNetTest(tf.test.TestCase):
     batch_size = 5
     height, width = 224, 224
     num_classes = 1000
-    inputs = tf.random.uniform((batch_size, height, width, 3))
-    tf.compat.v1.train.create_global_step()
+    inputs = tf.random_uniform((batch_size, height, width, 3))
+    tf.train.create_global_step()
     config = pnasnet.mobile_imagenet_config()
     config.set_hparam('data_format', 'NCHW')
     with slim.arg_scope(pnasnet.pnasnet_mobile_arg_scope()):
@@ -242,14 +241,14 @@ class PNASNetTest(tf.test.TestCase):
     height, width = 224, 224
     num_classes = 1000
     for use_bounded_activation in (True, False):
-      tf.compat.v1.reset_default_graph()
-      inputs = tf.random.uniform((batch_size, height, width, 3))
+      tf.reset_default_graph()
+      inputs = tf.random_uniform((batch_size, height, width, 3))
       config = pnasnet.mobile_imagenet_config()
       config.set_hparam('use_bounded_activation', use_bounded_activation)
       with slim.arg_scope(pnasnet.pnasnet_mobile_arg_scope()):
         _, _ = pnasnet.build_pnasnet_mobile(
             inputs, num_classes, config=config)
-      for node in tf.compat.v1.get_default_graph().as_graph_def().node:
+      for node in tf.get_default_graph().as_graph_def().node:
         if node.op.startswith('Relu'):
           self.assertEqual(node.op == 'Relu6', use_bounded_activation)
 

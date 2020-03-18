@@ -17,24 +17,24 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-from tensorflow.contrib import slim as contrib_slim
+
+import tensorflow as tf
 
 from preprocessing import cifarnet_preprocessing
 from preprocessing import inception_preprocessing
 from preprocessing import lenet_preprocessing
 from preprocessing import vgg_preprocessing
 
-slim = contrib_slim
+slim = tf.contrib.slim
 
 
-def get_preprocessing(name, is_training=False, use_grayscale=False):
+def get_preprocessing(name, is_training=False):
   """Returns preprocessing_fn(image, height, width, **kwargs).
 
   Args:
     name: The name of the preprocessing function.
     is_training: `True` if the model is being used for training and `False`
       otherwise.
-    use_grayscale: Whether to convert the image from RGB to grayscale.
 
   Returns:
     preprocessing_fn: A function that preprocessing a single image (pre-batch).
@@ -56,12 +56,6 @@ def get_preprocessing(name, is_training=False, use_grayscale=False):
       'mobilenet_v1': inception_preprocessing,
       'mobilenet_v2': inception_preprocessing,
       'mobilenet_v2_035': inception_preprocessing,
-      'mobilenet_v3_small': inception_preprocessing,
-      'mobilenet_v3_large': inception_preprocessing,
-      'mobilenet_v3_small_minimalistic': inception_preprocessing,
-      'mobilenet_v3_large_minimalistic': inception_preprocessing,
-      'mobilenet_edgetpu': inception_preprocessing,
-      'mobilenet_edgetpu_075': inception_preprocessing,
       'mobilenet_v2_140': inception_preprocessing,
       'nasnet_mobile': inception_preprocessing,
       'nasnet_large': inception_preprocessing,
@@ -86,11 +80,6 @@ def get_preprocessing(name, is_training=False, use_grayscale=False):
 
   def preprocessing_fn(image, output_height, output_width, **kwargs):
     return preprocessing_fn_map[name].preprocess_image(
-        image,
-        output_height,
-        output_width,
-        is_training=is_training,
-        use_grayscale=use_grayscale,
-        **kwargs)
+        image, output_height, output_width, is_training=is_training, **kwargs)
 
   return preprocessing_fn
