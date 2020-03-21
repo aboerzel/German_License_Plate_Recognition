@@ -28,6 +28,7 @@ entrypoints=0.3=py37_0
 freetype=2.9.1=ha9979f8_1
 gast=0.2.2=py37_0
 google-pasta=0.1.8=py_0
+googledrivedownloader=0.4=pypi_0
 grpcio=1.16.1=py37h351948d_1
 h5py=2.9.0=py37h5e291fa_0
 hdf5=1.10.4=h7ebc959_0
