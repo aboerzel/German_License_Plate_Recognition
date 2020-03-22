@@ -93,6 +93,14 @@ constructor(context: Context) {
         return labels
     }
 
+    /**
+     * To detect a license plate in an image, follow these steps:
+     * 1. pre-process the input image
+     * 2. run inference with the model
+     *
+     * @param bitmap
+     * @return list containing the detections
+     */
     fun detect_plates(bitmap: Bitmap): List<Detection> {
         // 1. Pre-processing
         val inputByteBuffer = preprocess(bitmap)
@@ -143,9 +151,12 @@ constructor(context: Context) {
     }
 
     /**
-     * Preprocess the bitmap by converting it to ByteBuffer
+     * Preprocess the bitmap:
+     * 1. resize image to input size of the plate detection model
+     * 2. convert image to ByteBuffer
      *
      * @param bitmap
+     * @return preprocessed image as ByteBuffer
      */
     private fun preprocess(bitmap: Bitmap): ByteBuffer {
         val image = Mat()

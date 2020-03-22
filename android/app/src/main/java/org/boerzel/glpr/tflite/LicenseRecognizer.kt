@@ -115,9 +115,13 @@ constructor(context: Context) {
     }
 
     /**
-     * Preprocess the bitmap by converting it to ByteBuffer & grayscale
+     * Preprocess the bitmap:
+     * 1. resize image to input size of the plate detection model
+     * 2. convert image to grayscale
+     * 3. convert image to ByteBuffer
      *
      * @param bitmap
+     * @return preprocessed image as ByteBuffer
      */
     private fun preprocess(bitmap: Bitmap): ByteBuffer {
 
