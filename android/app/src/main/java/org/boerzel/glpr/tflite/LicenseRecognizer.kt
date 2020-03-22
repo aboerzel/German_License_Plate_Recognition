@@ -42,7 +42,7 @@ constructor(context: Context) {
 
         // Configure TFLite Interpreter options
         val options = Interpreter.Options()
-        options.setNumThreads(1)
+        options.setNumThreads(4)
 
         //val gpuDelegate = GpuDelegate()
         //options.addDelegate(gpuDelegate)
