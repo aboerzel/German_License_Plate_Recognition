@@ -86,13 +86,9 @@ constructor(context: Context) {
     @Throws(IOException::class)
     private fun loadLabels(assets: AssetManager): Vector<String> {
         val labels = Vector<String>()
-        val fileDescriptor = assets.openFd(LABELS_PATH)
-        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
+        val inputStream = assets.open(LABELS_PATH)
         val br = BufferedReader(InputStreamReader(inputStream))
-        var line: String
-        while (br.readLine().also { line = it } != null) {
-            labels.add(line)
-        }
+        br.useLines { lines -> lines.forEach { labels.add(it) }}
         br.close()
         return labels
     }
@@ -191,7 +187,7 @@ constructor(context: Context) {
         private const val MODEL_PATH = "glpd-model.tflite"
 
         // Name of the labels file (under /assets folder)
-        private const val LABELS_PATH = "tflite_graph.pbtxt"
+        private const val LABELS_PATH = "labelmap.txt"
 
         // Only return this many results.
         private const val NUM_DETECTIONS = 1

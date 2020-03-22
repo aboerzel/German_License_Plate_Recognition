@@ -112,18 +112,30 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
     override fun processImage() {
         rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight)
 
-        val plateBmp = cropROI(correctOrientation(rgbFrameBitmap), previewRoi)
-
-        trackingOverlay.postInvalidate()
+        //val plateBmp = cropROI(correctOrientation(rgbFrameBitmap), previewRoi)
+        //trackingOverlay.postInvalidate()
 
         runInBackground(
                 Runnable {
                     val startTime = SystemClock.uptimeMillis()
-                    val license = licenseRecognizer!!.recognize(plateBmp)
+
+                    val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
+                    LOGGER.v("Detected license plates: %d", detections.count())
+
+                    //if (detections.count() > 0 && detections[0].confidence!! >= 0.8) {
+                    if (detections.count() > 0) {
+                        LOGGER.v("Detected license plate: %s", detections[0].toString())
+                        val location = detections[0].getLocation()
+                        val plateBmp = cropLicensePlate(rgbFrameBitmap, location)
+                        val license = licenseRecognizer!!.recognize(plateBmp)
+                        LOGGER.v("Recognized license: %s", license)
+
+                        runOnUiThread { showResult(license) }
+                    }
+
                     val lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime
-                    LOGGER.v("Detected license: %s", license)
                     LOGGER.v("Processing time: %d ms", lastProcessingTimeMs)
-                    runOnUiThread { showResult(license) }
+
                     readyForNextImage()
                 })
     }
@@ -148,6 +160,10 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         val matrix = Matrix()
         matrix.setRotate(screenOrientationCorrectionAngle)
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, false)
+    }
+
+    private fun cropLicensePlate(bitmap: Bitmap, rect: RectF) : Bitmap {
+        return Bitmap.createBitmap(bitmap, rect.left.toInt(), rect.top.toInt(), rect.width().toInt(), rect.height().toInt())
     }
 
     private fun cropROI(bitmap: Bitmap, box: BoundingBox) : Bitmap {
