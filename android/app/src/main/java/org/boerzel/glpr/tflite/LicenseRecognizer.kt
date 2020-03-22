@@ -18,7 +18,6 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
-import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
@@ -133,7 +132,7 @@ constructor(context: Context) {
 
         val resized = Mat()
         val ratio1 = DIM_INPUT_WIDTH.toDouble() / cropped.width()
-        val newSize = Size(ceil(cropped.width() * ratio1), ceil(cropped.height() * ratio1))
+        val newSize = Size(DIM_INPUT_WIDTH.toDouble(), (cropped.height() * ratio1))
         Imgproc.resize(cropped, resized, newSize, 0.0, 0.0, Imgproc.INTER_AREA)
 
         val deltaH = DIM_INPUT_HEIGHT.toDouble() - resized.height()
@@ -145,8 +144,9 @@ constructor(context: Context) {
         val gray = Mat()
         Imgproc.cvtColor(resized, gray, Imgproc.COLOR_BGR2GRAY)
 
-        val resultBitmap = Bitmap.createBitmap(gray.rows(), gray.cols(), Bitmap.Config.ARGB_8888)
-        Utils.matToBitmap(gray.t(), resultBitmap)
+        // only for debugging...
+        //val resultBitmap = Bitmap.createBitmap(gray.rows(), gray.cols(), Bitmap.Config.ARGB_8888)
+        //Utils.matToBitmap(gray.t(), resultBitmap)
 
         return convertMatToTfLiteInput(gray.t())
     }

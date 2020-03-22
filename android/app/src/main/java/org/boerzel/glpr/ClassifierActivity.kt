@@ -91,7 +91,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         val roi = transformToTrackingOverlay(previewRoi)
         trackingOverlayRoi = RectF(roi.X.toFloat(), roi.Y.toFloat(), (roi.X + roi.WIDTH).toFloat(), (roi.Y + roi.HEIGHT).toFloat())
 
-        trackingOverlay.addCallback { canvas -> canvas.drawRoundRect(trackingOverlayRoi, cornerSize, cornerSize, roiPaint) }
+        //trackingOverlay.addCallback { canvas -> canvas.drawRoundRect(trackingOverlayRoi, cornerSize, cornerSize, roiPaint) }
     }
 
     private fun transformToTrackingOverlay(roi: BoundingBox) : BoundingBox {
@@ -122,8 +122,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                     val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
                     LOGGER.v("Detected license plates: %d", detections.count())
 
-                    //if (detections.count() > 0 && detections[0].confidence!! >= 0.8) {
-                    if (detections.count() > 0) {
+                    if (detections.count() > 0 && detections[0].confidence!! >= DETECTION_SCORE_THRESHOLD) {
                         LOGGER.v("Detected license plate: %s", detections[0].toString())
                         val location = detections[0].getLocation()
                         val plateBmp = cropLicensePlate(rgbFrameBitmap, location)
@@ -182,6 +181,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
 
     companion object {
         private val LOGGER = Logger()
+        private const val DETECTION_SCORE_THRESHOLD = 0.0f //0.8f
         private const val cornerSize = 20.0f
     }
 }
