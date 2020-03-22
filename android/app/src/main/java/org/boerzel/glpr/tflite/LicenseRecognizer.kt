@@ -128,29 +128,33 @@ constructor(context: Context) {
         val image = Mat()
         Utils.bitmapToMat(bitmap, image)
 
-        val ratio = DIM_INPUT_WIDTH / image.width().toFloat()
-        val height = (DIM_INPUT_HEIGHT / ratio).roundToInt()
-        var top = (image.height() - height) / 2
-        val roi = Rect(0, top, image.width(), height)
-        val cropped = Mat(image, roi)
+        var resized = Mat()
+        val ratio = DIM_INPUT_WIDTH.toDouble() / image.width()
+        val newSize = Size(DIM_INPUT_WIDTH.toDouble(), (image.height() * ratio))
+        Imgproc.resize(image, resized, newSize, 0.0, 0.0, Imgproc.INTER_AREA)
 
-        val resized = Mat()
-        val ratio1 = DIM_INPUT_WIDTH.toDouble() / cropped.width()
-        val newSize = Size(DIM_INPUT_WIDTH.toDouble(), (cropped.height() * ratio1))
-        Imgproc.resize(cropped, resized, newSize, 0.0, 0.0, Imgproc.INTER_AREA)
-
-        val deltaH = DIM_INPUT_HEIGHT.toDouble() - resized.height()
-        top = (deltaH / 2).toInt()
-        val bottom = DIM_INPUT_HEIGHT - resized.height() - top
-
-        copyMakeBorder(resized, resized, top, bottom, 0, 0, BORDER_CONSTANT)
+        if (resized.height() > DIM_INPUT_HEIGHT)
+        {
+            val deltaH = resized.height() - DIM_INPUT_HEIGHT.toDouble()
+            val top = (deltaH / 2).toInt()
+            val bottom = resized.height() - DIM_INPUT_HEIGHT - top
+            val roi = Rect(0, top, image.width(), bottom)
+            resized = Mat(resized, roi)
+        }
+        else
+        {
+            val deltaH = DIM_INPUT_HEIGHT.toDouble() - resized.height()
+            val top = (deltaH / 2).toInt()
+            val bottom = DIM_INPUT_HEIGHT - resized.height() - top
+            copyMakeBorder(resized, resized, top, bottom, 0, 0, BORDER_CONSTANT)
+        }
 
         val gray = Mat()
         Imgproc.cvtColor(resized, gray, Imgproc.COLOR_BGR2GRAY)
 
         // only for debugging...
-        //val resultBitmap = Bitmap.createBitmap(gray.rows(), gray.cols(), Bitmap.Config.ARGB_8888)
-        //Utils.matToBitmap(gray.t(), resultBitmap)
+        val resultBitmap = Bitmap.createBitmap(gray.rows(), gray.cols(), Bitmap.Config.ARGB_8888)
+        Utils.matToBitmap(gray.t(), resultBitmap)
 
         return convertMatToTfLiteInput(gray.t())
     }

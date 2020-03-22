@@ -123,10 +123,10 @@ constructor(context: Context) {
         val detections = ArrayList<Detection>(NUM_DETECTIONS)
         for (i in 0 until NUM_DETECTIONS) {
             val detection = RectF(
-                    outputLocations[0][i][1] * DIM_INPUT_WIDTH,
-                    outputLocations[0][i][0] * DIM_INPUT_HEIGHT,
-                    outputLocations[0][i][3] * DIM_INPUT_WIDTH,
-                    outputLocations[0][i][2] * DIM_INPUT_HEIGHT)
+                    outputLocations[0][i][1] * bitmap.width,
+                    outputLocations[0][i][0] * bitmap.height,
+                    outputLocations[0][i][3] * bitmap.width,
+                    outputLocations[0][i][2] * bitmap.height)
             // SSD Mobilenet V2 Model assumes class 0 is background class
             // in label file and class labels start from 1 to number_of_classes+1,
             // while outputClasses correspond to class index from 0 to number_of_classes
