@@ -19,14 +19,16 @@ import android.graphics.*
 import android.media.ImageReader
 import android.os.SystemClock
 import android.util.Size
+import android.util.TypedValue
 import android.view.Surface
 import android.view.View
 import org.boerzel.glpr.customview.OverlayView
+import org.boerzel.glpr.env.BorderedText
 import org.boerzel.glpr.env.Logger
+import org.boerzel.glpr.tflite.Detection
 import org.boerzel.glpr.tflite.LicenseRecognizer
 import org.boerzel.glpr.tflite.PlateDetector
 import java.io.IOException
-
 
 class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListener {
 
@@ -38,21 +40,27 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
 
     private var plateDetector: PlateDetector? = null
     private var licenseRecognizer: LicenseRecognizer? = null
-    private var detectedPlateLocation = RectF(0.0f, 0.0f, 0.0f, 0.0f)
+    private var detection: Detection? = null
+    private var license: String? = null
 
     private lateinit var rgbFrameBitmap: Bitmap
     private lateinit var trackingOverlay: OverlayView
 
-    private val roiPaint = Paint()
+    private val trackingBoxPaint = Paint()
+    private var trackingTitle: BorderedText? = null
+    private var titleTextSizePx: Float = 0.0f
 
     init {
-        roiPaint.color = Color.GREEN
-        roiPaint.alpha = 200
-        roiPaint.style = Paint.Style.STROKE
-        roiPaint.strokeWidth = 6.0f
+        trackingBoxPaint.color = Color.GREEN
+        trackingBoxPaint.alpha = 200
+        trackingBoxPaint.style = Paint.Style.STROKE
+        trackingBoxPaint.strokeWidth = 6.0f
     }
 
     public override fun onPreviewSizeChosen(size: Size, rotation: Int) {
+
+        titleTextSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20F, resources.displayMetrics);
+        trackingTitle = BorderedText(trackingBoxPaint.color, Color.WHITE, titleTextSizePx)
 
         if (plateDetector == null) {
             try {
@@ -80,10 +88,25 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888)
 
         trackingOverlay = findViewById<View>(R.id.tracking_overlay) as OverlayView
-        trackingOverlay.addCallback { canvas -> canvas.drawRoundRect(transformToTrackingOverlay(detectedPlateLocation), 0.0f, 0.0f, roiPaint) }
+        trackingOverlay.addCallback { canvas -> drawTrackingBox(canvas) }
     }
 
-    private fun transformToTrackingOverlay(roi: RectF) : RectF {
+    private fun drawTrackingBox(canvas: Canvas) {
+        if (detection == null)
+            return
+
+        val location = transformToTrackingOverlayLocation(detection!!.getLocation())
+        canvas.drawRoundRect(transformToTrackingOverlayLocation(location), 0.0f, 0.0f, trackingBoxPaint)
+
+        val title = if (detection!!.title.isNullOrEmpty())
+            String.format("%.2f", 100 * detection!!.confidence!!)
+        else
+            String.format("%s %.2f", detection!!.title, 100 * detection!!.confidence!!)
+
+        trackingTitle!!.drawText(canvas, location.left, location.top, "$license%")
+    }
+
+    private fun transformToTrackingOverlayLocation(roi: RectF) : RectF {
         //val scale = if (screenOrientationPortrait)
         //    trackingOverlay.width.toFloat() / previewHeight
         //else
@@ -102,17 +125,17 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                     val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
                     LOGGER.v("Detected license plates: %d", detections.count())
 
-                    var license = ""
                     if (detections.count() > 0 && detections[0].confidence!! >= DETECTION_SCORE_THRESHOLD) {
                         LOGGER.v("Detected license plate: %s", detections[0].toString())
-                        detectedPlateLocation = detections[0].getLocation()
-                        val detectedPlateBmp = cropLicensePlate(rgbFrameBitmap, detectedPlateLocation)
+                        detection = detections[0]
+                        val detectedPlateBmp = cropLicensePlate(rgbFrameBitmap, detection!!.getLocation())
                         license = licenseRecognizer!!.recognize(detectedPlateBmp)
                         LOGGER.v("Recognized license: %s", license)
                     }
                     else
                     {
-                        detectedPlateLocation = RectF(0.0f, 0.0f, 0.0f, 0.0f)
+                        detection = null
+                        license = null
                     }
 
                     val lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime
@@ -120,7 +143,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
 
                     trackingOverlay.postInvalidate()
 
-                    runOnUiThread { showResult(license) }
+                    runOnUiThread { showResult(license?:"") }
                     readyForNextImage()
                 })
     }
