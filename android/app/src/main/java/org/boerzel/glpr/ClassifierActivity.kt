@@ -24,6 +24,7 @@ import android.view.View
 import org.boerzel.glpr.customview.OverlayView
 import org.boerzel.glpr.env.Logger
 import org.boerzel.glpr.tflite.LicenseRecognizer
+import org.boerzel.glpr.tflite.PlateDetector
 import java.io.IOException
 import kotlin.math.roundToInt
 
@@ -36,6 +37,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
     override val desiredPreviewFrameSize: Size?
         get() = Size(640, 480)
 
+    private var plateDetector: PlateDetector? = null
     private var licenseRecognizer: LicenseRecognizer? = null
 
     private lateinit var rgbFrameBitmap: Bitmap
@@ -53,6 +55,16 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
     }
 
     public override fun onPreviewSizeChosen(size: Size, rotation: Int) {
+
+        if (plateDetector == null) {
+            try {
+                LOGGER.d("Creating plateDetector")
+                plateDetector = PlateDetector(this)
+            } catch (e: IOException) {
+                LOGGER.e(e, "Failed to create plateDetector.")
+                throw e
+            }
+        }
 
         if (licenseRecognizer == null) {
             try {
