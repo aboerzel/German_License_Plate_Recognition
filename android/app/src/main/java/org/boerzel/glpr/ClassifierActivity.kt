@@ -23,11 +23,11 @@ import android.util.TypedValue
 import android.view.Surface
 import android.view.View
 import org.boerzel.glpr.customview.OverlayView
-import org.boerzel.glpr.utils.BorderedText
-import org.boerzel.glpr.utils.Logger
 import org.boerzel.glpr.tflite.Detection
 import org.boerzel.glpr.tflite.LicenseRecognizer
 import org.boerzel.glpr.tflite.PlateDetector
+import org.boerzel.glpr.utils.BorderedText
+import org.boerzel.glpr.utils.Logger
 import java.io.IOException
 
 class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListener {
@@ -95,10 +95,15 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         if (detection == null)
             return
 
-        val location = transformToOverlayLocation(detection!!.getLocation())
-        canvas.drawRoundRect(location, 0.0f, 0.0f, trackingBoxPaint)
+        try {
+            val location = transformToOverlayLocation(detection!!.getLocation())
+            canvas.drawRoundRect(location, 0.0f, 0.0f, trackingBoxPaint)
 
-        trackingTitle!!.drawTextBox(canvas, location.left, location.top, "$license")
+            trackingTitle!!.drawTextBox(canvas, location.left, location.top, "$license")
+        }
+        catch (e: Exception) {
+            print(e.message)
+        }
     }
 
     private fun transformToOverlayLocation(rect: RectF) : RectF {
@@ -117,32 +122,56 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
 
         runInBackground(
                 Runnable {
-                    val startTime = SystemClock.uptimeMillis()
+                    try {
+                        val startTime = SystemClock.uptimeMillis()
 
-                    val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
-                    LOGGER.v("Detected license plates: %d", detections.count())
+                        val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
+                        LOGGER.v("Detected license plates: %d", detections.count())
 
-                    if (detections.count() > 0 && detections[0].confidence!! >= DETECTION_SCORE_THRESHOLD) {
-                        LOGGER.v("Detected license plate: %s", detections[0].toString())
-                        detection = detections[0]
+                        if (detections.count() > 0 && detections[0].confidence!! >= DETECTION_SCORE_THRESHOLD && isValidRect(detections[0].getLocation())) {
+                            LOGGER.v("Detected license plate: %s", detections[0].toString())
+                            detection = detections[0]
 
-                        val detectedPlateBmp = cropLicensePlate(rgbFrameBitmap, detection!!.getLocation())
-                        license = licenseRecognizer!!.recognize(detectedPlateBmp)
-                        LOGGER.v("Recognized license: %s", license)
+                            val detectedPlateBmp = cropLicensePlate(rgbFrameBitmap, detection!!.getLocation())
+                            license = licenseRecognizer!!.recognize(detectedPlateBmp)
+                            LOGGER.v("Recognized license: %s", license)
+                        }
+                        else
+                        {
+                            detection = null
+                            license = null
+                        }
+
+                        val lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime
+                        LOGGER.v("Processing time: %d ms", lastProcessingTimeMs)
                     }
-                    else
-                    {
+                    catch (e: Exception) {
+                        print(e.message)
                         detection = null
                         license = null
                     }
-
-                    val lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime
-                    LOGGER.v("Processing time: %d ms", lastProcessingTimeMs)
 
                     trackingOverlay.postInvalidate()
 
                     readyForNextImage()
                 })
+    }
+
+    private fun isValidRect(rect: RectF) : Boolean {
+        if (rect.left < 0)
+            return false
+        if (rect.top < 0)
+            return false
+        if (rect.right < 0)
+            return false
+        if (rect.bottom < 0)
+            return false
+        if (rect.right < rect.left)
+            return false
+        if (rect.bottom < rect.top)
+            return false
+
+        return true
     }
 
     private val screenOrientationPortrait: Boolean

@@ -87,7 +87,7 @@ constructor(context: Context) {
     /**
      * To classify an image, follow these steps:
      * 1. pre-process the input image
-     * 2. run inference with the model
+     * 2. run inference with the license recognition model
      * 3. post-process the output result for displaying in UI
      *
      * @param bitmap
@@ -115,7 +115,7 @@ constructor(context: Context) {
 
     /**
      * Preprocess the bitmap:
-     * 1. resize image to input size of the plate detection model
+     * 1. resize image to the input size of the plate detection model
      * 2. convert image to grayscale
      * 3. convert image to ByteBuffer
      *
@@ -127,6 +127,7 @@ constructor(context: Context) {
         val image = Mat()
         Utils.bitmapToMat(bitmap, image)
 
+        // resize image to the desired width, while keeping the aspect ratio
         var resized = Mat()
         val ratio = DIM_INPUT_WIDTH.toDouble() / image.width()
         val newSize = Size(DIM_INPUT_WIDTH.toDouble(), (image.height() * ratio))
@@ -134,26 +135,29 @@ constructor(context: Context) {
 
         if (resized.height() > DIM_INPUT_HEIGHT)
         {
+            // cut an edge at the top and bottom to obtain the desired height
             val deltaH = resized.height() - DIM_INPUT_HEIGHT.toDouble()
             val top = (deltaH / 2).toInt()
-            val bottom = resized.height() - DIM_INPUT_HEIGHT - top
-            val roi = Rect(0, top, image.width(), bottom)
+            val roi = Rect(0, top, resized.width(), DIM_INPUT_HEIGHT)
             resized = Mat(resized, roi)
         }
         else
         {
+            // create a border at the top and bottom to get the desired height
             val deltaH = DIM_INPUT_HEIGHT.toDouble() - resized.height()
             val top = (deltaH / 2).toInt()
             val bottom = DIM_INPUT_HEIGHT - resized.height() - top
             copyMakeBorder(resized, resized, top, bottom, 0, 0, BORDER_CONSTANT)
         }
 
+        // now the resized image has the expected input size of out license recognition model
+        // convert the image to grayscale
         val gray = Mat()
         Imgproc.cvtColor(resized, gray, Imgproc.COLOR_BGR2GRAY)
 
         // only for debugging...
-        val resultBitmap = Bitmap.createBitmap(gray.rows(), gray.cols(), Bitmap.Config.ARGB_8888)
-        Utils.matToBitmap(gray.t(), resultBitmap)
+        //val resultBitmap = Bitmap.createBitmap(gray.rows(), gray.cols(), Bitmap.Config.ARGB_8888)
+        //Utils.matToBitmap(gray.t(), resultBitmap)
 
         return convertMatToTfLiteInput(gray.t())
     }
@@ -173,9 +177,10 @@ constructor(context: Context) {
     }
 
     /**
-     * Find decode license from output
+     * Decode license text from output
      *
-     * @return license
+     * @outputArray output of the license detection model
+     * @return license text
      */
     private fun postprocess(outputArray: TensorBuffer): String {
         val shape = outputArray.shape

@@ -96,7 +96,7 @@ constructor(context: Context) {
     /**
      * To detect a license plate in an image, follow these steps:
      * 1. pre-process the input image
-     * 2. run inference with the model
+     * 2. run inference with the license plate detection model
      *
      * @param bitmap
      * @return list containing the detections
