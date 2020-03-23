@@ -44,8 +44,9 @@ pip install git+https://github.com/philferriere/cocoapi.git#egg=pycocotools^&sub
 ```
 
 #### Setup Tensorflow 2.0
-Change back to the project root folder and create a Tensorflow 2.0 environment `tf2.0`
+Deactivate the current environment, change back to the project root folder and create a Tensorflow 2.0 environment `tf2.0`
 ```
+deactivate
 cd ..
 conda env create -f tf2.0.yml
 ```
