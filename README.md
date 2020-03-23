@@ -49,6 +49,10 @@ Change back to the project root folder and create a Tensorflow 2.0 environment `
 cd ..
 conda env create -f tf2.0.yml
 ```
+
+#### Install Android Studio
+Download and install [Android Studio](https://developer.android.com/studio)
+
 ## Documentation
 
 Here you can find the to the project proposal and the write-up of the final project:
@@ -66,3 +70,6 @@ To train the license recognition model activate the `tf2.0` environment and run 
 The following notebook demonstrates the complete workflow by first extracting the license plate from the camera image using the Plate Detector and then determining the license text using the License Recognizer: 
 - [License Detection And Recognition Workflow](5_License_Recognition_Workflow.ipynb)
 
+## Android App
+The Android App (APK file) can be downloaded from [here](https://drive.google.com/file/d/1gJZhZE3F3gq35Wn_J9AUCSiN4sP9pIqh/view?usp=sharing).
+ 
