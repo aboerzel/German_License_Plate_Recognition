@@ -208,7 +208,7 @@ constructor(context: Context) {
         private const val IMAGE_STD = 128.0f
 
         // Number of threads in the java app
-        private const val NUM_THREADS = 4
+        private const val NUM_THREADS = 1
 
         // Input size
         private const val DIM_BATCH_SIZE = 1      // batch size

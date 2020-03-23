@@ -18,7 +18,6 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
-import kotlin.math.roundToInt
 
 
 /**
@@ -41,7 +40,7 @@ constructor(context: Context) {
 
         // Configure TFLite Interpreter options
         val options = Interpreter.Options()
-        options.setNumThreads(4)
+        options.setNumThreads(NUM_THREADS)
 
         //val gpuDelegate = GpuDelegate()
         //options.addDelegate(gpuDelegate)
@@ -223,6 +222,9 @@ constructor(context: Context) {
 
         // Name of the model file (under /assets folder)
         private const val MODEL_PATH = "glpr-model.tflite"
+
+        // Number of threads in the java app
+        private const val NUM_THREADS = 1
 
         // Input size
         private const val DIM_BATCH_SIZE = 1      // batch size

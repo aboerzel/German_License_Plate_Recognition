@@ -145,23 +145,6 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                 })
     }
 
-    private fun locationIsValid(location: RectF) : Boolean {
-        if (location.left < 0)
-            return false
-        if (location.top < 0)
-            return false
-        if (location.right < 0)
-            return false
-        if (location.bottom < 0)
-            return false
-        if (location.bottom < location.top)
-            return false
-        if (location.right < location.left)
-            return false
-
-        return true
-    }
-
     private val screenOrientationPortrait: Boolean
         get() = when (screenOrientation) {
             Surface.ROTATION_180 -> true
