@@ -162,6 +162,12 @@ constructor(context: Context) {
         return convertMatToTfLiteInput(gray.t())
     }
 
+    /**
+     * Convert image into byte buffer
+     *
+     * @image image
+     * @result image as ByteBuffer
+     * */
     private fun convertMatToTfLiteInput(image: Mat): ByteBuffer {
         val imgData = ByteBuffer.allocateDirect(DIM_BATCH_SIZE * DIM_INPUT_WIDTH * DIM_INPUT_HEIGHT * DIM_INPUT_DEPTH * FLOAT_TYPE_SIZE)
         imgData.order(ByteOrder.nativeOrder())
@@ -229,7 +235,7 @@ constructor(context: Context) {
         private const val MODEL_PATH = "glpr-model.tflite"
 
         // Number of threads in the java app
-        private const val NUM_THREADS = 1
+        private const val NUM_THREADS = 4
 
         // Input size
         private const val DIM_BATCH_SIZE = 1      // batch size

@@ -83,6 +83,7 @@ constructor(context: Context) {
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
+    /** Load labels from label map file */
     @Throws(IOException::class)
     private fun loadLabels(assets: AssetManager): Vector<String> {
         val labels = Vector<String>()
@@ -99,7 +100,7 @@ constructor(context: Context) {
      * 2. run inference with the license plate detection model
      *
      * @param bitmap
-     * @return list containing the detections
+     * @return list containing the detections (bounding box, class, score)
      */
     fun detect_plates(bitmap: Bitmap): List<Detection> {
         // 1. Pre-processing
@@ -169,6 +170,12 @@ constructor(context: Context) {
         return convertMatToTfLiteInput(resized)
     }
 
+    /**
+     * Convert plate image into byte buffer
+     *
+     * @image image
+     * @result image as ByteBuffer
+     * */
     private fun convertMatToTfLiteInput(image: Mat): ByteBuffer {
         val imgData = ByteBuffer.allocateDirect(DIM_BATCH_SIZE * DIM_INPUT_WIDTH * DIM_INPUT_HEIGHT * DIM_INPUT_DEPTH * FLOAT_TYPE_SIZE)
         imgData.order(ByteOrder.nativeOrder())
@@ -208,7 +215,7 @@ constructor(context: Context) {
         private const val IMAGE_STD = 128.0f
 
         // Number of threads in the java app
-        private const val NUM_THREADS = 1
+        private const val NUM_THREADS = 4
 
         // Input size
         private const val DIM_BATCH_SIZE = 1      // batch size
