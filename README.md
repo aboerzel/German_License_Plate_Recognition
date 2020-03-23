@@ -2,9 +2,10 @@
 
 ## Project Introduction
 
-The goal of this project is to create a small Android app that allows to recognize the license plate of a car quickly and easily with the camera of a smartphone or tablet and translate the license into plain text. The app should mark the recognized license plate within the camera image with a bounding box and display the determined license in plain text as annotation above or below the bounding box, as outlined in the following screen mockup:
+This project is to create a small Android app that allows to recognize the license plate of a car quickly and easily with the camera of a smartphone or tablet and translate the license into plain text. 
+The app marks the recognized license plate within the camera image with a bounding box and displays the determined license in plain text as annotation above or below the bounding box, as can be seen in the following example:
 
-![](proposal/App-Mockup.png)
+![](documentation/demo_video.gif)
 
 See [proposal](proposal/proposal.md)...
 
