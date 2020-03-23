@@ -26,14 +26,12 @@ import android.media.ImageReader
 import android.os.*
 import android.util.Size
 import android.view.WindowManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import org.boerzel.glpr.env.ImageUtils
-import org.boerzel.glpr.env.Logger
+import org.boerzel.glpr.utils.ImageUtils
+import org.boerzel.glpr.utils.Logger
 import java.util.*
 
 abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailableListener {
@@ -49,8 +47,6 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
     private var yRowStride = 0
     private var postInferenceCallback: Runnable? = null
     private var imageConverter: Runnable? = null
-
-    private lateinit var recognitionTextView: TextView
 
     init {
         System.loadLibrary("opencv_java4")
@@ -70,7 +66,6 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
         } else {
             requestPermission()
         }
-        recognitionTextView = findViewById(R.id.detected_item)
     }
 
     protected fun getRgbBytes(): IntArray? {
@@ -252,11 +247,6 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
 
     val screenOrientation: Int
         get() = windowManager.defaultDisplay.rotation
-
-    @UiThread
-    protected fun showResult(result: String) {
-        recognitionTextView.text = result
-    }
 
     protected abstract fun processImage()
     protected abstract fun onPreviewSizeChosen(size: Size, rotation: Int)

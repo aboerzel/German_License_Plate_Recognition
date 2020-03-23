@@ -23,8 +23,8 @@ import android.util.TypedValue
 import android.view.Surface
 import android.view.View
 import org.boerzel.glpr.customview.OverlayView
-import org.boerzel.glpr.env.BorderedText
-import org.boerzel.glpr.env.Logger
+import org.boerzel.glpr.utils.BorderedText
+import org.boerzel.glpr.utils.Logger
 import org.boerzel.glpr.tflite.Detection
 import org.boerzel.glpr.tflite.LicenseRecognizer
 import org.boerzel.glpr.tflite.PlateDetector
@@ -59,8 +59,8 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
 
     public override fun onPreviewSizeChosen(size: Size, rotation: Int) {
 
-        titleTextSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20F, resources.displayMetrics);
-        trackingTitle = BorderedText(trackingBoxPaint.color, Color.WHITE, titleTextSizePx)
+        titleTextSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 36F, resources.displayMetrics);
+        trackingTitle = BorderedText(trackingBoxPaint.color, Color.BLACK, titleTextSizePx)
 
         if (plateDetector == null) {
             try {
@@ -95,24 +95,21 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         if (detection == null)
             return
 
-        val location = transformToTrackingOverlayLocation(detection!!.getLocation())
-        canvas.drawRoundRect(transformToTrackingOverlayLocation(location), 0.0f, 0.0f, trackingBoxPaint)
+        val location = transformToOverlayLocation(detection!!.getLocation())
+        canvas.drawRoundRect(location, 0.0f, 0.0f, trackingBoxPaint)
 
-        val title = if (detection!!.title.isNullOrEmpty())
-            String.format("%.2f", 100 * detection!!.confidence!!)
-        else
-            String.format("%s %.2f", detection!!.title, 100 * detection!!.confidence!!)
-
-        trackingTitle!!.drawText(canvas, location.left, location.top, "$license%")
+        trackingTitle!!.drawTextBox(canvas, location.left, location.top, "$license")
     }
 
-    private fun transformToTrackingOverlayLocation(roi: RectF) : RectF {
+    private fun transformToOverlayLocation(rect: RectF) : RectF {
         //val scale = if (screenOrientationPortrait)
         //    trackingOverlay.width.toFloat() / previewHeight
         //else
+        //    trackingOverlay.width.toFloat() / previewWidth
+
         val scaleX = trackingOverlay.width.toFloat() / previewWidth
-        val scaleY = trackingOverlay.height.toFloat() / previewHeight
-        return RectF(roi.left * scaleX, roi.top * scaleY, roi.right * scaleX, roi.bottom * scaleY)
+        val scaleY = (trackingOverlay.height.toFloat() / previewHeight)
+        return RectF(rect.left * scaleX, rect.top, rect.right * scaleX, rect.bottom * scaleY)
     }
 
     override fun processImage() {
@@ -128,6 +125,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                     if (detections.count() > 0 && detections[0].confidence!! >= DETECTION_SCORE_THRESHOLD) {
                         LOGGER.v("Detected license plate: %s", detections[0].toString())
                         detection = detections[0]
+
                         val detectedPlateBmp = cropLicensePlate(rgbFrameBitmap, detection!!.getLocation())
                         license = licenseRecognizer!!.recognize(detectedPlateBmp)
                         LOGGER.v("Recognized license: %s", license)
@@ -143,9 +141,25 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
 
                     trackingOverlay.postInvalidate()
 
-                    runOnUiThread { showResult(license?:"") }
                     readyForNextImage()
                 })
+    }
+
+    private fun locationIsValid(location: RectF) : Boolean {
+        if (location.left < 0)
+            return false
+        if (location.top < 0)
+            return false
+        if (location.right < 0)
+            return false
+        if (location.bottom < 0)
+            return false
+        if (location.bottom < location.top)
+            return false
+        if (location.right < location.left)
+            return false
+
+        return true
     }
 
     private val screenOrientationPortrait: Boolean

@@ -53,7 +53,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import org.boerzel.glpr.customview.AutoFitTextureView;
-import org.boerzel.glpr.env.Logger;
+import org.boerzel.glpr.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
