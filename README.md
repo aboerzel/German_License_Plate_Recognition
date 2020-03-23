@@ -64,5 +64,5 @@ To train the license recognition model activate the `tf2.0` environment and run 
 - [License Recognition Model Training and Evaluation](4_License_Recognition_Model_Training_And_Evaluation.ipynb)
 
 The following notebook demonstrates the complete workflow by first extracting the license plate from the camera image using the Plate Detector and then determining the license text using the License Recognizer: 
-- [License Detection And Recognition Workflow](5_License_Recogniproposialtion_Workflow.ipynb)
+- [License Detection And Recognition Workflow](5_License_Recognition_Workflow.ipynb)
 
