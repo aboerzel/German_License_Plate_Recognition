@@ -4,7 +4,7 @@
 ### Topic : Android App for German License Plate Recognition
 
 This project is to create a small Android app that allows to recognize the license plate of a car quickly and easily with the camera of a smartphone or tablet and translate the license into plain text. 
-The app marks the recognized license plate within the camera image with a bounding box and displays the determined license in plain text as annotation above or below the bounding box, as can be seen in the following example:
+The app marks the recognized license plate within the camera image with a bounding box and displays the determined license in plain text as annotation above the bounding box, as can be seen in the following example:
 
 ![](documentation/demo_video.gif)
 
@@ -12,7 +12,7 @@ The app marks the recognized license plate within the camera image with a boundi
 **For training the models of this project it is strongly recommended to use a computer with GPU support!**
 
 ## Setup Instructions
-First create an change to a project directory and clone the project using the following command:
+First create and change to a project directory and clone the project using the following command:
 ```
 https://github.com/aboerzel/German_License_Plate_Recognition.git
 ```
@@ -56,7 +56,7 @@ Download and install [Android Studio](https://developer.android.com/studio)
 
 ## Documentation
 
-Here you can find the to the project proposal and the write-up of the final project:
+Here you can find the project proposal and the write-up of the final project:
 - The [project proposal](proposal/proposal.pdf) 
 - The final [project report](documentation/report.pdf)
 
