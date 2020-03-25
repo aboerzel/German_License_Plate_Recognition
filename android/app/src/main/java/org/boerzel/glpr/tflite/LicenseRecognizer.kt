@@ -3,6 +3,7 @@ package org.boerzel.glpr.tflite
 import android.content.Context
 import android.content.res.AssetManager
 import android.graphics.Bitmap
+import org.boerzel.glpr.utils.Logger
 import org.opencv.android.Utils
 import org.opencv.core.Core.BORDER_CONSTANT
 import org.opencv.core.Core.copyMakeBorder
@@ -26,7 +27,7 @@ import java.nio.channels.FileChannel
 class LicenseRecognizer @Throws(IOException::class)
 constructor(context: Context) {
 
-    // TensorFlow Lite interpreter for running inference with the tflite model
+    // TensorFlow Lite interpreter for running inference with the TFLite model
     private lateinit var interpreter: Interpreter
 
     private var outputProbabilityBuffer: TensorBuffer
@@ -54,7 +55,7 @@ constructor(context: Context) {
         }
         catch (e: Exception)
         {
-            print(e.message)
+            LOGGER.e("Creating interpreter failed: %s", e.message)
         }
 
         // Reads type and shape of input and output tensors, respectively.
@@ -105,6 +106,7 @@ constructor(context: Context) {
         return postprocess(outputProbabilityBuffer)
     }
 
+    /** Closes the interpreter */
     fun close() {
         interpreter.close()
     }
@@ -129,6 +131,7 @@ constructor(context: Context) {
         val newSize = Size(DIM_INPUT_WIDTH.toDouble(), (image.height() * ratio))
         Imgproc.resize(image, resized, newSize, 0.0, 0.0, Imgproc.INTER_AREA)
 
+        // resize image to the desired height, keeping the desired width and the aspect ratio
         if (resized.height() > DIM_INPUT_HEIGHT)
         {
             // cut an edge at the top and bottom to obtain the desired height
@@ -155,6 +158,7 @@ constructor(context: Context) {
         //val resultBitmap = Bitmap.createBitmap(gray.rows(), gray.cols(), Bitmap.Config.ARGB_8888)
         //Utils.matToBitmap(gray.t(), resultBitmap)
 
+        // return the resized image as ByteBuffer
         return convertMatToTfLiteInput(gray.t())
     }
 
@@ -243,5 +247,7 @@ constructor(context: Context) {
         /* Output*/
         private const val TEXT_LENGTH = 32
         private const val ALPHABET_LENGTH = 42
+
+        private val LOGGER = Logger()
     }
 }

@@ -2,19 +2,22 @@ package org.boerzel.glpr.tflite
 
 import android.graphics.RectF
 
-/** An immutable result returned by a Classifier describing what was recognized.  */
+/** An license detection result.  */
 class Detection(
         /**
-         * A unique identifier for what has been recognized. Specific to the class, not the instance of
-         * the object.
+         * A unique identifier for what has been recognized.
+         * Specific to the instance, not the class of the object.
          */
         private val id: String,
+
         /** Display name for the recognition.  */
         private var title: String,
+
         /**
          * A sortable score for how good the recognition is relative to others. Higher should be better.
          */
         val confidence: Float,
+
         /** Optional location within the source image for the location of the recognized object.  */
         private var location: RectF) {
 

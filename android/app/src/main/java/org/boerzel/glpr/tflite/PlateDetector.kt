@@ -18,6 +18,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.RectF
+import org.boerzel.glpr.utils.Logger
 import org.opencv.android.Utils
 import org.opencv.core.Mat
 import org.opencv.core.Size
@@ -39,7 +40,7 @@ import java.util.*
  */
 class PlateDetector @Throws(IOException::class)
 constructor(context: Context) {
-    // TensorFlow Lite interpreter for running inference with the tflite model
+    // TensorFlow Lite interpreter for running inference with the TFLite model
     private lateinit var interpreter: Interpreter
     private var labels: Vector<String>
     private var isModelQuantized = false
@@ -68,7 +69,7 @@ constructor(context: Context) {
         }
         catch (e: Exception)
         {
-            print(e.message)
+            LOGGER.e("Creating interpreter failed: %s", e.message)
         }
     }
 
@@ -143,10 +144,16 @@ constructor(context: Context) {
         return detections
     }
 
+    /** Closes the interpreter */
     fun close() {
         interpreter.close()
     }
 
+    /**
+     * Set the number of threads to be used
+     *
+     *@num_threads Number of threads to be used
+     * */
     fun setNumThreads(num_threads: Int) {
         interpreter.setNumThreads(num_threads)
     }
@@ -167,6 +174,7 @@ constructor(context: Context) {
         val newSize = Size(DIM_INPUT_WIDTH.toDouble(), DIM_INPUT_HEIGHT.toDouble())
         Imgproc.resize(image, resized, newSize, 0.0, 0.0, Imgproc.INTER_AREA)
 
+        // return the resized image as ByteBuffer
         return convertMatToTfLiteInput(resized)
     }
 
@@ -223,5 +231,7 @@ constructor(context: Context) {
         private const val DIM_INPUT_HEIGHT = 300   // input image height
         private const val DIM_INPUT_DEPTH = 3     // 1 for gray scale & 3 for color images
         private const val FLOAT_TYPE_SIZE = 4
+
+        private val LOGGER = Logger()
     }
 }

@@ -30,6 +30,9 @@ import org.boerzel.glpr.utils.BorderedText
 import org.boerzel.glpr.utils.Logger
 import java.io.IOException
 
+/**
+ *
+ * */
 class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListener {
 
     override val layoutId: Int
@@ -56,6 +59,12 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         trackingBoxPaint.strokeWidth = 6.0f
     }
 
+    /**
+     * Is called when the size of the preview changes, e.g. during initialization and when changing the device orientation
+     *
+     * @size Current preview size
+     * @rotation Current device rotation
+     * */
     public override fun onPreviewSizeChosen(size: Size, rotation: Int) {
 
         titleTextSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 36F, resources.displayMetrics);
@@ -66,7 +75,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                 LOGGER.d("Creating plateDetector")
                 plateDetector = PlateDetector(this)
             } catch (e: IOException) {
-                LOGGER.e(e, "Failed to create plateDetector.")
+                LOGGER.e(e, "Failed to create plateDetector: %s", e.message)
                 throw e
             }
         }
@@ -76,7 +85,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                 LOGGER.d("Creating licenseRecognizer")
                 licenseRecognizer = LicenseRecognizer(this)
             } catch (e: IOException) {
-                LOGGER.e(e, "Failed to create licenseRecognizer.")
+                LOGGER.e(e, "Failed to create licenseRecognizer: %s", e.message)
                 throw e
             }
         }
@@ -90,6 +99,11 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         trackingOverlay.addCallback { canvas -> drawDetection(canvas) }
     }
 
+    /**
+     * Draw detection (license text and bounding box of the license plate)
+     *
+     * @canvas Canvas on which to draw
+     * */
     private fun drawDetection(canvas: Canvas) {
         if (lastDetection == null)
             return
@@ -106,12 +120,21 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         }
     }
 
+    /**
+     * Transforms the detected rectangle from preview coordinates to overlay coordinates
+     *
+     * @rect rectangle in preview coordinates to be transformed
+     * @return transformed rectange in overlay coordinates
+     * */
     private fun transformToOverlayLocation(rect: RectF) : RectF {
         val scaleX = if (screenOrientationPortrait) (trackingOverlay.width.toFloat() / previewHeight) else (trackingOverlay.width.toFloat() / previewWidth)
         val scaleY = if (screenOrientationPortrait) (trackingOverlay.height.toFloat() / previewWidth) else (trackingOverlay.height.toFloat() / previewHeight)
         return RectF(rect.left * scaleX, rect.top, rect.right * scaleX, rect.bottom * scaleY)
     }
 
+    /**
+     * Performs the license plate detection and license number recognition on the current camera image
+     * */
     override fun processImage() {
         rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight)
 
@@ -152,6 +175,12 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                 })
     }
 
+    /**
+     * Checks if it is a valid rectangle
+     *
+     * @rect Rectangle to be checked
+     * @return true, if the rectangle is valid, otherwise false
+     * */
     private fun isValidRect(rect: RectF) : Boolean {
         if (rect.left < 0)
             return false
@@ -169,6 +198,9 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         return true
     }
 
+    /**
+     * Returns the current device orientation
+     */
     private val screenOrientationPortrait: Boolean
         get() = when (screenOrientation) {
             Surface.ROTATION_180 -> true
@@ -176,6 +208,9 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
             else -> false
         }
 
+    /**
+     * Returns the current correction angle with respect to the device orientation
+     * */
     private val screenOrientationCorrectionAngle: Float
         get() = when (screenOrientation) {
             Surface.ROTATION_270 -> 180.0f
@@ -185,12 +220,25 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
             else -> 0.0f
         }
 
+    /**
+     * Rotates the current image by the correction angle to correct the device orientation
+     *
+     * @bitmap Bitmap to be corrected
+     * @return corrected bitmap
+     * */
     private fun correctOrientation(bitmap: Bitmap): Bitmap {
         val matrix = Matrix()
         matrix.setRotate(screenOrientationCorrectionAngle)
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, false)
     }
 
+    /**
+     * Crops a section of the image
+     *
+     * @image Original image
+     * @rect rectangle to be cropped
+     * @return Cropped image
+     * */
     private fun cropLicensePlate(bitmap: Bitmap, rect: RectF) : Bitmap {
         return Bitmap.createBitmap(bitmap, rect.left.toInt(), rect.top.toInt(), rect.width().toInt(), rect.height().toInt())
     }
