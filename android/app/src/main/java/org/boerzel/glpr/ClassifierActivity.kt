@@ -40,8 +40,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
 
     private var plateDetector: PlateDetector? = null
     private var licenseRecognizer: LicenseRecognizer? = null
-    private var detection: Detection? = null
-    private var license: String? = null
+    private var lastDetection: Detection? = null
 
     private lateinit var rgbFrameBitmap: Bitmap
     private lateinit var trackingOverlay: OverlayView
@@ -88,69 +87,65 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
         rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888)
 
         trackingOverlay = findViewById<View>(R.id.tracking_overlay) as OverlayView
-        trackingOverlay.addCallback { canvas -> drawTrackingBox(canvas) }
+        trackingOverlay.addCallback { canvas -> drawDetection(canvas) }
     }
 
-    private fun drawTrackingBox(canvas: Canvas) {
-        if (detection == null)
+    private fun drawDetection(canvas: Canvas) {
+        if (lastDetection == null)
             return
 
         try {
-            val location = transformToOverlayLocation(detection!!.getLocation())
+            val location = transformToOverlayLocation(lastDetection!!.getLocation())
             canvas.drawRoundRect(location, 0.0f, 0.0f, trackingBoxPaint)
 
-            trackingTitle!!.drawTextBox(canvas, location.left, location.top, "$license")
+            trackingTitle!!.drawTextBox(canvas, location.left, location.top, lastDetection!!.getTitle())
         }
         catch (e: Exception) {
+            LOGGER.e("Draw detection failed: %s", e.message)
             print(e.message)
         }
     }
 
     private fun transformToOverlayLocation(rect: RectF) : RectF {
-        //val scale = if (screenOrientationPortrait)
-        //    trackingOverlay.width.toFloat() / previewHeight
-        //else
-        //    trackingOverlay.width.toFloat() / previewWidth
-
-        val scaleX = trackingOverlay.width.toFloat() / previewWidth
-        val scaleY = (trackingOverlay.height.toFloat() / previewHeight)
+        val scaleX = if (screenOrientationPortrait) (trackingOverlay.width.toFloat() / previewHeight) else (trackingOverlay.width.toFloat() / previewWidth)
+        val scaleY = if (screenOrientationPortrait) (trackingOverlay.height.toFloat() / previewWidth) else (trackingOverlay.height.toFloat() / previewHeight)
         return RectF(rect.left * scaleX, rect.top, rect.right * scaleX, rect.bottom * scaleY)
     }
 
     override fun processImage() {
         rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight)
 
+        rgbFrameBitmap = correctOrientation(rgbFrameBitmap)
+
         runInBackground(
                 Runnable {
                     try {
+                        // reset last detection
+                        lastDetection = null
+
                         val startTime = SystemClock.uptimeMillis()
 
+                        // detect license plate
                         val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
-                        LOGGER.v("Detected license plates: %d", detections.count())
+                        LOGGER.i("Detected license plates: %d", detections.count())
 
                         if (detections.count() > 0 && detections[0].confidence!! >= DETECTION_SCORE_THRESHOLD && isValidRect(detections[0].getLocation())) {
-                            LOGGER.v("Detected license plate: %s", detections[0].toString())
-                            detection = detections[0]
+                            LOGGER.i("Detected license plate: %s", detections[0].toString())
+                            lastDetection = detections[0]
 
-                            val detectedPlateBmp = cropLicensePlate(rgbFrameBitmap, detection!!.getLocation())
-                            license = licenseRecognizer!!.recognize(detectedPlateBmp)
-                            LOGGER.v("Recognized license: %s", license)
-                        }
-                        else
-                        {
-                            detection = null
-                            license = null
+                            // crop license plate from image and recognize the license text
+                            val detectedPlateBmp = cropLicensePlate(rgbFrameBitmap, lastDetection!!.getLocation())
+                            lastDetection!!.setTitle(licenseRecognizer!!.recognize(detectedPlateBmp))
+                            LOGGER.i("Recognized license: %s", lastDetection!!.getTitle())
                         }
 
-                        val lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime
-                        LOGGER.v("Processing time: %d ms", lastProcessingTimeMs)
+                        LOGGER.i("Processing time: %d ms", SystemClock.uptimeMillis() - startTime)
                     }
                     catch (e: Exception) {
-                        print(e.message)
-                        detection = null
-                        license = null
+                        LOGGER.e("Detection failed: %s", e.message)
                     }
 
+                    // redraw overlay
                     trackingOverlay.postInvalidate()
 
                     readyForNextImage()
