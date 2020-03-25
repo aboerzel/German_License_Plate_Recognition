@@ -109,10 +109,6 @@ constructor(context: Context) {
         interpreter.close()
     }
 
-    fun getInputAspectRatio() : Float {
-        return DIM_INPUT_HEIGHT.toFloat() / DIM_INPUT_WIDTH.toFloat()
-    }
-
     /**
      * Preprocess the bitmap:
      * 1. resize image to the input size of the plate detection model
