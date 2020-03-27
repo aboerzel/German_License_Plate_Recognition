@@ -152,7 +152,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                         val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
                         LOGGER.i("Detected license plates: %d", detections.count())
 
-                        if (detections.count() > 0 && detections[0].confidence!! >= DETECTION_SCORE_THRESHOLD && isValidRect(detections[0].getLocation())) {
+                        if (detections.count() > 0 && detections[0].confidence >= DETECTION_SCORE_THRESHOLD && isValidRect(detections[0].getLocation())) {
                             LOGGER.i("Detected license plate: %s", detections[0].toString())
                             lastDetection = detections[0]
 
