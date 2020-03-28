@@ -89,9 +89,10 @@ constructor(context: Context) {
     private fun loadLabels(assets: AssetManager): Vector<String> {
         val labels = Vector<String>()
         val inputStream = assets.open(LABELS_PATH)
-        val br = BufferedReader(InputStreamReader(inputStream))
-        br.useLines { lines -> lines.forEach { labels.add(it) }}
-        br.close()
+        with(BufferedReader(InputStreamReader(inputStream))) {
+            useLines { lines -> lines.forEach { labels.add(it) }}
+            close()
+        }
         return labels
     }
 
