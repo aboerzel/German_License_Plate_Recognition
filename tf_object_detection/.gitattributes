@@ -1,3 +1,0 @@
-object_detection/g3doc/img/kites_with_segment_overlay.png filter=lfs diff=lfs merge=lfs -text
-object_detection/g3doc/img/dataset_explorer.png filter=lfs diff=lfs merge=lfs -text
-protoc.exe filter=lfs diff=lfs merge=lfs -text
