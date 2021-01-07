@@ -116,3 +116,4 @@ wget.exe
 documentation/testimages
 models/research/object_detection/models/ssd_mobilenet_v2_320x320_coco17_tpu-8
 models/research/object_detection/protos/*_pb2.py
+/models/research/object_detection/models/ssd_mobilenet_v2_320x320_coco17_tpu-8.tar.gz
