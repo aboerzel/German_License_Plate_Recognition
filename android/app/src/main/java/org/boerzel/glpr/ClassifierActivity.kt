@@ -149,7 +149,7 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                         val startTime = SystemClock.uptimeMillis()
 
                         // detect license plate
-                        val detections = plateDetector!!.detect_plates(rgbFrameBitmap)
+                        val detections = plateDetector!!.detectPlates(rgbFrameBitmap)
                         LOGGER.i("Detected license plates: %d", detections.count())
 
                         if (detections.count() > 0 && detections[0].confidence >= DETECTION_SCORE_THRESHOLD && isValidRect(detections[0].getLocation())) {
