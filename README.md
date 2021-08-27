@@ -1,5 +1,5 @@
 # Udacity Capstone Project
-# Machine Learning Nanodegree 2020
+## Machine Learning Nanodegree 2020
  
 ### Topic : Android App for German License Plate Recognition
 
