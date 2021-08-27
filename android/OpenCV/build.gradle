@@ -143,7 +143,7 @@ android {
         }
     }
     ndkVersion '22.0.7026061'
-    buildToolsVersion '29.0.2'
+    //buildToolsVersion '29.0.2'
 }
 
 dependencies {

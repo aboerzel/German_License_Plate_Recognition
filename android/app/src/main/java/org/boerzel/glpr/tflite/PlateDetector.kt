@@ -78,7 +78,7 @@ constructor(context: Context) {
         val inputByteBuffer = preprocess(bitmap)
 
         // Creates inputs for reference.
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 300, 300, 3), DataType.FLOAT32)
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, DIM_INPUT_WIDTH, DIM_INPUT_HEIGHT, 3), if (IS_QUANTIZED_MODEL) DataType.UINT8 else DataType.FLOAT32)
         inputFeature0.loadBuffer(inputByteBuffer)
 
         // Runs model inference and gets result.
@@ -101,8 +101,9 @@ constructor(context: Context) {
         //var label = labels.elementAt(labelIndex);
 
         // Show the best detections after scaling them back to the input size.
-        val detections = ArrayList<Detection>(numDetections.getIntValue(0))
-        for (i in 0 until detections.count()) {
+        val nDetections = numDetections.getIntValue(0)
+        val detections = ArrayList<Detection>(nDetections)
+        for (i in 0 until nDetections) {
             val score = outputScores.getFloatValue(i)
             if (score < SCORE_THRESHOLD)
                 continue
@@ -152,13 +153,11 @@ constructor(context: Context) {
     private fun convertMatToTfLiteInput(image: Mat): ByteBuffer {
         val imgData = ByteBuffer.allocateDirect(DIM_BATCH_SIZE * DIM_INPUT_WIDTH * DIM_INPUT_HEIGHT * DIM_INPUT_DEPTH * NUM_BYTES_PER_CHANNEL)
         imgData.order(ByteOrder.nativeOrder())
-        //imgData.rewind()
 
         for (i in 0 until DIM_INPUT_WIDTH) {
             for (j in 0 until DIM_INPUT_HEIGHT) {
                 val pixelValue: Int = image[i, j][0].toInt()
-                if (IS_QUANTIZED_MODEL) {
-                    // Quantized model
+                if (IS_QUANTIZED_MODEL) { // Quantized model
                     imgData.put((pixelValue shr 16 and 0xFF).toByte())
                     imgData.put((pixelValue shr 8 and 0xFF).toByte())
                     imgData.put((pixelValue and 0xFF).toByte())
@@ -188,7 +187,7 @@ constructor(context: Context) {
         private const val DIM_INPUT_WIDTH = 300     // input image width
         private const val DIM_INPUT_HEIGHT = 300    // input image height
         private const val DIM_INPUT_DEPTH = 3       // 1 for gray scale & 3 for color images
-        private val NUM_BYTES_PER_CHANNEL = if (IS_QUANTIZED_MODEL) 1 else 4 // Float model = 4 / Quantized model =  1
+        private val NUM_BYTES_PER_CHANNEL = if (IS_QUANTIZED_MODEL) 1 else 4 // Quantized model = 1 / Float model = 4
 
         private const val SCORE_THRESHOLD = 0.8
 

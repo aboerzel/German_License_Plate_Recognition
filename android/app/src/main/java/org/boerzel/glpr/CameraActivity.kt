@@ -83,6 +83,7 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
         }
         try {
             val image = reader.acquireLatestImage() ?: return
+
             if (isProcessingFrame) {
                 image.close()
                 return
@@ -94,6 +95,7 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
             yRowStride = planes[0].rowStride
             val uvRowStride = planes[1].rowStride
             val uvPixelStride = planes[1].pixelStride
+
             imageConverter = Runnable {
                 ImageUtils.convertYUV420ToARGB8888(
                         yuvBytes[0],
@@ -106,10 +108,12 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
                         uvPixelStride,
                         rgbBytes)
             }
+
             postInferenceCallback = Runnable {
                 image.close()
                 isProcessingFrame = false
             }
+
             processImage()
         } catch (e: Exception) {
             LOGGER.e(e, "Exception!")
@@ -168,6 +172,7 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
     @RequiresApi(api = Build.VERSION_CODES.M)
     override fun onRequestPermissionsResult(
             requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSIONS_REQUEST) {
             if (allPermissionsGranted(grantResults)) {
                 setFragment()
@@ -237,7 +242,8 @@ abstract class CameraActivity : AppCompatActivity(), ImageReader.OnImageAvailabl
                 LOGGER.d("Initializing buffer %d at size %d", i, buffer.capacity())
                 yuvBytes[i] = ByteArray(buffer.capacity())
             }
-            buffer[yuvBytes[i]]
+            //buffer[yuvBytes[i]]
+            buffer.get(yuvBytes[i]);
         }
     }
 

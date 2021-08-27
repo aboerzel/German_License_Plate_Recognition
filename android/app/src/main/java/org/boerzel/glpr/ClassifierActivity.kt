@@ -52,6 +52,8 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
     private var trackingTitle: BorderedText? = null
     private var titleTextSizePx: Float = 0.0f
 
+    private var computingDetection = false
+
     init {
         trackingBoxPaint.color = Color.GREEN
         trackingBoxPaint.alpha = 200
@@ -136,9 +138,18 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
      * Performs the license plate detection and license number recognition on the current camera image
      * */
     override fun processImage() {
+
+        if (computingDetection) {
+            readyForNextImage();
+            return;
+        }
+        computingDetection = true;
+
         rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight)
 
-        rgbFrameBitmap = correctOrientation(rgbFrameBitmap)
+        readyForNextImage()
+
+        //rgbFrameBitmap = correctOrientation(rgbFrameBitmap)
 
         runInBackground(
                 Runnable {
@@ -163,15 +174,15 @@ class ClassifierActivity : CameraActivity(), ImageReader.OnImageAvailableListene
                         }
 
                         LOGGER.i("Processing time: %d ms", SystemClock.uptimeMillis() - startTime)
-                    }
-                    catch (e: Exception) {
+                    } catch (e: Exception) {
                         LOGGER.e("Detection failed: %s", e.message)
                     }
 
                     // redraw overlay
                     trackingOverlay.postInvalidate()
 
-                    readyForNextImage()
+                    computingDetection = false;
+                    //readyForNextImage()
                 })
     }
 
