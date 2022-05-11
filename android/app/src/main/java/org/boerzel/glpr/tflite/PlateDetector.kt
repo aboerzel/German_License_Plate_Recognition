@@ -78,7 +78,7 @@ constructor(context: Context) {
         val inputByteBuffer = preprocess(bitmap)
 
         // Creates inputs for reference.
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, DIM_INPUT_WIDTH, DIM_INPUT_HEIGHT, 3), if (IS_QUANTIZED_MODEL) DataType.UINT8 else DataType.FLOAT32)
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(DIM_BATCH_SIZE, DIM_INPUT_WIDTH, DIM_INPUT_HEIGHT, DIM_INPUT_DEPTH), if (IS_QUANTIZED_MODEL) DataType.UINT8 else DataType.FLOAT32)
         inputFeature0.loadBuffer(inputByteBuffer)
 
         // Runs model inference and gets result.
