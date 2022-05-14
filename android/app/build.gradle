@@ -23,21 +23,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    aaptOptions {
-        noCompress "tflite"
-    }
     compileOptions {
         sourceCompatibility = "1.8"
         targetCompatibility = "1.8"
-    }
-    lintOptions {
-        abortOnError false
     }
     buildFeatures {
         mlModelBinding true
     }
     //buildToolsVersion '29.0.2'
     ndkVersion '22.0.7026061'
+    androidResources {
+        noCompress 'tflite'
+    }
+    lint {
+        abortOnError false
+    }
+    namespace 'org.boerzel.glpr'
 }
 
 afterEvaluate {
